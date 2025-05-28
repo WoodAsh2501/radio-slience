@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://cbty7ojmk45ls"]
+
+[ext_resource type="Script" uid="uid://dthptpacfhj7s" path="res://scripts/game_objects/spy_node/spy_node.gd" id="2_br266"]
+[ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy_node/radio_range.gd" id="2_q5y2r"]
+[ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy_node/spy_instance.gd" id="2_tx8n6"]
+[ext_resource type="Script" uid="uid://cxy0mmk822ogn" path="res://scripts/game_objects/spy_node/enemy_detect_range.gd" id="3_si84p"]
+[ext_resource type="Script" uid="uid://buqpmqhgq3qby" path="res://scripts/states/state_machine.gd" id="4_mavgl"]
+[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy_node/default.gd" id="5_q5y2r"]
+[ext_resource type="Texture2D" uid="uid://y18re1gr0587" path="res://assets/SpyNode.svg" id="5_si84p"]
+[ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy_node/hovering.gd" id="6_si84p"]
+[ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy_node/connecting.gd" id="7_1iwnv"]
+[ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy_node/selected.gd" id="8_mavgl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
+radius = 100.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q5y2r"]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1iwnv"]
+radius = 8.0
+
+[node name="SpyInstance" type="Node2D" groups=["Spys"]]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_tx8n6")
+
+[node name="RadioRange" type="Area2D" parent="."]
+visible = false
+script = ExtResource("2_q5y2r")
+
+[node name="RangeCollision" type="CollisionShape2D" parent="RadioRange"]
+shape = SubResource("CircleShape2D_si84p")
+
+[node name="EnemyDetectRange" type="Area2D" parent="."]
+visible = false
+script = ExtResource("3_si84p")
+range_radius = 150.0
+
+[node name="RangeCollision" type="CollisionShape2D" parent="EnemyDetectRange"]
+shape = SubResource("CircleShape2D_q5y2r")
+debug_color = Color(0.996078, 0, 0.168627, 0.203922)
+
+[node name="SpyNode" type="Area2D" parent="."]
+z_index = 1
+script = ExtResource("2_br266")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpyNode"]
+shape = SubResource("CircleShape2D_1iwnv")
+
+[node name="Sprite" type="Sprite2D" parent="SpyNode"]
+scale = Vector2(0.355556, 0.355556)
+texture = ExtResource("5_si84p")
+
+[node name="Connections" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_mavgl")
+
+[node name="Default" type="Node" parent="StateMachine"]
+script = ExtResource("5_q5y2r")
+
+[node name="Hovering" type="Node" parent="StateMachine"]
+script = ExtResource("6_si84p")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Connecting" type="Node" parent="StateMachine"]
+script = ExtResource("7_1iwnv")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Selected" type="Node" parent="StateMachine"]
+script = ExtResource("8_mavgl")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -78.0
+offset_top = 22.0
+offset_right = 26.0
+offset_bottom = 45.0
+scale = Vector2(1.5, 1.5)
+text = "Default"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="EnemyDetectRange" to="." method="_on_enemy_detect_range_body_entered"]
+[connection signal="body_exited" from="EnemyDetectRange" to="." method="_on_enemy_detect_range_body_exited"]
+[connection signal="mouse_entered" from="SpyNode" to="SpyNode" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="SpyNode" to="SpyNode" method="_on_mouse_exited"]

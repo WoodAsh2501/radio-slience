@@ -1,0 +1,116 @@
+[gd_scene load_steps=13 format=3 uid="uid://be7pdrgon05ag"]
+
+[ext_resource type="PackedScene" uid="uid://cbty7ojmk45ls" path="res://scenes/spy_node.tscn" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
+[ext_resource type="Script" uid="uid://dieqwf83gfwpj" path="res://scripts/stores/connections_store.gd" id="2_w7c3h"]
+[ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemies/enemy.gd" id="3_mx8sn"]
+[ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
+[ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
+[ext_resource type="Script" uid="uid://d50rn0i2pbyf" path="res://scripts/UI/silencing_status.gd" id="6_2r41h"]
+[ext_resource type="Shader" uid="uid://7j6neciv67pd" path="res://shaders/level.gdshader" id="6_b121j"]
+[ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
+[ext_resource type="Script" uid="uid://c5qevbk61on6t" path="res://scripts/signal_center.gd" id="10_olg7q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mx8sn"]
+radius = 11.9
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
+shader = ExtResource("6_b121j")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SignalManager" type="Node" parent="."]
+script = ExtResource("1_klq6b")
+
+[node name="ConnectionsStore" type="Node" parent="."]
+script = ExtResource("2_w7c3h")
+
+[node name="SpyInstances" type="Node" parent="."]
+
+[node name="SpyInstance" parent="SpyInstances" groups=["VisibleSpys"] instance=ExtResource("1_2q6dc")]
+position = Vector2(195, 230)
+scale = Vector2(1, 1)
+
+[node name="SpyInstance2" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
+position = Vector2(317, 292)
+scale = Vector2(1, 1)
+
+[node name="SpyInstance3" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
+position = Vector2(376, 414)
+scale = Vector2(1, 1)
+
+[node name="SpyInstance4" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
+position = Vector2(463, 250)
+scale = Vector2(1, 1)
+
+[node name="SpyInstance5" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
+position = Vector2(598, 318)
+scale = Vector2(1, 1)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" type="RigidBody2D" parent="Enemies" groups=["Enemies"]]
+z_index = 3
+position = Vector2(614, 112)
+gravity_scale = 0.0
+script = ExtResource("3_mx8sn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy"]
+shape = SubResource("CircleShape2D_mx8sn")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemies/Enemy"]
+position = Vector2(0, -2)
+scale = Vector2(0.15534, 0.15534)
+texture = ExtResource("5_klq6b")
+
+[node name="Label" type="Label" parent="Enemies/Enemy"]
+offset_left = 12.0
+offset_top = -13.0
+offset_right = 115.0
+offset_bottom = 10.0
+text = "Alert Value: 0"
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -7.0
+offset_bottom = 16.0
+
+[node name="ScreenShader" type="ColorRect" parent="UI"]
+z_index = 1
+material = SubResource("ShaderMaterial_klq6b")
+layout_mode = 0
+offset_right = 1170.0
+offset_bottom = 664.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("7_8c41q")
+
+[node name="SilencingButton" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 589.0
+offset_right = 646.0
+offset_bottom = 624.0
+text = "RADIO SILENCE"
+script = ExtResource("5_ppgk2")
+
+[node name="SilencingStatus" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Radio"
+script = ExtResource("6_2r41h")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+z_index = -2
+layout_mode = 0
+offset_right = 1170.0
+offset_bottom = 664.0
+mouse_filter = 2
+color = Color(0.0375521, 0.000970605, 0.114669, 1)
+
+[node name="SignalCenter" type="Node" parent="."]
+script = ExtResource("10_olg7q")
+
+[connection signal="radio_range_enemy_entered" from="SpyInstances/SpyInstance" to="SignalCenter" method="_on_spy_instance_radio_range_enemy_entered"]
