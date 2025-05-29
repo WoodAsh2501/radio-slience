@@ -4,6 +4,7 @@ extends Node
 
 signal state_changed(previous_state, current_state)
 
+@export var initial_state: State
 var current_state_name: String
 var previous_state_name: String
 var current_state: State
@@ -16,10 +17,10 @@ func _ready() -> void:
             states_dict[child.name] = child
     
     if states_dict.size() > 0:
-        current_state = states_dict.values()[0]
+        current_state = initial_state
         current_state_name = current_state.name
 
-func switch_to(state_name, data:Dictionary = {}):
+func switch_to(state_name, data: Dictionary = {}):
     if state_name in states_dict:
         var previous_state = current_state
         previous_state_name = previous_state.name

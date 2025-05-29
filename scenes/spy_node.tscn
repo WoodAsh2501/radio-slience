@@ -1,15 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbty7ojmk45ls"]
+[gd_scene load_steps=15 format=3 uid="uid://cbty7ojmk45ls"]
 
 [ext_resource type="Script" uid="uid://dthptpacfhj7s" path="res://scripts/game_objects/spy_node/spy_node.gd" id="2_br266"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy_node/radio_range.gd" id="2_q5y2r"]
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy_node/spy_instance.gd" id="2_tx8n6"]
 [ext_resource type="Script" uid="uid://cxy0mmk822ogn" path="res://scripts/game_objects/spy_node/enemy_detect_range.gd" id="3_si84p"]
 [ext_resource type="Script" uid="uid://buqpmqhgq3qby" path="res://scripts/states/state_machine.gd" id="4_mavgl"]
-[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy_node/default.gd" id="5_q5y2r"]
+[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy_node/idle.gd" id="5_q5y2r"]
 [ext_resource type="Texture2D" uid="uid://y18re1gr0587" path="res://assets/SpyNode.svg" id="5_si84p"]
 [ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy_node/hovering.gd" id="6_si84p"]
 [ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy_node/connecting.gd" id="7_1iwnv"]
 [ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy_node/selected.gd" id="8_mavgl"]
+[ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy_node/initializing.gd" id="11_1iwnv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
 radius = 100.0
@@ -53,10 +54,15 @@ texture = ExtResource("5_si84p")
 
 [node name="Connections" type="Node" parent="."]
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_mavgl")
+initial_state = NodePath("Initializing")
 
-[node name="Default" type="Node" parent="StateMachine"]
+[node name="Initializing" type="Node" parent="StateMachine"]
+script = ExtResource("11_1iwnv")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("5_q5y2r")
 
 [node name="Hovering" type="Node" parent="StateMachine"]
@@ -72,11 +78,11 @@ script = ExtResource("8_mavgl")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
 [node name="Label" type="Label" parent="."]
-offset_left = -78.0
-offset_top = 22.0
-offset_right = 26.0
-offset_bottom = 45.0
-scale = Vector2(1.5, 1.5)
+offset_left = -62.0
+offset_top = 10.0
+offset_right = 42.0
+offset_bottom = 33.0
+scale = Vector2(1.2, 1.2)
 text = "Default"
 horizontal_alignment = 1
 

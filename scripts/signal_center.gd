@@ -1,5 +1,8 @@
 extends Node
 
+signal create_enemy(enemy)
+signal remove_enemy(enemy)
+
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
 signal enemy_patrol_detected(spy, enemy)
