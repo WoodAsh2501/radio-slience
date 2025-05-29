@@ -20,6 +20,8 @@ func _ready() -> void:
         current_state = initial_state
         current_state_name = current_state.name
 
+    current_state.enter({})
+
 func switch_to(state_name, data: Dictionary = {}):
     if state_name in states_dict:
         var previous_state = current_state
@@ -32,6 +34,10 @@ func switch_to(state_name, data: Dictionary = {}):
         emit_signal("state_changed", previous_state_name, current_state_name)
     else:
         print("State not found: ", state_name)
+
+func switch_to_when_not(new_state_name, condition_state_name, data: Dictionary = {}):
+    if current_state_name != condition_state_name:
+        switch_to(new_state_name, data)
 
 func get_state():
     return current_state

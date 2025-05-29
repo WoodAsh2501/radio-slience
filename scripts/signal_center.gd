@@ -14,8 +14,8 @@ signal enemy_patrol_detected(spy, enemy)
 signal connection_established(start_node, end_node)
 # signal connection_lost(start_node, end_node)
 
-# signal spy_manager_discovered(spy)
-# signal spy_manager_lost(spy)
+signal spy_manager_discovered(spy)
+signal spy_manager_lost(spy)
 # signal spy_manager_fired(spy)
 
 func _ready() -> void:
@@ -26,6 +26,7 @@ func _ready() -> void:
 
 	connect_enemy_patrol_signals(spys, enemies)
 	connect_connection_signals(connections_store)
+	connect_spy_manager_signals(spys)
 
 func connect_signal(emitter, emitted_signal, callback_fn):
 	if not emitter.is_connected(emitted_signal, callback_fn):
@@ -60,5 +61,14 @@ func _on_connection_store_connection_established(start_node, end_node):
 
 ## spy manager signals ##
 
-func connect_spy_manager_signals():
-	pass
+func connect_spy_manager_signals(spys):
+	for spy in spys:
+		connect_signal(spy, "connect_range_spy_entered", _on_spy_manager_discovered)
+		connect_signal(spy, "connect_range_spy_exited", _on_spy_manager_lost)
+
+func _on_spy_manager_discovered(source_spy, target_spy):
+	emit_signal("spy_manager_discovered", source_spy, target_spy)
+	print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
+
+func _on_spy_manager_lost(source_spy, target_spy):
+	emit_signal("spy_manager_lost", source_spy, target_spy)

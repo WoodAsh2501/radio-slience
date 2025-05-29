@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=14 format=3 uid="uid://be7pdrgon05ag"]
 
-[ext_resource type="PackedScene" uid="uid://cbty7ojmk45ls" path="res://scenes/spy_node.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://dieqwf83gfwpj" path="res://scripts/stores/connections_store.gd" id="2_w7c3h"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemies/enemy.gd" id="3_mx8sn"]
+[ext_resource type="Script" uid="uid://b0bil7teu65n0" path="res://scripts/managers/spys_manager.gd" id="3_t1rx8"]
+[ext_resource type="PackedScene" uid="uid://c2m582akgaqnj" path="res://scenes/spy.tscn" id="4_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
 [ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
 [ext_resource type="Script" uid="uid://d50rn0i2pbyf" path="res://scripts/UI/silencing_status.gd" id="6_2r41h"]
@@ -25,147 +26,92 @@ script = ExtResource("1_klq6b")
 [node name="ConnectionsStore" type="Node" parent="."]
 script = ExtResource("2_w7c3h")
 
-[node name="SpyInstances" type="Node" parent="."]
+[node name="Spys" type="Node" parent="."]
+script = ExtResource("3_t1rx8")
 
-[node name="SpyInstance" parent="SpyInstances" groups=["VisibleSpys"] instance=ExtResource("1_2q6dc")]
-position = Vector2(136, 119)
+[node name="Spy1" parent="Spys" groups=["VisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(97, 68)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance2" parent="SpyInstances" groups=["InvisibleSpys"] instance=ExtResource("1_2q6dc")]
-position = Vector2(177, 252)
+[node name="Spy2" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(250, 143)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance3" parent="SpyInstances" groups=["InvisibleSpys"] instance=ExtResource("1_2q6dc")]
-position = Vector2(118, 387)
+[node name="Spy3" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(98, 240)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance4" parent="SpyInstances" groups=["InvisibleSpys"] instance=ExtResource("1_2q6dc")]
-position = Vector2(294, 181)
+[node name="Spy4" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(39, 405)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance5" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(279, 340)
+[node name="Spy5" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(205, 384)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance6" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(389, 423)
+[node name="Spy6" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(357, 293)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance7" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(427, 276)
+[node name="Spy7" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(400, 48)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance8" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(462, 168)
+[node name="Spy8" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(548, 156)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance9" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(563, 378)
+[node name="Spy9" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(503, 398)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance10" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(687, 335)
+[node name="Spy10" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(306, 538)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance11" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(683, 471)
+[node name="Spy11" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(145, 626)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance12" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(724, 225)
+[node name="Spy12" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(568, 562)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance13" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(585, 239)
+[node name="Spy13" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(686, 382)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance14" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(191, 493)
+[node name="Spy14" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(713, 79)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance15" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(506, 536)
+[node name="Spy15" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(870, 171)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance16" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(818, 314)
+[node name="Spy16" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(870, 171)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance17" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(826, 423)
+[node name="Spy17" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(867, 429)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance18" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(304, 543)
+[node name="Spy18" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(868, 603)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance19" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(825, 546)
+[node name="Spy19" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(1053, 450)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance20" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(951, 354)
+[node name="Spy20" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(1094, 272)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
-[node name="SpyInstance21" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(1090, 158)
+[node name="Spy21" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(1129, 86)
 scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance22" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(930, 217)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance23" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(657, 120)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance24" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(850, 134)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance25" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(991, 66)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance26" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(1096, 264)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance27" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(982, 531)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
-
-[node name="SpyInstance29" parent="SpyInstances" instance=ExtResource("1_2q6dc")]
-position = Vector2(1033, 437)
-scale = Vector2(1, 1)
-metadata/_edit_group_ = true
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -236,4 +182,4 @@ color = Color(0.0375521, 0.000970605, 0.114669, 1)
 [node name="SignalCenter" type="Node" parent="."]
 script = ExtResource("10_olg7q")
 
-[connection signal="radio_range_enemy_entered" from="SpyInstances/SpyInstance" to="SignalCenter" method="_on_spy_instance_radio_range_enemy_entered"]
+[connection signal="spy_manager_discovered" from="SignalCenter" to="Spys" method="_on_signal_center_spy_manager_discovered"]
