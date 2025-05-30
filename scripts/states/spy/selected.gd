@@ -4,5 +4,5 @@ extends State
 @onready var label = get_node("../../Label")
 
 func enter(_data):
-    spy_node.scale = Vector2(1.1, 1.1)
-    label.text = "Selected"
+	spy_node.scale = Vector2(1.1, 1.1)
+	label.text = "Selected"

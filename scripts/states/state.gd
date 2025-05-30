@@ -5,19 +5,19 @@ extends Node
 @onready var state_machine = get_parent()
 
 func get_state_machine() -> StateMachine:
-    return state_machine
+	return state_machine
 
 func get_current_state() -> State:
-    return state_machine.get_current_state() as State
+	return state_machine.get_current_state() as State
 
 func enter(_data):
-    pass
+	pass
 
 func exit():
-    pass    
+	pass
 
 func state_process(_delta):
-    pass
+	pass
 
 func switch_to(state_name, data: Dictionary = {}):
-    state_machine.switch_to(state_name, data)
+	state_machine.switch_to(state_name, data)
