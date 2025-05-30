@@ -26,7 +26,7 @@ func _process(_delta: float) -> void:
 
 		if not is_connecting:
 			is_connecting = true
-			state_machine.switch_to("Connecting")
+			state_machine.spy_switch_to("Connecting")
 			emit_signal("building_connection_started", self)
 
 		var mouse_position = get_global_mouse_position()
@@ -46,12 +46,12 @@ func _process(_delta: float) -> void:
 	else:
 		if is_connecting:
 			is_connecting = false
-			state_machine.switch_to("Idle")
+			state_machine.spy_switch_to("Idle")
 			
 			# emit_signal("building_connection_abandoned")
 		if state_machine.is_state("Selected"):
 			# print("Connected!")
-			state_machine.switch_to("Idle")
+			state_machine.spy_switch_to("Idle")
 			emit_signal("building_connection_ended", self)
 		ConnectionUtils.clear_preview_line(connections)
 

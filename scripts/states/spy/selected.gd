@@ -1,8 +1,10 @@
 extends State
 
-@onready var spy_node = get_node("../../SpyNode")
-@onready var label = get_node("../../Label")
-
-func enter(_data):
-	spy_node.scale = Vector2(1.1, 1.1)
-	label.text = "Selected"
+var spy_state_status = {
+	"visible": true,
+	"scale": 1.0,
+	"label": "Selected",
+	"pickable": true,
+	"detecting_spy": true,
+	"detecting_enemy": true,
+}

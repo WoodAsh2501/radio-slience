@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cxy0mmk822ogn" path="res://scripts/game_objects/spy/enemy_detect_range.gd" id="3_wstem"]
 [ext_resource type="Script" uid="uid://dthptpacfhj7s" path="res://scripts/game_objects/spy/spy_node.gd" id="4_60jih"]
 [ext_resource type="Texture2D" uid="uid://y18re1gr0587" path="res://assets/SpyNode.svg" id="5_1r427"]
-[ext_resource type="Script" uid="uid://buqpmqhgq3qby" path="res://scripts/states/state_machine.gd" id="6_qe8pa"]
+[ext_resource type="Script" uid="uid://bv10b2gsrun0x" path="res://scripts/states/spy/spy_state_machine.gd" id="6_1tjyl"]
 [ext_resource type="Script" uid="uid://cirnxyahxxvh3" path="res://scripts/states/spy/invisible.gd" id="7_acoot"]
 [ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy/initializing.gd" id="8_g3acc"]
 [ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy/idle.gd" id="9_6jevy"]
@@ -59,7 +59,7 @@ texture = ExtResource("5_1r427")
 [node name="Connections" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("6_qe8pa")
+script = ExtResource("6_1tjyl")
 initial_state = NodePath("Invisible")
 
 [node name="Invisible" type="Node" parent="StateMachine"]

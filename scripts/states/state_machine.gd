@@ -17,6 +17,8 @@ func _ready() -> void:
 			states_dict[child.name] = child
 	
 	if states_dict.size() > 0:
+		if not initial_state:
+			print("Initial state is null!")
 		current_state = initial_state
 		current_state_name = current_state.name
 
@@ -38,6 +40,13 @@ func switch_to(state_name, data: Dictionary = {}):
 func switch_to_when_not(new_state_name, condition_state_name, data: Dictionary = {}):
 	if current_state_name != condition_state_name:
 		switch_to(new_state_name, data)
+
+func get_state_by_name(state_name: String) -> State:
+	if state_name in states_dict:
+		return states_dict[state_name]
+	else:
+		print("State not found: ", state_name)
+		return null
 
 func get_state():
 	return current_state

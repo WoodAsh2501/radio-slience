@@ -1,8 +1,15 @@
 extends State
 
-@onready var spy_instance = get_node("../../")
-@onready var spy_node = get_node("../../SpyNode")
-@onready var label = get_node("../../Label")
+@onready var label = $"../../Label"
+
+var spy_state_status = {
+	"visible": true,
+	"scale": 1.0,
+	"label": "Initializing",
+	"pickable": false,
+	"detecting_spy": false,
+	"detecting_enemy": false,
+}
 
 var timer
 
@@ -14,9 +21,6 @@ func _init() -> void:
 	timer.connect("timeout", _on_timer_timeout)
 
 func enter(_data):
-	spy_node.scale = Vector2(1, 1)
-	label.text = "Initializing"
-	spy_instance.visible = true
 	timer.start()
 	
 func _process(_delta: float) -> void:
@@ -25,4 +29,4 @@ func _process(_delta: float) -> void:
 	label.text = "Initializing" + str("%0.2f" % timer.time_left)
 
 func _on_timer_timeout() -> void:
-	state_machine.switch_to("Idle")
+	state_machine.spy_switch_to("Idle")
