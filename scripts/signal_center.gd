@@ -71,4 +71,5 @@ func _on_spy_manager_discovered(source_spy, target_spy):
 	print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
 
 func _on_spy_manager_lost(source_spy, target_spy):
-	emit_signal("spy_manager_lost", source_spy, target_spy)
+	# emit_signal("spy_manager_lost", source_spy, target_spy)
+	pass
