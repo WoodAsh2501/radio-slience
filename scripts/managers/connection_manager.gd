@@ -70,7 +70,7 @@ func get_shortest_paths_from_node(start_spy):
 			"distance": INF,
 			"previous": null,
 			"paths": [],
-			"path_nodes": []
+			"path_nodes": [node]
 		}
 
 	paths[start_spy]["distance"] = 0
