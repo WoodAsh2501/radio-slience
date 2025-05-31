@@ -22,10 +22,10 @@ func _ready() -> void:
 	var spys = get_tree().get_nodes_in_group("Spys")
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 
-	var connections_store = $"../ConnectionsStore"
+	var connection_manager = $"../ConnectionManager"
 
 	connect_enemy_patrol_signals(spys, enemies)
-	connect_connection_signals(connections_store)
+	connect_connection_signals(connection_manager)
 	connect_spy_manager_signals(spys)
 
 func connect_signal(emitter, emitted_signal, callback_fn):
@@ -38,7 +38,7 @@ func connect_enemy_patrol_signals(spys, enemies):
 	for spy in spys:
 		connect_signal(spy, "radio_range_enemy_entered", _on_spy_instance_radio_range_enemy_entered)
 		connect_signal(spy, "radio_range_enemy_exited", _on_spy_instance_radio_range_enemy_exited)
-	
+
 	for enemy in enemies:
 		connect_signal(enemy, "spy_detected", _on_enemy_instance_spy_detected)
 
@@ -53,11 +53,12 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 
 ## connection signals ##
 
-func connect_connection_signals(connection_store):
-	connect_signal(connection_store, "connecting_complete", _on_connection_store_connection_established)
+func connect_connection_signals(connection_manager):
+	connect_signal(connection_manager, "new_connection_established", _on_connection_manager_new_connection_established)
 
-func _on_connection_store_connection_established(start_node, end_node):
-	emit_signal("connection_established", start_node, end_node)
+func _on_connection_manager_new_connection_established(start_spy:Node, end_spy:Node, value:Variant) -> void:
+	# print("New connection established between: ", start_spy, " and ", end_spy, " with value: ", value)
+	emit_signal("connection_established", start_spy, end_spy, value)
 
 ## spy manager signals ##
 
@@ -68,7 +69,7 @@ func connect_spy_manager_signals(spys):
 
 func _on_spy_manager_discovered(source_spy, target_spy):
 	emit_signal("spy_manager_discovered", source_spy, target_spy)
-	print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
+	# print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
 
 func _on_spy_manager_lost(source_spy, target_spy):
 	# emit_signal("spy_manager_lost", source_spy, target_spy)

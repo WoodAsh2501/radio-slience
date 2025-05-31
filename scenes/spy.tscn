@@ -56,7 +56,7 @@ shape = SubResource("CircleShape2D_1iwnv")
 scale = Vector2(0.355556, 0.355556)
 texture = ExtResource("5_1r427")
 
-[node name="Connections" type="Node" parent="."]
+[node name="ConnectionLines" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_1tjyl")
