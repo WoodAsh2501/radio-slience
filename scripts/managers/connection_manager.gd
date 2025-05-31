@@ -1,6 +1,7 @@
 extends Node
 class_name ConnectionManager
 
+@export var master_spy: SpyInstance
 @onready var connections_instance = $"../Connections"
 
 var spys: Array = []
@@ -42,6 +43,78 @@ func get_connection_value(start_spy, end_spy):
 		connections.get([end_spy, start_spy], 0)
 		)
 
+func get_reachable_nodes(start_spy, visited_nodes = [], reachable_nodes = []):
+	if not reachable_nodes.has(start_spy):
+		reachable_nodes.append(start_spy)
+
+	var neighbor_nodes = start_spy.connections.keys()
+	var are_all_neighbor_nodes_in_visited_nodes = neighbor_nodes.all(visited_nodes.has)
+
+	if are_all_neighbor_nodes_in_visited_nodes or not start_spy.connections:
+		return reachable_nodes
+
+	visited_nodes.append(start_spy)
+
+	for neighbor in neighbor_nodes:
+		if not visited_nodes.has(neighbor):
+			get_reachable_nodes(neighbor, visited_nodes, reachable_nodes)
+
+	return reachable_nodes
+
+func get_shortest_paths_from_node(start_spy):
+	var all_nodes = spys.duplicate()
+
+	var paths = {}
+	for node in all_nodes:
+		paths[node] = {
+			"distance": INF,
+			"previous": null,
+			"paths": [],
+			"path_nodes": []
+		}
+
+	paths[start_spy]["distance"] = 0
+
+	# get reachable nodes
+	var reachable_nodes = get_reachable_nodes(start_spy)
+	# start searching
+	while reachable_nodes.size() > 0:
+		var current_node = null
+		# find the nearest node
+		for node in reachable_nodes:
+			if current_node == null or paths[node]["distance"] < paths[current_node]["distance"]:
+				current_node = node
+
+		reachable_nodes.erase(current_node)
+		var neighbor_nodes = current_node.connections.keys()
+		for neighbor_node in neighbor_nodes:
+			var value = current_node.connections[neighbor_node]
+			var new_distance = paths[current_node]["distance"] + value
+
+			if new_distance < paths[neighbor_node]["distance"]:
+				paths[neighbor_node]["distance"] = new_distance
+				paths[neighbor_node]["previous"] = current_node
+
+				var new_path_nodes_to_neighbor = paths[current_node]["path_nodes"].duplicate()
+
+				new_path_nodes_to_neighbor.append(neighbor_node)
+				paths[neighbor_node]["path_nodes"] = new_path_nodes_to_neighbor
+
+				for index in range(paths[neighbor_node]["path_nodes"].size() - 1):
+					var connection_start_spy = paths[neighbor_node]["path_nodes"][index]
+					var connection_end_spy = paths[neighbor_node]["path_nodes"][index + 1]
+
+					var connection = get_connection_instance(
+						connection_start_spy,
+						connection_end_spy
+					)
+					paths[neighbor_node]["paths"].append(connection)
+
+	return paths
+
+func get_shortest_path_to_node(start_spy, end_spy):
+	return get_shortest_paths_from_node(start_spy)[end_spy]["path"]
+
 ## signals
 
 func connect_connection_signals(spy_instances: Array) -> void:
@@ -74,3 +147,8 @@ func emit_signal_and_clear_connecting_nodes() -> void:
 	emit_signal("new_connection_established", connecting_start_node, connecting_end_node, 1)
 	connecting_start_node = null
 	connecting_end_node = null
+
+
+	# for test
+	if connections.size() > 3:
+		print_debug(get_shortest_paths_from_node(master_spy))

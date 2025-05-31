@@ -24,8 +24,9 @@ shader = ExtResource("6_b121j")
 [node name="SignalManager" type="Node" parent="."]
 script = ExtResource("1_klq6b")
 
-[node name="ConnectionManager" type="Node" parent="."]
+[node name="ConnectionManager" type="Node" parent="." node_paths=PackedStringArray("master_spy")]
 script = ExtResource("2_8iemx")
+master_spy = NodePath("../Spys/Spy1")
 
 [node name="Spys" type="Node" parent="."]
 script = ExtResource("3_t1rx8")
