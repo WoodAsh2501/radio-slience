@@ -29,6 +29,11 @@ func add_connection(start_spy, end_spy, value = 1):
 
 	connections.set([start_spy, end_spy], value)
 
+func remove_connection_from_spy(spy):
+	for nodes_pair in connections.keys():
+		if nodes_pair.has(spy):
+			connections.erase(nodes_pair)
+
 func match_connection_nodes(connection, start_spy, end_spy):
 	return connection.nodes == [start_spy, end_spy] or connection.nodes == [end_spy, start_spy]
 
@@ -120,6 +125,14 @@ func get_shortest_path_to_node(start_spy, end_spy):
 
 ## signals
 
+func update_reachable_status():
+	var reachable_nodes = get_reachable_nodes(master_spy)
+	for spy in spys:
+		if spy in reachable_nodes:
+			spy.spy_status["reachable"] = true
+		else:
+			spy.spy_status["reachable"] = false
+
 func connect_connection_signals(spy_instances: Array) -> void:
 	for spy in spy_instances:
 		spy.connect("building_connection_started", _on_spy_node_building_connection_started)
@@ -153,5 +166,21 @@ func emit_signal_and_clear_connecting_nodes() -> void:
 
 
 	# for test
-	if connections.size() > 3:
-		print_debug(get_shortest_paths_from_node(master_spy))
+	# if connections.size() > 3:
+	# 	print_debug(get_shortest_paths_from_node(master_spy))
+
+
+func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> void:
+	spy.connections = {}
+	remove_connection_from_spy(spy)
+	for connection in connections_instance.get_children():
+		if connection.nodes.has(spy):
+			connection.queue_free()
+			# connections_instance.remove_child(connection)
+			# connection.free()
+	update_reachable_status()
+	for other_spy in spys:
+		if other_spy.working_state_machine.has_initialized and not other_spy.spy_status["reachable"]:
+			other_spy.working_state_machine.spy_switch_to("Unreachable")
+
+	# pass # Replace with function body.

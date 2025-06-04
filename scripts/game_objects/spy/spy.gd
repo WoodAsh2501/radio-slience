@@ -2,8 +2,10 @@ extends Node2D
 class_name SpyInstance
 
 @onready var connection_lines = $ConnectionLines
-@onready var state_machine = $StateMachine
 @onready var enemy_detect_range = $EnemyDetectRange
+
+@onready var working_state_machine = $WorkingStateMachine
+@onready var caputured_state_machine = $CapturedStateMachine
 
 var connection_start_from: Node2D
 
@@ -12,7 +14,8 @@ var connections: Dictionary
 var spy_status = {
 	"is_connecting": false,
 	"has_connection": false,
-	"in_section": null
+	"in_section": null,
+	"reachable": false,
 }
 
 signal building_connection_started
@@ -29,12 +32,12 @@ func _init():
 
 func _process(_delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if not state_machine.get_state_name() in ["Hovering", "Connecting"]:
+		if not working_state_machine.get_state_name() in ["Hovering", "Connecting"]:
 			return
 
 		if not spy_status.is_connecting:
 			spy_status.is_connecting = true
-			state_machine.spy_switch_to("Connecting")
+			working_state_machine.spy_switch_to("Connecting")
 			emit_signal("building_connection_started", self)
 			# print("Building connection started between: ", self)
 
@@ -56,11 +59,11 @@ func _process(_delta: float) -> void:
 	else:
 		if spy_status.is_connecting:
 			spy_status.is_connecting = false
-			state_machine.spy_switch_to_last_stable_state()
+			working_state_machine.spy_switch_to_last_stable_state()
 
 			# emit_signal("building_connection_abandoned")
-		if state_machine.is_state("Selected"):
-			state_machine.spy_switch_to_last_stable_state()
+		if working_state_machine.is_state("Selected"):
+			working_state_machine.spy_switch_to_last_stable_state()
 			emit_signal("building_connection_ended", self)
 			# print("Building connection ended between: ", self)
 		ConnectionUtils.clear_preview_line(connection_lines)

@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var state_machine = get_node('../StateMachine')
+@onready var working_state_machine = get_node('../WorkingStateMachine')
 
 signal mouse_still_inside
 
@@ -13,15 +13,15 @@ func _process(_delta) -> void:
 		emit_signal("mouse_still_inside")
 
 func hover_handler():
-	if not state_machine.current_state_name in ["Idle", "Unreachable"]:
+	if not working_state_machine.current_state_name in ["Idle", "Unreachable"]:
 		return
 	# TODO: check game_store is connecting
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		state_machine.spy_switch_to("Selected")
+		working_state_machine.spy_switch_to("Selected")
 	else:
-		if state_machine.last_stable_state_name == "Unreachable":
+		if working_state_machine.last_stable_state_name == "Unreachable":
 			return
-		state_machine.spy_switch_to("Hovering")
+		working_state_machine.spy_switch_to("Hovering")
 
 func _on_mouse_still_inside() -> void:
 	hover_handler()
@@ -30,5 +30,5 @@ func _on_mouse_entered() -> void:
 	hover_handler()
 
 func _on_mouse_exited() -> void:
-	if state_machine.get_state_name() in ["Hovering", "Selected"]:
-		state_machine.spy_switch_to_last_stable_state()
+	if working_state_machine.get_state_name() in ["Hovering", "Selected"]:
+		working_state_machine.spy_switch_to_last_stable_state()

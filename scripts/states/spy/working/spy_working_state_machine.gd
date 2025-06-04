@@ -9,6 +9,7 @@ extends StateMachine
 
 
 var last_stable_state_name: String
+var has_initialized: bool = false
 
 func spy_switch_to(state_name: String, data: Dictionary = {}):
 	if state_name in ["Idle", "Unreachable"]:
@@ -48,4 +49,4 @@ func spy_switch_to_last_stable_state(data: Dictionary = {}):
 func _on_signal_center_enemy_patrol_captured(spy, _enemy):
 	if spy == spy_instance:
 		print("Spy Captured State Machine: Spy Captured by Enemy")
-		switch_to("Captured")
+		spy_switch_to("Captured")

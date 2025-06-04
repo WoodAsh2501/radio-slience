@@ -17,7 +17,7 @@ var timer
 func _init() -> void:
 	timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 3
+	timer.wait_time = 0.1
 	timer.one_shot = true
 	timer.connect("timeout", _on_timer_timeout)
 
@@ -35,3 +35,6 @@ func _on_timer_timeout() -> void:
 		# return
 	# state_machine.spy_switch_to("Unreachable")
 	state_machine.spy_switch_to("Idle")
+
+func exit():
+	state_machine.has_initialized = true

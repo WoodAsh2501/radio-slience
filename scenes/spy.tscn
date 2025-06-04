@@ -1,18 +1,23 @@
-[gd_scene load_steps=19 format=3 uid="uid://c2m582akgaqnj"]
+[gd_scene load_steps=24 format=3 uid="uid://c2m582akgaqnj"]
 
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy/spy.gd" id="1_1tjyl"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy/spy_detect_range.gd" id="2_8u3ya"]
 [ext_resource type="Script" uid="uid://cxy0mmk822ogn" path="res://scripts/game_objects/spy/enemy_detect_range.gd" id="3_wstem"]
 [ext_resource type="Script" uid="uid://dthptpacfhj7s" path="res://scripts/game_objects/spy/spy_node.gd" id="4_60jih"]
 [ext_resource type="Texture2D" uid="uid://y18re1gr0587" path="res://assets/SpyNode.svg" id="5_1r427"]
-[ext_resource type="Script" uid="uid://bv10b2gsrun0x" path="res://scripts/states/spy/spy_state_machine.gd" id="6_1tjyl"]
-[ext_resource type="Script" uid="uid://cirnxyahxxvh3" path="res://scripts/states/spy/invisible.gd" id="7_acoot"]
-[ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy/initializing.gd" id="8_g3acc"]
-[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy/idle.gd" id="9_6jevy"]
-[ext_resource type="Script" uid="uid://bqi7isfswvk08" path="res://scripts/states/spy/unreachable.gd" id="10_8u3ya"]
-[ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy/hovering.gd" id="10_s68pl"]
-[ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy/connecting.gd" id="11_mex1u"]
-[ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy/selected.gd" id="12_q2xvt"]
+[ext_resource type="Script" uid="uid://bv10b2gsrun0x" path="res://scripts/states/spy/working/spy_working_state_machine.gd" id="6_1tjyl"]
+[ext_resource type="Script" uid="uid://cirnxyahxxvh3" path="res://scripts/states/spy/working/invisible.gd" id="7_acoot"]
+[ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy/working/initializing.gd" id="8_g3acc"]
+[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy/working/idle.gd" id="9_6jevy"]
+[ext_resource type="Script" uid="uid://bqi7isfswvk08" path="res://scripts/states/spy/working/unreachable.gd" id="10_8u3ya"]
+[ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy/working/hovering.gd" id="10_s68pl"]
+[ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy/working/connecting.gd" id="11_mex1u"]
+[ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy/working/selected.gd" id="12_q2xvt"]
+[ext_resource type="Script" uid="uid://8fmtnr3nfgd4" path="res://scripts/states/spy/captured/spy_captured_status_machine.gd" id="14_60jih"]
+[ext_resource type="Script" uid="uid://dm3ekbr4ppoys" path="res://scripts/states/spy/captured/default.gd" id="15_qe8pa"]
+[ext_resource type="Texture2D" uid="uid://ccskig8x43o21" path="res://assets/警告.svg" id="16_1r427"]
+[ext_resource type="Script" uid="uid://ddwe402r0lp2o" path="res://scripts/states/spy/captured/locked.gd" id="16_acoot"]
+[ext_resource type="Script" uid="uid://bhdu8lydahodg" path="res://scripts/states/spy/working/captured.gd" id="17_acoot"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
 radius = 200.0
@@ -73,33 +78,51 @@ shape = SubResource("CircleShape2D_1tjyl")
 
 [node name="ConnectionLines" type="Node" parent="."]
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="WorkingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_1tjyl")
 initial_state = NodePath("Invisible")
+metadata/_custom_type_script = "uid://bv10b2gsrun0x"
 
-[node name="Invisible" type="Node" parent="StateMachine"]
+[node name="Invisible" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("7_acoot")
 
-[node name="Initializing" type="Node" parent="StateMachine"]
+[node name="Initializing" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("8_g3acc")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
-[node name="Idle" type="Node" parent="StateMachine"]
+[node name="Idle" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("9_6jevy")
 
-[node name="Unreachable" type="Node" parent="StateMachine"]
+[node name="Unreachable" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("10_8u3ya")
 
-[node name="Hovering" type="Node" parent="StateMachine"]
+[node name="Hovering" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("10_s68pl")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
-[node name="Connecting" type="Node" parent="StateMachine"]
+[node name="Connecting" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("11_mex1u")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
-[node name="Selected" type="Node" parent="StateMachine"]
+[node name="Selected" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("12_q2xvt")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Captured" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("17_acoot")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="CapturedStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("14_60jih")
+initial_state = NodePath("Default")
+metadata/_custom_type_script = "uid://8fmtnr3nfgd4"
+
+[node name="Default" type="Node" parent="CapturedStateMachine"]
+script = ExtResource("15_qe8pa")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Locked" type="Node" parent="CapturedStateMachine"]
+script = ExtResource("16_acoot")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
 [node name="Label" type="Label" parent="."]
@@ -120,6 +143,12 @@ scale = Vector2(1.2, 1.2)
 text = "Default"
 horizontal_alignment = 1
 script = SubResource("GDScript_1tjyl")
+
+[node name="CapturedMark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(18, 8)
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("16_1r427")
 
 [connection signal="area_entered" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_entered"]
 [connection signal="area_exited" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_exited"]

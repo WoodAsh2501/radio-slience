@@ -8,6 +8,7 @@ signal remove_enemy(enemy)
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
 signal enemy_patrol_detected(spy, enemy)
+signal enemy_patrol_captured(spy, enemy)
 
 # signal building_connection_started(spy)
 # signal building_connection_ended(spy)
@@ -44,8 +45,16 @@ func connect_enemy_patrol_signals(spys, enemies):
 		connect_signal(spy, "radio_range_enemy_entered", _on_spy_instance_radio_range_enemy_entered)
 		connect_signal(spy, "radio_range_enemy_exited", _on_spy_instance_radio_range_enemy_exited)
 
+		var CapturedStateMachine = spy.get_node("CapturedStateMachine")
+		var WorkingStateMachine = spy.get_node("WorkingStateMachine")
+
+		connect_signal(self, "enemy_patrol_detected", CapturedStateMachine._on_signal_center_enemy_patrol_detected)
+		connect_signal(self, "enemy_patrol_captured", CapturedStateMachine._on_signal_center_enemy_patrol_captured)
+		connect_signal(self, "enemy_patrol_captured", WorkingStateMachine._on_signal_center_enemy_patrol_captured)
+
 	for enemy in enemies:
 		connect_signal(enemy, "spy_detected", _on_enemy_instance_spy_detected)
+		connect_signal(enemy, "spy_captured", _on_enemy_instance_spy_captured)
 
 func _on_spy_instance_radio_range_enemy_entered(signal_spy, signal_enemy):
 	emit_signal("enemy_patrol_entered", signal_spy, signal_enemy)
@@ -55,6 +64,9 @@ func _on_spy_instance_radio_range_enemy_exited(signal_spy, signal_enemy):
 
 func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 	emit_signal("enemy_patrol_detected", signal_spy, signal_enemy)
+	# print("Enemy detected spy: ", signal_spy)
+func _on_enemy_instance_spy_captured(signal_enemy, signal_spy):
+	emit_signal("enemy_patrol_captured", signal_spy, signal_enemy)
 
 ## connection signals ##
 
@@ -90,5 +102,5 @@ func connect_map_section_signals():
 	# Instances.map_sections.connect_signal()
 
 func on_map_sections_manager_map_section_unblocked(map_section):
-	print("map unblocked")
+	# print("map unblocked")
 	emit_signal("map_section_unblocked", map_section)

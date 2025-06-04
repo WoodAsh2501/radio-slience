@@ -29,7 +29,7 @@ script = ExtResource("1_klq6b")
 script = ExtResource("2_8iemx")
 master_spy = NodePath("../Spys/Spy1")
 
-[node name="Spys" type="Node" parent="."]
+[node name="Spys" type="Node" parent="." groups=["LockedSpys"]]
 script = ExtResource("3_t1rx8")
 
 [node name="Spy1" parent="Spys" groups=["MasterSpys", "VisibleSpys"] instance=ExtResource("4_t1rx8")]
@@ -93,7 +93,7 @@ position = Vector2(870, 171)
 scale = Vector2(1, 1)
 
 [node name="Spy16" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(870, 171)
+position = Vector2(734, 224)
 scale = Vector2(1, 1)
 
 [node name="Spy17" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
@@ -120,7 +120,7 @@ scale = Vector2(1, 1)
 
 [node name="Enemy" type="RigidBody2D" parent="Enemies" groups=["Enemies"]]
 z_index = 3
-position = Vector2(393, 69)
+position = Vector2(149, 42)
 gravity_scale = 0.0
 script = ExtResource("3_mx8sn")
 metadata/_edit_group_ = true
@@ -197,10 +197,11 @@ master_spy = NodePath("../Spys/Spy1")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapSections/MapSetcion1"]
 position = Vector2(0, -6)
-polygon = PackedVector2Array(156, 10, 50, 25, 19, 206, 84, 318, 312, 339, 486, 314, 437, 137, 477, 11, 299, 36)
+polygon = PackedVector2Array(134, -42, -78, -25, -55, 213, -47, 500, -31, 698, 1209, 701, 1219, 415, 1195, -18, 467, -25)
 
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
+[connection signal="enemy_patrol_captured" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_enemy_patrol_captured"]
 [connection signal="map_section_unblocked" from="SignalCenter" to="MapSections" method="_on_signal_center_map_section_unblocked"]
 [connection signal="spy_manager_discovered" from="SignalCenter" to="Spys" method="_on_signal_center_spy_manager_discovered"]
