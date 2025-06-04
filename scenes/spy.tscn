@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c2m582akgaqnj"]
+[gd_scene load_steps=19 format=3 uid="uid://c2m582akgaqnj"]
 
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy/spy.gd" id="1_1tjyl"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy/spy_detect_range.gd" id="2_8u3ya"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cirnxyahxxvh3" path="res://scripts/states/spy/invisible.gd" id="7_acoot"]
 [ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy/initializing.gd" id="8_g3acc"]
 [ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy/idle.gd" id="9_6jevy"]
+[ext_resource type="Script" uid="uid://bqi7isfswvk08" path="res://scripts/states/spy/unreachable.gd" id="10_8u3ya"]
 [ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy/hovering.gd" id="10_s68pl"]
 [ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy/connecting.gd" id="11_mex1u"]
 [ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy/selected.gd" id="12_q2xvt"]
@@ -21,6 +22,8 @@ radius = 150.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1iwnv"]
 radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tjyl"]
 
 [sub_resource type="GDScript" id="GDScript_1tjyl"]
 script/source = "extends Label
@@ -63,6 +66,11 @@ shape = SubResource("CircleShape2D_1iwnv")
 scale = Vector2(0.355556, 0.355556)
 texture = ExtResource("5_1r427")
 
+[node name="SpyBody" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpyBody"]
+shape = SubResource("CircleShape2D_1tjyl")
+
 [node name="ConnectionLines" type="Node" parent="."]
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -78,6 +86,9 @@ metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("9_6jevy")
+
+[node name="Unreachable" type="Node" parent="StateMachine"]
+script = ExtResource("10_8u3ya")
 
 [node name="Hovering" type="Node" parent="StateMachine"]
 script = ExtResource("10_s68pl")

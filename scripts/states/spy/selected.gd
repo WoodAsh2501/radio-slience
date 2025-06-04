@@ -5,6 +5,6 @@ var spy_state_status = {
 	"scale": 1.0,
 	"label": "Selected",
 	"pickable": true,
-	"detecting_spy": true,
-	"detecting_enemy": true,
+	"detecting_spy": "keep",
+	"detecting_enemy": "keep",
 }

@@ -52,14 +52,15 @@ func _process(_delta: float) -> void:
 			preview_line.points = [global_position, mouse_position]
 			connection_lines.add_child(preview_line)
 
+	# release mouse button
 	else:
 		if spy_status.is_connecting:
 			spy_status.is_connecting = false
-			state_machine.spy_switch_to("Idle")
+			state_machine.spy_switch_to_last_stable_state()
 
 			# emit_signal("building_connection_abandoned")
 		if state_machine.is_state("Selected"):
-			state_machine.spy_switch_to("Idle")
+			state_machine.spy_switch_to_last_stable_state()
 			emit_signal("building_connection_ended", self)
 			# print("Building connection ended between: ", self)
 		ConnectionUtils.clear_preview_line(connection_lines)

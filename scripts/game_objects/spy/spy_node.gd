@@ -13,11 +13,14 @@ func _process(_delta) -> void:
 		emit_signal("mouse_still_inside")
 
 func hover_handler():
-	if not state_machine.is_state("Idle"):
+	if not state_machine.current_state_name in ["Idle", "Unreachable"]:
 		return
+	# TODO: check game_store is connecting
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		state_machine.spy_switch_to("Selected")
 	else:
+		if state_machine.last_stable_state_name == "Unreachable":
+			return
 		state_machine.spy_switch_to("Hovering")
 
 func _on_mouse_still_inside() -> void:
@@ -28,4 +31,4 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	if state_machine.get_state_name() in ["Hovering", "Selected"]:
-		state_machine.spy_switch_to("Idle")
+		state_machine.spy_switch_to_last_stable_state()

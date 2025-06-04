@@ -1,5 +1,7 @@
 extends Node
 
+# TODO: using Instances to manage spys.
+
 signal create_enemy(enemy)
 signal remove_enemy(enemy)
 
@@ -11,12 +13,13 @@ signal enemy_patrol_detected(spy, enemy)
 # signal building_connection_ended(spy)
 # signal building_connection_abandoned(spy)
 
-signal connection_established(start_node, end_node)
+signal connection_established(start_node, end_node, value)
 # signal connection_lost(start_node, end_node)
 
 signal spy_manager_discovered(spy)
 signal spy_manager_lost(spy)
 # signal spy_manager_fired(spy)
+
 signal map_section_unblocked(section)
 
 func _ready() -> void:
@@ -28,6 +31,7 @@ func _ready() -> void:
 	connect_enemy_patrol_signals(spys, enemies)
 	connect_connection_signals(connection_manager)
 	connect_spy_manager_signals(spys)
+
 
 func connect_signal(emitter, emitted_signal, callback_fn):
 	if not emitter.is_connected(emitted_signal, callback_fn):
@@ -57,7 +61,7 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 func connect_connection_signals(connection_manager):
 	connect_signal(connection_manager, "new_connection_established", _on_connection_manager_new_connection_established)
 
-func _on_connection_manager_new_connection_established(start_spy:Node, end_spy:Node, value:Variant) -> void:
+func _on_connection_manager_new_connection_established(start_spy: Node, end_spy: Node, value: Variant) -> void:
 	# print("New connection established between: ", start_spy, " and ", end_spy, " with value: ", value)
 	emit_signal("connection_established", start_spy, end_spy, value)
 
@@ -72,6 +76,7 @@ func _on_spy_manager_discovered(source_spy, target_spy):
 	emit_signal("spy_manager_discovered", source_spy, target_spy)
 	# print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
 
+# TODO: on spy lost
 func _on_spy_manager_lost(source_spy, target_spy):
 	# emit_signal("spy_manager_lost", source_spy, target_spy)
 	pass

@@ -1,6 +1,7 @@
 extends State
 
 @onready var label = $"../../Label"
+@onready var spy = $"../../"
 
 var spy_state_status = {
 	"visible": true,
@@ -16,7 +17,7 @@ var timer
 func _init() -> void:
 	timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 0.2
+	timer.wait_time = 3
 	timer.one_shot = true
 	timer.connect("timeout", _on_timer_timeout)
 
@@ -29,4 +30,8 @@ func _process(_delta: float) -> void:
 	label.text = "Initializing" + str("%0.2f" % timer.time_left)
 
 func _on_timer_timeout() -> void:
+	# if spy.is_in_group("MasterSpys"):
+		# state_machine.spy_switch_to("Idle")
+		# return
+	# state_machine.spy_switch_to("Unreachable")
 	state_machine.spy_switch_to("Idle")
