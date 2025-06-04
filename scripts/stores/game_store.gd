@@ -24,3 +24,8 @@ class SilencingStore:
 
 	static func set_silence(state: bool = true):
 		is_silencing = state
+
+class ConnectingStore:
+	static var is_connecting = false
+	static var start_node = null
+	static var end_node = null
