@@ -1,8 +1,9 @@
+class_name SpyWorkingStateMachine
 extends StateMachine
 
 @onready var spy_instance = $"../"
 @onready var spy_node = $"../SpyNode"
-@onready var lable = $"../Label"
+@onready var label = $"../Label"
 @onready var spy_detect_range = $"../SpyDetectRange"
 @onready var enemy_detect_range = $"../EnemyDetectRange"
 
@@ -26,7 +27,7 @@ func spy_switch_to(state_name: String, data: Dictionary = {}):
 	})
 
 	spy_node.scale = set_status(state_status, "scale") * Vector2(1, 1)
-	lable.text = set_status(state_status, "label")
+	label.text = set_status(state_status, "label")
 	spy_node.set_pickable(set_status(state_status, "pickable"))
 	spy_instance.visible = set_status(state_status, "visible")
 	spy_detect_range.monitoring = set_status(state_status, "detecting_spy")
@@ -43,3 +44,8 @@ func set_status(state_status, key):
 func spy_switch_to_last_stable_state(data: Dictionary = {}):
 	# print(last_stable_state_name)
 	spy_switch_to(last_stable_state_name, data)
+
+func _on_signal_center_enemy_patrol_captured(spy, _enemy):
+	if spy == spy_instance:
+		print("Spy Captured State Machine: Spy Captured by Enemy")
+		switch_to("Captured")
