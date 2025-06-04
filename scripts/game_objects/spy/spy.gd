@@ -12,6 +12,7 @@ var connections: Dictionary
 var spy_status = {
 	"is_connecting": false,
 	"has_connection": false,
+	"in_section": null
 }
 
 signal building_connection_started

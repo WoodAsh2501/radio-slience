@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=16 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
 [ext_resource type="Script" uid="uid://dra471kd2p8ed" path="res://scripts/game_objects/connection/connections.gd" id="7_8iemx"]
 [ext_resource type="Script" uid="uid://c5qevbk61on6t" path="res://scripts/signal_center.gd" id="10_olg7q"]
+[ext_resource type="Script" uid="uid://dvp6r3p5l8ng2" path="res://scripts/managers/map_sections_manager.gd" id="13_64w2a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mx8sn"]
 radius = 11.9
@@ -187,6 +188,18 @@ color = Color(0.0375521, 0.000970605, 0.114669, 1)
 [node name="SignalCenter" type="Node" parent="."]
 script = ExtResource("10_olg7q")
 
+[node name="MapSections" type="Node" parent="." node_paths=PackedStringArray("spawn_section", "master_spy")]
+script = ExtResource("13_64w2a")
+spawn_section = NodePath("MapSetcion1")
+master_spy = NodePath("../Spys/Spy1")
+
+[node name="MapSetcion1" type="Area2D" parent="MapSections" groups=["MapSections"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapSections/MapSetcion1"]
+position = Vector2(0, -6)
+polygon = PackedVector2Array(156, 10, 50, 25, 19, 206, 84, 318, 312, 339, 486, 314, 437, 137, 477, 11, 299, 36)
+
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
+[connection signal="map_section_unblocked" from="SignalCenter" to="MapSections" method="_on_signal_center_map_section_unblocked"]
 [connection signal="spy_manager_discovered" from="SignalCenter" to="Spys" method="_on_signal_center_spy_manager_discovered"]

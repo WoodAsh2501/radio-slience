@@ -17,13 +17,14 @@ signal connection_established(start_node, end_node)
 signal spy_manager_discovered(spy)
 signal spy_manager_lost(spy)
 # signal spy_manager_fired(spy)
+signal map_section_unblocked(section)
 
 func _ready() -> void:
 	var spys = get_tree().get_nodes_in_group("Spys")
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 
 	var connection_manager = $"../ConnectionManager"
-
+	connect_map_section_signals()
 	connect_enemy_patrol_signals(spys, enemies)
 	connect_connection_signals(connection_manager)
 	connect_spy_manager_signals(spys)
@@ -74,3 +75,15 @@ func _on_spy_manager_discovered(source_spy, target_spy):
 func _on_spy_manager_lost(source_spy, target_spy):
 	# emit_signal("spy_manager_lost", source_spy, target_spy)
 	pass
+
+## map section signals
+
+func connect_map_section_signals():
+	var map_sections_manager = $"../MapSections"
+	map_sections_manager.connect("map_section_unblocked", on_map_sections_manager_map_section_unblocked)
+	# TODO: connect map section signal
+	# Instances.map_sections.connect_signal()
+
+func on_map_sections_manager_map_section_unblocked(map_section):
+	print("map unblocked")
+	emit_signal("map_section_unblocked", map_section)
