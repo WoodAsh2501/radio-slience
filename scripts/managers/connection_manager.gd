@@ -32,6 +32,9 @@ func add_connection(start_spy, end_spy, value = 1):
 func match_connection_nodes(connection, start_spy, end_spy):
 	return connection.nodes == [start_spy, end_spy] or connection.nodes == [end_spy, start_spy]
 
+func has_connection(start_spy, end_spy):
+	return connections.has([start_spy, end_spy]) or connections.has([end_spy, start_spy])
+
 func get_connection_instance(start_spy, end_spy):
 	for connection in connections_instance.get_children():
 		if match_connection_nodes(connection, start_spy, end_spy):
@@ -132,7 +135,7 @@ var connecting_end_node: Node2D = null
 func _on_spy_node_building_connection_ended(end_node) -> void:
 	# print("New connection established between: ", connecting_start_node, " and ", connecting_end_node, " with value: ", 1)
 	connecting_end_node = end_node
-	if connecting_start_node == connecting_end_node:
+	if connecting_start_node == connecting_end_node or has_connection(connecting_start_node, connecting_end_node):
 		return
 
 	add_connection(connecting_start_node, connecting_end_node)
