@@ -31,10 +31,10 @@ func _process(_delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	# if spy.is_in_group("MasterSpys"):
-		# state_machine.spy_switch_to("Idle")
+		# state_machine.node_switch_to("Idle")
 		# return
-	# state_machine.spy_switch_to("Unreachable")
-	state_machine.spy_switch_to("Idle")
+	# state_machine.node_switch_to("Unreachable")
+	state_machine.node_switch_to("Idle")
 
 func exit():
 	state_machine.has_initialized = true

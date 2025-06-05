@@ -1,12 +1,9 @@
-class_name SpyWorkingStateMachine
+class_name TowerWorkingStateMachine
 extends StateMachine
 
-@onready var spy_instance = $"../"
-@onready var spy_node = $"../SpyNode"
+@onready var tower_instance = $"../"
+@onready var tower_node = $"../TowerNode"
 @onready var label = $"../Label"
-@onready var spy_detect_range = $"../SpyDetectRange"
-@onready var enemy_detect_range = $"../EnemyDetectRange"
-
 
 var last_stable_state_name: String
 var has_initialized: bool = false
@@ -23,16 +20,12 @@ func node_switch_to(state_name: String, data: Dictionary = {}):
 		"scale": 1.0,
 		"label": "No State",
 		"pickable": true,
-		"detecting_spy": true,
-		"detecting_enemy": true,
 	})
 
-	spy_node.scale = set_status(state_status, "scale") * Vector2(1, 1)
+	tower_node.scale = set_status(state_status, "scale") * Vector2(1, 1)
 	label.text = set_status(state_status, "label")
-	spy_node.set_pickable(set_status(state_status, "pickable"))
-	spy_instance.visible = set_status(state_status, "visible")
-	spy_detect_range.monitoring = set_status(state_status, "detecting_spy")
-	enemy_detect_range.monitoring = set_status(state_status, "detecting_enemy")
+	tower_node.set_pickable(set_status(state_status, "pickable"))
+	tower_instance.visible = set_status(state_status, "visible")
 
 func set_status(state_status, key):
 	var value = state_status[key]
@@ -40,13 +33,8 @@ func set_status(state_status, key):
 		return value
 
 	var last_stable_state = get_state_by_name(last_stable_state_name)
-	return last_stable_state.spy_state_status[key]
+	return last_stable_state.tower_state_status[key]
 
 func node_switch_to_last_stable_state(data: Dictionary = {}):
 	# print(last_stable_state_name)
 	node_switch_to(last_stable_state_name, data)
-
-func _on_signal_center_enemy_patrol_captured(spy, _enemy):
-	if spy == spy_instance:
-		print("Spy Captured State Machine: Spy Captured by Enemy")
-		node_switch_to("Captured")

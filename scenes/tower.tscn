@@ -1,0 +1,100 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfnlf4pn18sra"]
+
+[ext_resource type="Script" uid="uid://b1y2iuh0dvxac" path="res://scripts/game_objects/tower/tower.gd" id="1_5w3wq"]
+[ext_resource type="Script" uid="uid://d4jynruma5eu2" path="res://scripts/game_objects/tower/tower_node.gd" id="2_5w3wq"]
+[ext_resource type="Script" uid="uid://dvc24xbubqa7d" path="res://scripts/states/tower/tower_working_state_machine.gd" id="4_5w3wq"]
+[ext_resource type="Texture2D" uid="uid://y18re1gr0587" path="res://assets/SpyNode.svg" id="5_v1bxd"]
+[ext_resource type="Script" uid="uid://cirnxyahxxvh3" path="res://scripts/states/spy/working/invisible.gd" id="7_dyfdg"]
+[ext_resource type="Script" uid="uid://d25vp4vri0noi" path="res://scripts/states/spy/working/initializing.gd" id="8_0mydw"]
+[ext_resource type="Script" uid="uid://c1bem77avhnyp" path="res://scripts/states/spy/working/idle.gd" id="9_5w5c7"]
+[ext_resource type="Script" uid="uid://bqi7isfswvk08" path="res://scripts/states/spy/working/unreachable.gd" id="10_5cf1d"]
+[ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy/working/hovering.gd" id="11_dk8x1"]
+[ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy/working/connecting.gd" id="12_sdbll"]
+[ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy/working/selected.gd" id="13_di6vr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1iwnv"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tjyl"]
+
+[sub_resource type="GDScript" id="GDScript_1tjyl"]
+script/source = "extends Label
+
+func _process(_delta) -> void:
+	text = $\"../\".name + \" is Connected: \" + str($\"../\".node_status[\"reachable\"]) 
+"
+
+[node name="Tower" type="Node2D" groups=["Towers"]]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_5w3wq")
+
+[node name="TowerNode" type="Area2D" parent="."]
+z_index = 1
+input_pickable = false
+script = ExtResource("2_5w3wq")
+
+[node name="MouseInputCollision" type="CollisionShape2D" parent="TowerNode"]
+shape = SubResource("CircleShape2D_1iwnv")
+
+[node name="TowerBody" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TowerBody"]
+shape = SubResource("CircleShape2D_1tjyl")
+
+[node name="Sprite" type="Sprite2D" parent="TowerBody"]
+scale = Vector2(0.355556, 0.355556)
+texture = ExtResource("5_v1bxd")
+
+[node name="ConnectionLines" type="Node" parent="."]
+
+[node name="WorkingStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_5w3wq")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://dvc24xbubqa7d"
+
+[node name="Invisible" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("7_dyfdg")
+
+[node name="Initializing" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("8_0mydw")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Idle" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("9_5w5c7")
+
+[node name="Unreachable" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("10_5cf1d")
+
+[node name="Hovering" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("11_dk8x1")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Connecting" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("12_sdbll")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Selected" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("13_di6vr")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Label" type="Label" parent="."]
+offset_left = -62.0
+offset_top = 10.0
+offset_right = 42.0
+offset_bottom = 33.0
+scale = Vector2(1.2, 1.2)
+text = "Default"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+offset_left = -62.0
+offset_top = -34.0
+offset_right = 42.0
+offset_bottom = -11.0
+scale = Vector2(1.2, 1.2)
+text = "Default"
+horizontal_alignment = 1
+script = SubResource("GDScript_1tjyl")
+
+[connection signal="mouse_entered" from="TowerNode" to="TowerNode" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TowerNode" to="TowerNode" method="_on_mouse_exited"]

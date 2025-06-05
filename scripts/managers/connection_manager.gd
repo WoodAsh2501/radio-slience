@@ -4,13 +4,15 @@ class_name ConnectionManager
 @export var master_spy: SpyInstance
 @onready var connections_instance = $"../Connections"
 
-var spys: Array = []
+var nodes: Array = []
 var connections: Dictionary = {}
 
 signal new_connection_established(start_spy, end_spy, value)
 
-func update_spys():
-	spys = get_tree().get_nodes_in_group("Spys")
+func update_nodes():
+	var towers = get_tree().get_nodes_in_group("Towers")
+	var spys = get_tree().get_nodes_in_group("Spys")
+	nodes = towers + spys
 
 func add_connection(start_spy, end_spy, value = 1):
 	if (
@@ -19,10 +21,10 @@ func add_connection(start_spy, end_spy, value = 1):
 	):
 		return
 
-	if not start_spy in spys:
-		spys.append(start_spy)
-	if not end_spy in spys:
-		spys.append(end_spy)
+	if not start_spy in nodes:
+		nodes.append(start_spy)
+	if not end_spy in nodes:
+		nodes.append(end_spy)
 
 	start_spy.connections[end_spy] = value
 	end_spy.connections[start_spy] = value
@@ -70,7 +72,7 @@ func get_reachable_nodes(start_spy, visited_nodes = [], reachable_nodes = []):
 	return reachable_nodes
 
 func get_shortest_paths_from_node(start_spy):
-	var all_nodes = spys.duplicate()
+	var all_nodes = nodes.duplicate()
 
 	var paths = {}
 	for node in all_nodes:
@@ -127,11 +129,11 @@ func get_shortest_path_to_node(start_spy, end_spy):
 
 func update_reachable_status():
 	var reachable_nodes = get_reachable_nodes(master_spy)
-	for spy in spys:
-		if spy in reachable_nodes:
-			spy.spy_status["reachable"] = true
+	for node in nodes:
+		if node in reachable_nodes:
+			node.node_status["reachable"] = true
 		else:
-			spy.spy_status["reachable"] = false
+			node.node_status["reachable"] = false
 
 func connect_connection_signals(spy_instances: Array) -> void:
 	for spy in spy_instances:
@@ -139,8 +141,8 @@ func connect_connection_signals(spy_instances: Array) -> void:
 		spy.connect("building_connection_ended", _on_spy_node_building_connection_ended)
 
 func _ready() -> void:
-	update_spys()
-	connect_connection_signals(spys)
+	update_nodes()
+	connect_connection_signals(nodes)
 
 var connecting_start_node: Node2D = null
 var connecting_end_node: Node2D = null
@@ -179,8 +181,8 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 			# connections_instance.remove_child(connection)
 			# connection.free()
 	update_reachable_status()
-	for other_spy in spys:
-		if other_spy.working_state_machine.has_initialized and not other_spy.spy_status["reachable"]:
-			other_spy.working_state_machine.spy_switch_to("Unreachable")
+	for other_node in nodes:
+		if other_node.working_state_machine.has_initialized and not other_node.node_status["reachable"]:
+			other_node.working_state_machine.node_switch_to("Unreachable")
 
 	# pass # Replace with function body.

@@ -1,12 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=19 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
 [ext_resource type="Script" uid="uid://b0bil7teu65n0" path="res://scripts/managers/spys_manager.gd" id="3_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://c2m582akgaqnj" path="res://scenes/spy.tscn" id="4_t1rx8"]
+[ext_resource type="PackedScene" uid="uid://dfnlf4pn18sra" path="res://scenes/tower.tscn" id="5_fpun6"]
 [ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
 [ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
+[ext_resource type="Script" uid="uid://jrl5o01jmtg4" path="res://scripts/states/tower/towers_manager.gd" id="5_wc255"]
 [ext_resource type="Script" uid="uid://d50rn0i2pbyf" path="res://scripts/UI/silencing_status.gd" id="6_2r41h"]
 [ext_resource type="Shader" uid="uid://7j6neciv67pd" path="res://shaders/level.gdshader" id="6_b121j"]
 [ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
@@ -19,6 +21,15 @@ radius = 11.9
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
 shader = ExtResource("6_b121j")
+
+[sub_resource type="GDScript" id="GDScript_wc255"]
+script/source = "extends Button
+
+@export var enemy: Node2D
+
+func _physics_process(_delta: float) -> void:
+	enemy.speed = 50 if button_pressed else 0
+"
 
 [node name="Node2D" type="Node2D"]
 
@@ -116,6 +127,13 @@ scale = Vector2(1, 1)
 position = Vector2(1129, 86)
 scale = Vector2(1, 1)
 
+[node name="Towers" type="Node" parent="."]
+script = ExtResource("5_wc255")
+
+[node name="Tower" parent="Towers" groups=["InvisibleSpys"] instance=ExtResource("5_fpun6")]
+position = Vector2(422, 182)
+scale = Vector2(1, 1)
+
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Enemy" type="RigidBody2D" parent="Enemies" groups=["Enemies"]]
@@ -185,6 +203,17 @@ offset_bottom = 664.0
 mouse_filter = 2
 color = Color(0.0375521, 0.000970605, 0.114669, 1)
 
+[node name="Button" type="Button" parent="UI" node_paths=PackedStringArray("enemy")]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 590.0
+offset_right = 462.0
+offset_bottom = 624.0
+toggle_mode = true
+text = "Toggle enemy movement"
+script = SubResource("GDScript_wc255")
+enemy = NodePath("../../Enemies/Enemy")
+
 [node name="SignalCenter" type="Node" parent="."]
 script = ExtResource("10_olg7q")
 
@@ -194,6 +223,8 @@ spawn_section = NodePath("MapSetcion1")
 master_spy = NodePath("../Spys/Spy1")
 
 [node name="MapSetcion1" type="Area2D" parent="MapSections" groups=["MapSections"]]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapSections/MapSetcion1"]
 position = Vector2(0, -6)

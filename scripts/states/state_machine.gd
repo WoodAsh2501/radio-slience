@@ -15,7 +15,7 @@ func _ready() -> void:
 	for child in get_children():
 		if child is State:
 			states_dict[child.name] = child
-	
+
 	if states_dict.size() > 0:
 		if not initial_state:
 			print("Initial state is null!")
@@ -29,7 +29,7 @@ func switch_to(state_name, data: Dictionary = {}):
 		var previous_state = current_state
 		previous_state_name = previous_state.name
 		previous_state.exit()
-		
+
 		current_state = states_dict[state_name]
 		current_state_name = current_state.name
 		current_state.enter(data)

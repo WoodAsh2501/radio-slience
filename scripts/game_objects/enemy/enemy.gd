@@ -3,7 +3,7 @@ extends RigidBody2D
 signal spy_detected
 signal spy_captured
 
-@export var speed: float = 200.0
+@export var speed: float = 0.0
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 @onready var label = $Label
 
@@ -78,7 +78,7 @@ func choose_random_position():
 
 	var random_distance = randf_range(50, 200)
 	var random_position = position + random_direction * random_distance
-	random_position = random_position.clamp(Vector2(0, 0), Vector2(get_viewport().size) * 0.8)
+	random_position = random_position.clamp(Vector2(get_viewport().size) * 0.1, Vector2(get_viewport().size) * 0.9)
 	previous_direction = random_direction
 	return random_position
 

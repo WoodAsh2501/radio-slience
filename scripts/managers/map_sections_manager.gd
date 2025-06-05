@@ -22,7 +22,7 @@ func update_spy_section_data():
 	for spy in spys:
 		for section in map_sections:
 			if is_spy_in_section(spy, section):
-				spy.spy_status.in_section = section
+				spy.node_status.in_section = section
 				break
 
 
