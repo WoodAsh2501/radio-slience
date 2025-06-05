@@ -3,7 +3,11 @@ extends Node
 @onready var towers = get_tree().get_nodes_in_group("Towers")
 @onready var connection_manager = get_node("../ConnectionManager")
 
+@onready var cracking_progress_bar = $"../UI/CrackingProgress/ProgressBar"
+var total_cracking_progress_ratio: float = 0
+
 func _ready() -> void:
+	GameStore.LevelStore.tower_count = towers.size()
 	for tower in towers:
 		var working_state_machine = tower.get_node("WorkingStateMachine")
 		working_state_machine.node_switch_to("Invisible")
@@ -11,11 +15,12 @@ func _ready() -> void:
 		# 	working_state_machine.node_switch_to("Initializing")
 
 func _process(_delta: float) -> void:
-	# for spy in spys:
-	# 	var state_machine = spy.get_node("StateMachine")
-	# 	if spy.is_in_group("VisibleSpys") and state_machine.is_state("Invisible"):
-	# 		state_machine.node_switch_to("Initializing")
-	pass
+	var tmp_total_cracking_progress: float = 0
+	for tower in towers:
+		tmp_total_cracking_progress += tower.cracking_progress
+	total_cracking_progress_ratio = tmp_total_cracking_progress / (100 * towers.size())
+
+	cracking_progress_bar.set_custom_minimum_size(Vector2(20, total_cracking_progress_ratio * 200))
 
 func _on_signal_center_spy_manager_discovered(_source_spy, target_spy) -> void:
 	show_spy(target_spy)

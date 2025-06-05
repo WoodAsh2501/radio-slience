@@ -16,6 +16,8 @@ var node_status = {
 	"reachable": false,
 }
 
+var cracking_progress: float = 0.0
+
 signal building_connection_started
 signal building_connection_ended
 
@@ -60,6 +62,7 @@ func _process(_delta: float) -> void:
 			# print("Building connection ended between: ", self)
 		ConnectionUtils.clear_preview_line(connection_lines)
 
+	update_cracking_progress()
 
 class ConnectionUtils:
 	static func get_preview_line(current_connection):
@@ -75,3 +78,11 @@ class ConnectionUtils:
 		if ConnectionUtils.has_preview_line(current_connection):
 			var preview_line = ConnectionUtils.get_preview_line(current_connection)
 			preview_line.queue_free()
+
+func update_cracking_progress():
+	if node_status.reachable:
+		cracking_progress += 1
+	else:
+		cracking_progress -= 0.3
+
+	cracking_progress = clamp(cracking_progress, 0, 100)

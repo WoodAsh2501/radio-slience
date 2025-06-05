@@ -1,5 +1,9 @@
 extends Node
 
+class LevelStore:
+	static var tower_count = 1
+
+
 class PlayStore:
 	static var is_playing = false
 	static var playing_speed = 1.0
