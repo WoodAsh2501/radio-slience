@@ -26,10 +26,10 @@ radius = 200.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_q5y2r"]
 radius = 150.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_1tjyl"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_1iwnv"]
 radius = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_1tjyl"]
 
 [sub_resource type="GDScript" id="GDScript_1tjyl"]
 script/source = "extends Label
@@ -44,6 +44,7 @@ script = ExtResource("1_1tjyl")
 
 [node name="SpyDetectRange" type="Area2D" parent="."]
 visible = false
+input_pickable = false
 monitoring = false
 script = ExtResource("2_8u3ya")
 range_radius = 200.0
@@ -53,6 +54,7 @@ shape = SubResource("CircleShape2D_si84p")
 
 [node name="EnemyDetectRange" type="Area2D" parent="."]
 visible = false
+input_pickable = false
 monitoring = false
 script = ExtResource("3_wstem")
 range_radius = 150.0
@@ -60,6 +62,12 @@ range_radius = 150.0
 [node name="RangeCollision" type="CollisionShape2D" parent="EnemyDetectRange"]
 shape = SubResource("CircleShape2D_q5y2r")
 debug_color = Color(0.996078, 0, 0.168627, 0.203922)
+
+[node name="SpyBody" type="Area2D" parent="."]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpyBody"]
+shape = SubResource("CircleShape2D_1tjyl")
 
 [node name="SpyNode" type="Area2D" parent="."]
 z_index = 1
@@ -72,11 +80,6 @@ shape = SubResource("CircleShape2D_1iwnv")
 [node name="Sprite" type="Sprite2D" parent="SpyNode"]
 scale = Vector2(0.355556, 0.355556)
 texture = ExtResource("5_1r427")
-
-[node name="SpyBody" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpyBody"]
-shape = SubResource("CircleShape2D_1tjyl")
 
 [node name="ConnectionLines" type="Node" parent="."]
 

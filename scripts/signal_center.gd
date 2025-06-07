@@ -2,8 +2,10 @@ extends Node
 
 # TODO: using Instances to manage spys.
 
-signal create_enemy(enemy)
-signal remove_enemy(enemy)
+# signal create_enemy(enemy)
+# signal remove_enemy(enemy)
+
+signal click_spy(spy)
 
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
@@ -15,7 +17,11 @@ signal enemy_patrol_captured(spy, enemy)
 # signal building_connection_abandoned(spy)
 
 signal connection_established(start_node, end_node, value)
+signal connection_changed(start_node, end_node, value)
 # signal connection_lost(start_node, end_node)
+
+signal connection_highlighted(connection_line)
+signal connection_unhighlighted(connection_line)
 
 signal spy_manager_discovered(spy)
 signal spy_manager_employed(spy)
@@ -39,11 +45,24 @@ func _ready() -> void:
 	connect_connection_signals(connection_manager)
 	connect_spy_manager_signals(spys)
 	connect_clue_signals(clue_manager, spys)
+	connect_ui_signals(spys)
 
 
 func connect_signal(emitter, emitted_signal, callback_fn):
 	if not emitter.is_connected(emitted_signal, callback_fn):
 		emitter.connect(emitted_signal, callback_fn)
+
+## UI signals ##
+
+func connect_ui_signals(spys):
+	for spy in spys:
+		var spy_node = spy.get_node("SpyNode")
+		connect_signal(spy_node, "click_spy", _on_spy_instance_clicked)
+
+func _on_spy_instance_clicked(spy):
+	print("Spy clicked: ", spy)
+	emit_signal("click_spy", spy)
+
 
 ## enemy patrol signals ##
 
@@ -74,15 +93,32 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 	# print("Enemy detected spy: ", signal_spy)
 func _on_enemy_instance_spy_captured(signal_enemy, signal_spy):
 	emit_signal("enemy_patrol_captured", signal_spy, signal_enemy)
+	## TODO: 记得把连接信号移到spy lost那里
+	emit_signal("connection_changed", signal_spy, signal_enemy, "lost")
 
 ## connection signals ##
 
 func connect_connection_signals(connection_manager):
 	connect_signal(connection_manager, "new_connection_established", _on_connection_manager_new_connection_established)
+	connect_signal(connection_manager, "connection_lost", _on_connection_manager_connection_lost)
+	connect_signal(connection_manager, "connection_highlighted", _on_connection_manager_connection_highlighted)
+	connect_signal(connection_manager, "connection_unhighlighted", _on_connection_manager_connection_unhighlighted)
+	connect_signal(self, "connection_changed", connection_manager._on_signal_center_connection_changed)
+
+func _on_connection_manager_connection_highlighted(connection_line: Node) -> void:
+	emit_signal("connection_highlighted", connection_line)
+
+func _on_connection_manager_connection_unhighlighted(connection_line: Node) -> void:
+	emit_signal("connection_unhighlighted", connection_line)
 
 func _on_connection_manager_new_connection_established(start_spy: Node, end_spy: Node, value: Variant) -> void:
 	# print("New connection established between: ", start_spy, " and ", end_spy, " with value: ", value)
 	emit_signal("connection_established", start_spy, end_spy, value)
+	emit_signal("connection_changed", start_spy, end_spy, value)
+
+func _on_connection_manager_connection_lost(start_spy: Node, end_spy: Node, value: Variant) -> void:
+	emit_signal("connection_lost", start_spy, end_spy, value)
+	emit_signal("spy_manager_lost", start_spy)
 
 ## spy manager signals ##
 
@@ -130,4 +166,3 @@ func connect_map_section_signals():
 func on_map_sections_manager_map_section_unblocked(map_section):
 	# print("map unblocked")
 	emit_signal("map_section_unblocked", map_section)
-

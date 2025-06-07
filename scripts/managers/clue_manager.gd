@@ -20,6 +20,9 @@ func _ready() -> void:
 				spy.spy_data = spy_data
 				code_name_dict[code_name] = spy_data
 
+				if spy_data["data"]["isUndercover"]:
+					spy.is_undercover = true
+
 func get_all_spys_data(select_all = true, select_discovered = false, select_collected = false):
 	var all_data = []
 	for spy in spys:

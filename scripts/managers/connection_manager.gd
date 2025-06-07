@@ -2,12 +2,19 @@ extends Node
 class_name ConnectionManager
 
 @export var master_spy: SpyInstance
-@onready var connections_instance = $"../Connections"
+@export var tower: TowerInstance
+@export var test_spy: SpyInstance
+@onready var connection_lines = $"../Connections"
 
 var nodes: Array = []
+# {[start_spy, end_spy]: value}
 var connections: Dictionary = {}
 
 signal new_connection_established(start_spy, end_spy, value)
+signal connection_lost(start_spy, end_spy, value)
+
+signal connection_highlighted(connection_line)
+signal connection_unhighlighted(connection_line)
 
 func update_nodes():
 	var towers = get_tree().get_nodes_in_group("Towers")
@@ -36,6 +43,9 @@ func remove_connection_from_spy(spy):
 		if nodes_pair.has(spy):
 			connections.erase(nodes_pair)
 
+func get_all_connections_from_spy(spy):
+	return connections.keys().filter(func(pair): return pair.has(spy))
+
 func match_connection_nodes(connection, start_spy, end_spy):
 	return connection.nodes == [start_spy, end_spy] or connection.nodes == [end_spy, start_spy]
 
@@ -43,7 +53,7 @@ func has_connection(start_spy, end_spy):
 	return connections.has([start_spy, end_spy]) or connections.has([end_spy, start_spy])
 
 func get_connection_instance(start_spy, end_spy):
-	for connection in connections_instance.get_children():
+	for connection in connection_lines.get_children():
 		if match_connection_nodes(connection, start_spy, end_spy):
 			return connection
 
@@ -100,6 +110,9 @@ func get_shortest_paths_from_node(start_spy):
 		for neighbor_node in neighbor_nodes:
 			var value = current_node.connections[neighbor_node]
 			var new_distance = paths[current_node]["distance"] + value
+			# 塔不能作为路径的途径点
+			if current_node is TowerInstance:
+				continue
 
 			if new_distance < paths[neighbor_node]["distance"]:
 				paths[neighbor_node]["distance"] = new_distance
@@ -123,10 +136,54 @@ func get_shortest_paths_from_node(start_spy):
 	return paths
 
 func get_shortest_path_to_node(start_spy, end_spy):
-	return get_shortest_paths_from_node(start_spy)[end_spy]["path"]
+	return get_shortest_paths_from_node(start_spy)[end_spy]["paths"]
 
+func get_nodes_in_distance(source_spy, distance = 2):
+	var all_nodes = nodes.duplicate()
+	var paths = get_shortest_paths_from_node(source_spy)
+	var nodes_in_distance = []
+
+	for node in all_nodes:
+		if paths[node]["distance"] <= distance:
+			nodes_in_distance.append(node)
+
+	return nodes_in_distance
+
+func highlight_near_connections(source_spy, distance = 2):
+	var nodes_in_distance = get_nodes_in_distance(source_spy, distance)
+	for node in nodes_in_distance:
+		if node is TowerInstance:
+			continue
+		var connection_line = get_connection_instance(source_spy, node)
+		if connection_line:
+			connection_line.highlighted = true
+			connection_line.highlight()
+			emit_signal("connection_highlighted", connection_line)
+
+func unhighlight_all_connections():
+	for connection_line in connection_lines.get_children():
+		if connection_line.highlighted:
+			connection_line.highlighted = false
+			connection_line.unhighlight()
+			emit_signal("connection_unhighlighted", connection_line)
+
+func is_connect_to_node(source_spy, target_spy):
+	var is_connect = get_shortest_path_to_node(source_spy, target_spy).size() > 0
+	return is_connect
+
+func is_inside_path_to_tower(source_spy):
+	var path_to_tower = get_shortest_path_to_node(source_spy, tower)
+	var path_to_master_spy = get_shortest_path_to_node(source_spy, master_spy)
+	var is_inside = (
+		path_to_tower.size() > 0
+		and path_to_master_spy.size() > 0
+		and path_to_tower.all(func(node): return node not in path_to_master_spy))
+
+	if is_inside:
+		print("Spy ", source_spy.code_name, " is inside path to tower.")
+
+	return is_inside
 ## signals
-
 func update_reachable_status():
 	var reachable_nodes = get_reachable_nodes(master_spy)
 	for node in nodes:
@@ -150,7 +207,9 @@ var connecting_end_node: Node2D = null
 func _on_spy_node_building_connection_ended(end_node) -> void:
 	# print("New connection established between: ", connecting_start_node, " and ", connecting_end_node, " with value: ", 1)
 	connecting_end_node = end_node
-	if connecting_start_node == connecting_end_node or has_connection(connecting_start_node, connecting_end_node):
+	if (connecting_start_node == connecting_end_node
+	or has_connection(connecting_start_node, connecting_end_node)
+	or not connecting_start_node):
 		return
 
 	add_connection(connecting_start_node, connecting_end_node)
@@ -171,14 +230,19 @@ func emit_signal_and_clear_connecting_nodes() -> void:
 	# if connections.size() > 3:
 	# 	print_debug(get_shortest_paths_from_node(master_spy))
 
-
 func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> void:
 	spy.connections = {}
+	var all_connections = get_all_connections_from_spy(spy)
+	for connection_node_pair in all_connections:
+		var target_spy = connection_node_pair.erase(spy)[0]
+		var value = connections[connection_node_pair]
+		emit_signal("connection_lost", spy, target_spy, value)
+
 	remove_connection_from_spy(spy)
-	for connection in connections_instance.get_children():
+	for connection in connection_lines.get_children():
 		if connection.nodes.has(spy):
 			connection.queue_free()
-			# connections_instance.remove_child(connection)
+			# connection_lines.remove_child(connection)
 			# connection.free()
 	update_reachable_status()
 	for other_node in nodes:
@@ -186,3 +250,13 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 			other_node.working_state_machine.node_switch_to("Unreachable")
 
 	# pass # Replace with function body.
+
+func _on_signal_center_connection_changed(_start_spy: Node, _end_spy: Node, _value: Variant) -> void:
+	for node in nodes:
+		if node is TowerInstance:
+			continue
+		node.is_inside_path_to_tower = is_inside_path_to_tower(node)
+
+func _on_signal_center_click_spy(spy: Variant) -> void:
+	unhighlight_all_connections()
+	highlight_near_connections(spy)

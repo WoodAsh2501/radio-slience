@@ -11,9 +11,11 @@ class_name SpyInstance
 
 var spy_data: Dictionary = {}
 
+var is_undercover = false
+var is_inside_path_to_tower = false
+
 var is_discovered = false
 var is_collected = false
-
 
 var connection_start_from: Node2D
 var connections: Dictionary
@@ -49,6 +51,7 @@ func _process(_delta: float) -> void:
 			node_status.is_connecting = true
 			working_state_machine.node_switch_to("Connecting")
 			emit_signal("building_connection_started", self)
+			GameStore.ConnectingStore.is_connecting = true
 			# print("Building connection started between: ", self)
 
 		var mouse_position = get_global_mouse_position()
@@ -75,9 +78,9 @@ func _process(_delta: float) -> void:
 		if working_state_machine.is_state("Selected"):
 			working_state_machine.node_switch_to_last_stable_state()
 			emit_signal("building_connection_ended", self)
+			GameStore.ConnectingStore.is_connecting = false
 			# print("Building connection ended between: ", self)
 		ConnectionUtils.clear_preview_line(connection_lines)
-
 
 func _on_enemy_detect_range_body_entered(body: Node2D) -> void:
 	if (body.is_in_group("Enemies")):
@@ -109,6 +112,11 @@ func discover_clue(data):
 	clue_button.visible = true
 	clue_button.spy_data = data
 	# print(clue_button.spy_data)
+
+## TODO:
+
+# func expose():
+
 
 func _on_clue_button_pressed() -> void:
 	clue_button.visible = false

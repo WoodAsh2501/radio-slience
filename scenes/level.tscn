@@ -70,6 +70,7 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_right = 1168.0
 offset_bottom = 662.0
+mouse_filter = 2
 
 [node name="ScreenShader" type="ColorRect" parent="UIManager/MainUI"]
 z_index = 1
@@ -161,13 +162,13 @@ texture_pressed = ExtResource("20_pqd0y")
 script = ExtResource("5_ppgk2")
 
 [node name="MenuUI" type="Panel" parent="UIManager"]
-visible = false
 z_index = 5
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
+visible = false
 position = Vector2(576.444, 324.5)
 scale = Vector2(0.600926, 0.600926)
 texture = ExtResource("20_wu01b")
@@ -235,9 +236,11 @@ spy_manager = NodePath("../../Spys")
 [node name="SignalManager" type="Node" parent="."]
 script = ExtResource("1_klq6b")
 
-[node name="ConnectionManager" type="Node" parent="." node_paths=PackedStringArray("master_spy")]
+[node name="ConnectionManager" type="Node" parent="." node_paths=PackedStringArray("master_spy", "tower", "test_spy")]
 script = ExtResource("2_8iemx")
 master_spy = NodePath("../Spys/Spy1")
+tower = NodePath("../Towers/Tower")
+test_spy = NodePath("../Spys/Spy5")
 
 [node name="ClueManager" type="Node" parent="."]
 script = ExtResource("3_arp2o")
@@ -271,7 +274,7 @@ scale = Vector2(1, 1)
 code_name = "Starry"
 
 [node name="Spy6" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(362, 279)
+position = Vector2(368, 270)
 scale = Vector2(1, 1)
 code_name = "ivy"
 
@@ -335,6 +338,7 @@ polygon = PackedVector2Array(134, -42, -78, -25, -55, 213, -47, 500, -31, 698, 1
 [connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
 [connection signal="employ_new_spy" from="Spys" to="SignalCenter" method="_on_spy_manager_employed"]
+[connection signal="click_spy" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_spy"]
 [connection signal="clue_collected" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_collected"]
 [connection signal="clue_discovered" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_discovered"]
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]

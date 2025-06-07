@@ -2,7 +2,7 @@
 	{
 		"codeName": "Starry",
 		"data": {
-			"spyType": "normal",
+			"isUndercover": false,
 			"codeName": "Starry",
 			"infomation": {
 				"gender": "女",
@@ -18,7 +18,7 @@
 	{
 		"codeName": "ivy",
 		"data": {
-			"spyType": "undercover",
+			"isUndercover": true,
 			"codeName": "ivy",
 			"infomation": {
 				"gender": "男",
@@ -34,7 +34,7 @@
 	{
 		"codeName": "夜苍",
 		"data": {
-			"spyType": "undercover",
+			"isUndercover": true,
 			"codeName": "夜苍",
 			"infomation": {
 				"gender": "女",
@@ -50,7 +50,7 @@
 	{
 		"codeName": "蓝翼",
 		"data": {
-			"spyType": "normal",
+			"isUndercover": false,
 			"codeName": "蓝翼",
 			"infomation": {
 				"gender": "男",
@@ -66,7 +66,7 @@
 	{
 		"codeName": "小晨",
 		"data": {
-			"spyType": "normal",
+			"isUndercover": false,
 			"codeName": "小晨",
 			"infomation": {
 				"gender": "女",
@@ -82,7 +82,7 @@
 	{
 		"codeName": "银月",
 		"data": {
-			"spyType": "normal",
+			"isUndercover": false,
 			"codeName": "银月",
 			"infomation": {
 				"gender": "男",
@@ -98,7 +98,7 @@
 	{
 		"codeName": "晨曦",
 		"data": {
-			"spyType": "normal",
+			"isUndercover": false,
 			"codeName": "晨曦",
 			"infomation": {
 				"gender": "男",
