@@ -5,7 +5,7 @@ class_name SpyInstance
 @onready var enemy_detect_range = $EnemyDetectRange
 
 @onready var working_state_machine = $WorkingStateMachine
-@onready var caputured_state_machine = $CapturedStateMachine
+@onready var captured_state_machine = $CapturedStateMachine
 @onready var clue_button = $ClueButton
 @export var code_name: String = "Spy"
 
@@ -13,6 +13,8 @@ var spy_data: Dictionary = {}
 
 var is_undercover = false
 var is_inside_path_to_tower = false
+var expose_time = 1.0
+var since_last_expose = 0.0
 
 var is_discovered = false
 var is_collected = false
@@ -39,10 +41,20 @@ signal connect_range_spy_exited
 
 signal collect_clue
 
+signal exposing_started
+
 func _ready() -> void:
 	clue_button.visible = false
 
 func _process(_delta: float) -> void:
+	handle_mouse_interaction()
+	if is_undercover and is_inside_path_to_tower:
+		since_last_expose += get_process_delta_time()
+		if since_last_expose >= expose_time:
+			expose()
+			since_last_expose = 0.0
+
+func handle_mouse_interaction():
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if not working_state_machine.get_state_name() in ["Hovering", "Connecting"]:
 			return
@@ -82,6 +94,7 @@ func _process(_delta: float) -> void:
 			# print("Building connection ended between: ", self)
 		ConnectionUtils.clear_preview_line(connection_lines)
 
+
 func _on_enemy_detect_range_body_entered(body: Node2D) -> void:
 	if (body.is_in_group("Enemies")):
 		enemy_detect_range.visible = true
@@ -113,10 +126,8 @@ func discover_clue(data):
 	clue_button.spy_data = data
 	# print(clue_button.spy_data)
 
-## TODO:
-
-# func expose():
-
+func expose():
+	emit_signal("exposing_started", self)
 
 func _on_clue_button_pressed() -> void:
 	clue_button.visible = false
@@ -132,6 +143,11 @@ func _on_signal_center_clue_collected(data):
 	if data["codeName"] == code_name:
 		is_collected = true
 		print("Spy clue collected: ", code_name)
+
+func _on_signal_center_exposing_succeeded(spy):
+	if spy == self:
+		print("Spy exposed: ", code_name)
+		captured_state_machine.switch_to("Locked")
 
 class ConnectionUtils:
 	static func get_preview_line(current_connection):

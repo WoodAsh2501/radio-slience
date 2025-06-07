@@ -344,5 +344,6 @@ polygon = PackedVector2Array(134, -42, -78, -25, -55, 213, -47, 500, -31, 698, 1
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
 [connection signal="enemy_patrol_captured" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_enemy_patrol_captured"]
+[connection signal="exposing_started" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_exposing_started"]
 [connection signal="map_section_unblocked" from="SignalCenter" to="MapSections" method="_on_signal_center_map_section_unblocked"]
 [connection signal="spy_manager_discovered" from="SignalCenter" to="Spys" method="_on_signal_center_spy_manager_discovered"]

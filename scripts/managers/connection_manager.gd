@@ -16,6 +16,8 @@ signal connection_lost(start_spy, end_spy, value)
 signal connection_highlighted(connection_line)
 signal connection_unhighlighted(connection_line)
 
+signal exposing_succeeded(target_spy)
+
 func update_nodes():
 	var towers = get_tree().get_nodes_in_group("Towers")
 	var spys = get_tree().get_nodes_in_group("Spys")
@@ -132,7 +134,6 @@ func get_shortest_paths_from_node(start_spy):
 						connection_end_spy
 					)
 					paths[neighbor_node]["paths"].append(connection)
-
 	return paths
 
 func get_shortest_path_to_node(start_spy, end_spy):
@@ -142,7 +143,6 @@ func get_nodes_in_distance(source_spy, distance = 2):
 	var all_nodes = nodes.duplicate()
 	var paths = get_shortest_paths_from_node(source_spy)
 	var nodes_in_distance = []
-
 	for node in all_nodes:
 		if paths[node]["distance"] <= distance:
 			nodes_in_distance.append(node)
@@ -246,7 +246,11 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 			# connection.free()
 	update_reachable_status()
 	for other_node in nodes:
-		if other_node.working_state_machine.has_initialized and not other_node.node_status["reachable"]:
+		if (
+			other_node.working_state_machine.has_initialized
+			and not other_node.node_status["reachable"]
+			and not other_node.working_state_machine.is_state("Captured")
+			):
 			other_node.working_state_machine.node_switch_to("Unreachable")
 
 	# pass # Replace with function body.
@@ -260,3 +264,21 @@ func _on_signal_center_connection_changed(_start_spy: Node, _end_spy: Node, _val
 func _on_signal_center_click_spy(spy: Variant) -> void:
 	unhighlight_all_connections()
 	highlight_near_connections(spy)
+
+
+func _on_signal_center_exposing_started(spy: Variant) -> void:
+	var near_nodes = get_nodes_in_distance(spy, 2).filter(func(node):
+		if node is TowerInstance:
+			return false
+		return (
+			node is SpyInstance
+			and not node.captured_state_machine.is_state("Locked")
+			and not node.working_state_machine.is_state("Captured")
+			and not node == spy
+		))
+
+	if not near_nodes:
+		return
+
+	var target_spy = near_nodes[randi() % near_nodes.size()]
+	emit_signal("exposing_succeeded", target_spy)

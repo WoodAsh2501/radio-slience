@@ -31,6 +31,9 @@ signal spy_manager_lost(spy)
 signal clue_discovered(spy_data)
 signal clue_collected(spy_data)
 
+signal exposing_started(spy)
+signal exposing_succeeded(spy)
+
 signal map_section_unblocked(section)
 
 func _ready() -> void:
@@ -46,6 +49,7 @@ func _ready() -> void:
 	connect_spy_manager_signals(spys)
 	connect_clue_signals(clue_manager, spys)
 	connect_ui_signals(spys)
+	connect_exposing_signals(spys, enemies, connection_manager)
 
 
 func connect_signal(emitter, emitted_signal, callback_fn):
@@ -94,7 +98,7 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 func _on_enemy_instance_spy_captured(signal_enemy, signal_spy):
 	emit_signal("enemy_patrol_captured", signal_spy, signal_enemy)
 	## TODO: 记得把连接信号移到spy lost那里
-	emit_signal("connection_changed", signal_spy, signal_enemy, "lost")
+	# emit_signal("connection_changed", signal_spy, signal_enemy, "lost")
 
 ## connection signals ##
 
@@ -156,6 +160,24 @@ func _on_clue_manager_discover_clue(spy_data):
 
 func _on_spy_instance_collect_clue(spy_data):
 	emit_signal("clue_collected", spy_data)
+
+## exposing signals ##
+func connect_exposing_signals(spys,enemies, connection_manager):
+	connect_signal(connection_manager, "exposing_succeeded", _on_connection_manager_exposing_succeeded)
+	for spy in spys:
+		connect_signal(spy, "exposing_started", _on_spy_instance_exposing_started)
+		connect_signal(self, "exposing_succeeded", spy._on_signal_center_exposing_succeeded)
+	for enemy in enemies:
+		connect_signal(self, "exposing_succeeded", enemy._on_signal_center_exposing_succeeded)
+
+func _on_spy_instance_exposing_started(spy):
+	emit_signal("exposing_started", spy)
+
+func _on_connection_manager_exposing_succeeded(spy):
+	emit_signal("exposing_succeeded", spy)
+
+
+## map section signals
 
 func connect_map_section_signals():
 	var map_sections_manager = $"../MapSections"
