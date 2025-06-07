@@ -3,55 +3,49 @@ extends Node
 @onready var spy_data_file = FileAccess.open("res://data/spy_data.json", FileAccess.READ)
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 
-var spy_data: Array = []
-var spy_code_names: Array = []
-
-var has_not_collected_clue = false
+var code_names: Array = []
+var code_name_dict: Dictionary = {}
 
 signal discover_clue
 
 func _ready() -> void:
-	spy_data = JSON.parse_string(spy_data_file.get_as_text())
-	spy_code_names = spy_data.map(func(item): return item["codeName"])
-	spy_data = spy_data.map(func(item):
-		item.spy_instance = null
-		return item
-		)
+	var spy_data_json = JSON.parse_string(spy_data_file.get_as_text())
+	code_names = spy_data_json.map(func(item): return item["codeName"])
 	for spy in spys:
 		var code_name = spy.code_name
-		if not code_name in spy_code_names:
+		if not code_name in code_names:
 			continue
-		spy_data = spy_data.map(func(item):
-			if item["codeName"] == code_name:
-				item.spy_instance = spy
-			return item
-			)
+		for spy_data in spy_data_json:
+			if spy_data["codeName"] == code_name:
+				spy.spy_data = spy_data
+				code_name_dict[code_name] = spy_data
+
+func get_all_spys_data(select_all = true, select_discovered = false, select_collected = false):
+	var all_data = []
+	for spy in spys:
+		var match_discovered = select_discovered == spy.is_discovered
+		var match_collected = select_collected == spy.is_collected
+		var all_match = match_discovered and match_collected
+		if select_all or all_match:
+			all_data.append(spy.spy_data)
+	return all_data
+
+func get_not_discovered_spys_data():
+	return get_all_spys_data(false, false, false)
+
+func get_collected_spys_data():
+	return get_all_spys_data(false, false, true)
 
 func generate_random_clue():
-	var employed_spys_data = get_employed_spys_data()
-	# var not_investigated_spy_data = employed_spys_data.filter(func(item): return not item.spy_instance.node_status.is_investigated)
-	# var spy_investigated = select_random_spy_data(not_investigated_spy_data)
-	# spys[randi() % spys.size()].discover_clue(spy_investigated)
-	spys[randi() % spys.size()].discover_clue(select_random_spy_data(employed_spys_data))
-	# emit_signal("discover_clue", spy_investigated["codeName"])
-	# return spy_investigated
+	var not_discovered_spys_data = get_not_discovered_spys_data()
+	var new_discovered_spy_data = select_random_spy_data(not_discovered_spys_data)
+	if not new_discovered_spy_data:
+		return
+	spys[randi() % spys.size()].discover_clue(new_discovered_spy_data)
+	emit_signal("discover_clue", new_discovered_spy_data)
 
 func select_random_spy_data(target_spy_data: Array) -> Dictionary:
 	if target_spy_data.size() == 0:
 		return {}
-	return target_spy_data[randi() % target_spy_data.size()]
-
-func get_investigated_spys_data():
-	return spy_data.filter(func(item):
-		if not item.spy_instance:
-			return false
-		return item.spy_instance.node_status.is_investigated)
-
-func get_employed_spys_data():
-	return spy_data.filter(func(item):
-		if not item.spy_instance:
-			return null
-		return item.spy_instance.node_status.is_employed)
-
-func process(_delta):
-	pass
+	var selected_spy_data = target_spy_data[randi() % target_spy_data.size()]
+	return selected_spy_data

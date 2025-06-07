@@ -9,6 +9,12 @@ class_name SpyInstance
 @onready var clue_button = $ClueButton
 @export var code_name: String = "Spy"
 
+var spy_data: Dictionary = {}
+
+var is_discovered = false
+var is_collected = false
+
+
 var connection_start_from: Node2D
 var connections: Dictionary
 var node_status = {
@@ -92,7 +98,6 @@ func _on_spy_detect_range_area_entered(area: Area2D) -> void:
 	) or area.name == "TowerNode":
 		connect_range_spy_entered.emit(self, parent_instance)
 
-
 func _on_spy_detect_range_area_exited(_area: Area2D) -> void:
 	# var parent_instance = area.get_parent().get_parent()
 	# print("Spy detect range area exited: ", parent_instance.name)
@@ -100,16 +105,25 @@ func _on_spy_detect_range_area_exited(_area: Area2D) -> void:
 	# 	connect_range_spy_exited.emit(self, parent_instance)
 	pass
 
-func discover_clue(spy_data):
+func discover_clue(data):
 	clue_button.visible = true
-	clue_button.spy_data = spy_data
+	clue_button.spy_data = data
 	# print(clue_button.spy_data)
 
 func _on_clue_button_pressed() -> void:
 	clue_button.visible = false
-	print(clue_button.spy_data)
-	emit_signal("collect_clue", clue_button.spy_data["codeName"])
+	# print(clue_button.spy_data)
+	emit_signal("collect_clue", clue_button.spy_data)
 	clue_button.spy_data = null
+
+func _on_signal_center_clue_discovered(data):
+	if data["codeName"] == code_name:
+		is_discovered = true
+
+func _on_signal_center_clue_collected(data):
+	if data["codeName"] == code_name:
+		is_collected = true
+		print("Spy clue collected: ", code_name)
 
 class ConnectionUtils:
 	static func get_preview_line(current_connection):

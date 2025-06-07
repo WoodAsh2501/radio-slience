@@ -22,6 +22,9 @@ signal spy_manager_employed(spy)
 signal spy_manager_lost(spy)
 # signal spy_manager_fired(spy)
 
+signal clue_discovered(spy_data)
+signal clue_collected(spy_data)
+
 signal map_section_unblocked(section)
 
 func _ready() -> void:
@@ -29,10 +32,13 @@ func _ready() -> void:
 	var enemies = get_tree().get_nodes_in_group("Enemies")
 
 	var connection_manager = $"../ConnectionManager"
+	var clue_manager = $"../ClueManager"
+
 	connect_map_section_signals()
 	connect_enemy_patrol_signals(spys, enemies)
 	connect_connection_signals(connection_manager)
 	connect_spy_manager_signals(spys)
+	connect_clue_signals(clue_manager, spys)
 
 
 func connect_signal(emitter, emitted_signal, callback_fn):
@@ -101,7 +107,19 @@ func _on_spy_manager_employed(spy) -> void:
 	pass # Replace with function body.
 
 
-## map section signals
+## clue signals
+func connect_clue_signals(clue_manager, spys):
+	connect_signal(clue_manager, "discover_clue", _on_clue_manager_discover_clue)
+	for spy in spys:
+		connect_signal(spy, "collect_clue", _on_spy_instance_collect_clue)
+		connect_signal(self, "clue_discovered", spy._on_signal_center_clue_discovered)
+		connect_signal(self, "clue_collected", spy._on_signal_center_clue_collected)
+
+func _on_clue_manager_discover_clue(spy_data):
+	emit_signal("clue_discovered", spy_data)
+
+func _on_spy_instance_collect_clue(spy_data):
+	emit_signal("clue_collected", spy_data)
 
 func connect_map_section_signals():
 	var map_sections_manager = $"../MapSections"
