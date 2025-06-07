@@ -2,6 +2,7 @@ extends RigidBody2D
 
 signal spy_detected
 signal spy_captured
+signal alert_value_changed #发送信号到警戒条
 
 @export var speed: float = 0.0
 @onready var spys = get_tree().get_nodes_in_group("Spys")
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 func update_alert_value(new_value: int) -> void:
 	old_alert_value = alert_value
 	alert_value = new_value
+	emit_signal("alert_value_changed", old_alert_value, alert_value) #发送信号到警戒条
 	on_alert_value_changed(old_alert_value, alert_value)
 
 func on_alert_value_changed(previous_value: int, new_value: int) -> void:
