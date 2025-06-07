@@ -2,7 +2,7 @@ extends RigidBody2D
 
 signal spy_detected
 signal spy_captured
-signal alert_value_changed #发送信号到警戒条
+signal alert_value_changed # 发送信号到警戒条
 
 @export var speed: float = 0.0
 @onready var spys = get_tree().get_nodes_in_group("Spys")
@@ -10,7 +10,8 @@ signal alert_value_changed #发送信号到警戒条
 
 @onready var target_position: Vector2 = choose_random_position()
 
-var locked_spy: Node2D
+var locked_spy_array: Array = []
+var target_spy: Node2D = null
 
 var previous_direction: Vector2 = Vector2.LEFT
 var current_direction: Vector2 = Vector2.LEFT
@@ -24,20 +25,36 @@ func _process(_delta: float) -> void:
 	# on_alert_value_changed(old_alert_value, alert_value)
 
 func _physics_process(delta: float) -> void:
-	if position.distance_to(target_position) < 10:
-		target_position = select_new_position()
-		print(detecting_spys)
+	var current_target_position = target_position
 
-	if locked_spy and position.distance_to(locked_spy.position) < 10:
-		emit_signal("spy_captured", self, locked_spy)
-		detecting_spys.erase(locked_spy)
-		locked_spy = null
+	if locked_spy_array.size() > 0:
+		target_spy = locked_spy_array[0]
+		current_target_position = target_spy.position
 
-		target_position = select_new_position()
+		if position.distance_to(target_spy.position) < 10:
+			emit_signal("spy_captured", self, target_spy)
+
+			detecting_spys.erase(target_spy)
+			locked_spy_array.erase(target_spy)
+			target_spy = null
+
+			print(locked_spy_array)
+
+			if locked_spy_array.size() > 0:
+				current_target_position = locked_spy_array[0].position
+			else:
+				current_target_position = choose_random_position()
+
+	else:
+		target_spy = null
+		if position.distance_to(target_position) < 10:
+			current_target_position = choose_random_position()
+
+	target_position = current_target_position
 
 	# for debug
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		target_position = get_global_mouse_position()
+	# if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	# 	target_position = get_global_mouse_position()
 
 	current_direction = (target_position - position).normalized()
 	move_and_collide(current_direction * speed * delta)
@@ -52,28 +69,26 @@ func _physics_process(delta: float) -> void:
 func update_alert_value(new_value: int) -> void:
 	old_alert_value = alert_value
 	alert_value = new_value
-	emit_signal("alert_value_changed", old_alert_value, alert_value) #发送信号到警戒条
+	emit_signal("alert_value_changed", old_alert_value, alert_value) # 发送信号到警戒条
 	on_alert_value_changed(old_alert_value, alert_value)
+
+func lock_nearest_spy():
+	var nearest = get_nearest_spy()
+	if nearest:
+		add_locked_spy(nearest)
+		print("Locked spy: ", nearest.code_name)
+		emit_signal("spy_detected", self, nearest)
 
 func on_alert_value_changed(previous_value: int, new_value: int) -> void:
 	if previous_value == new_value:
 		return
 
-	if new_value >= 100:
-		detect_spy(get_nearest_spy())
-
-func detect_spy(spy):
-	locked_spy = spy
-	target_position = spy.position
-	emit_signal("spy_detected", self, spy)
+	if previous_value < 100 and new_value >= 100:
+		lock_nearest_spy()
 
 func is_spy_exposed():
 	return detecting_spys and not GameStore.SilencingStore.get_silence_state()
 
-func select_new_position():
-	if is_spy_exposed():
-		return get_nearest_spy().position
-	return choose_random_position()
 
 func choose_random_position():
 	var random_direction = previous_direction.rotated(randf_range(-PI / 4, PI / 4))
@@ -104,3 +119,14 @@ func on_enter_radio_range(spy, enemy):
 func on_exit_radio_range(spy, enemy):
 	if enemy == self:
 		detecting_spys.erase(spy)
+
+
+func add_locked_spy(spy):
+	if not locked_spy_array.has(spy):
+		locked_spy_array.append(spy)
+
+func _on_signal_center_enemy_patrol_detected(spy):
+	add_locked_spy(spy)
+
+func _on_signal_center_exposing_succeeded(spy):
+	add_locked_spy(spy)

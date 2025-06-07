@@ -251,7 +251,9 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 	spy.connections = {}
 	var all_connections = get_all_connections_from_spy(spy)
 	for connection_node_pair in all_connections:
-		var target_spy = connection_node_pair.erase(spy)[0]
+		var target_spy = connection_node_pair.filter(
+			func(node): return not node == spy
+			)[0]
 		var value = connections[connection_node_pair]
 		emit_signal("connection_lost", spy, target_spy, value)
 

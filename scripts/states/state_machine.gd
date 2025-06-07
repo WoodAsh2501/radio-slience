@@ -37,10 +37,6 @@ func switch_to(state_name, data: Dictionary = {}):
 	else:
 		print("State not found: ", state_name)
 
-func switch_to_when_not(new_state_name, condition_state_name, data: Dictionary = {}):
-	if current_state_name != condition_state_name:
-		switch_to(new_state_name, data)
-
 func get_state_by_name(state_name: String) -> State:
 	if state_name in states_dict:
 		return states_dict[state_name]
@@ -56,3 +52,6 @@ func get_state_name():
 
 func is_state(state_name: String) -> bool:
 	return current_state_name == state_name
+
+func is_state_in(state_names: Array) -> bool:
+	return current_state_name in state_names
