@@ -144,21 +144,38 @@ func get_nodes_in_distance(source_spy, distance = 2):
 	var paths = get_shortest_paths_from_node(source_spy)
 	var nodes_in_distance = []
 	for node in all_nodes:
-		if paths[node]["distance"] <= distance:
+		if paths[node]["distance"] <= distance and paths[node]["distance"] != 0:
 			nodes_in_distance.append(node)
 
 	return nodes_in_distance
 
+func get_near_connections(source_spy, distance = 2):
+	var all_nodes = nodes.duplicate()
+	var paths = get_shortest_paths_from_node(source_spy)
+	var near_connections = []
+
+	for node in all_nodes:
+		if paths[node]["distance"] <= distance and paths[node]["distance"] != 0:
+			var connections_to_node = paths[node]["paths"]
+			near_connections.append_array(
+				connections_to_node.filter(
+					func(connection): return (
+						connection not in near_connections
+						and connection != null
+					)
+				)
+			)
+
+	return near_connections
+
+
 func highlight_near_connections(source_spy, distance = 2):
-	var nodes_in_distance = get_nodes_in_distance(source_spy, distance)
-	for node in nodes_in_distance:
-		if node is TowerInstance:
+	var near_connections = get_near_connections(source_spy, distance)
+	for connection_line in near_connections:
+		if connection_line.highlighted:
 			continue
-		var connection_line = get_connection_instance(source_spy, node)
-		if connection_line:
-			connection_line.highlighted = true
-			connection_line.highlight()
-			emit_signal("connection_highlighted", connection_line)
+		connection_line.highlighted = true
+		connection_line.highlight()
 
 func unhighlight_all_connections():
 	for connection_line in connection_lines.get_children():
@@ -179,8 +196,8 @@ func is_inside_path_to_tower(source_spy):
 		and path_to_master_spy.size() > 0
 		and path_to_tower.all(func(node): return node not in path_to_master_spy))
 
-	if is_inside:
-		print("Spy ", source_spy.code_name, " is inside path to tower.")
+	# if is_inside:
+	# 	print("Spy ", source_spy.code_name, " is inside path to tower.")
 
 	return is_inside
 ## signals
