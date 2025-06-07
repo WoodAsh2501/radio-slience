@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=28 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
 [ext_resource type="Script" uid="uid://b0bil7teu65n0" path="res://scripts/managers/spys_manager.gd" id="3_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://c2m582akgaqnj" path="res://scenes/spy.tscn" id="4_t1rx8"]
+[ext_resource type="Texture2D" uid="uid://dfhlvsplcrxpl" path="res://assets/UI/message.png" id="5_82cfe"]
 [ext_resource type="PackedScene" uid="uid://dfnlf4pn18sra" path="res://scenes/tower.tscn" id="5_fpun6"]
 [ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
 [ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
@@ -15,6 +16,14 @@
 [ext_resource type="Script" uid="uid://dra471kd2p8ed" path="res://scripts/game_objects/connection/connections.gd" id="7_8iemx"]
 [ext_resource type="Script" uid="uid://c5qevbk61on6t" path="res://scripts/signal_center.gd" id="10_olg7q"]
 [ext_resource type="Script" uid="uid://dvp6r3p5l8ng2" path="res://scripts/managers/map_sections_manager.gd" id="13_64w2a"]
+[ext_resource type="Texture2D" uid="uid://cmqmey3mhmlkl" path="res://assets/UI/BG.png" id="13_gunhw"]
+[ext_resource type="Texture2D" uid="uid://c5d2iwuki6o5a" path="res://assets/UI/menus.png" id="14_arp2o"]
+[ext_resource type="Texture2D" uid="uid://k1ob1p1s6rro" path="res://assets/UI/spaceoff.png" id="14_h6wmr"]
+[ext_resource type="Script" uid="uid://pwfb1ehlqocw" path="res://scripts/UI/cracking_progress.gd" id="15_pqd0y"]
+[ext_resource type="Texture2D" uid="uid://d0ypekyv5bge0" path="res://assets/UI/task.png" id="16_gunhw"]
+[ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
+[ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
+[ext_resource type="Texture2D" uid="uid://d03fr5hsx0kmx" path="res://assets/UI/MenusBG.png" id="20_wu01b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mx8sn"]
 radius = 11.9
@@ -166,34 +175,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_top = -7.0
 offset_bottom = 16.0
-metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
-
-[node name="ScreenShader" type="ColorRect" parent="UI"]
-z_index = 1
-material = SubResource("ShaderMaterial_klq6b")
-layout_mode = 0
-offset_right = 1170.0
-offset_bottom = 664.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-script = ExtResource("7_8c41q")
-
-[node name="SilencingButton" type="Button" parent="UI"]
-layout_mode = 0
-offset_left = 520.0
-offset_top = 589.0
-offset_right = 646.0
-offset_bottom = 624.0
-text = "RADIO SILENCE"
-script = ExtResource("5_ppgk2")
-
-[node name="SilencingStatus" type="Label" parent="UI"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Radio"
-script = ExtResource("6_2r41h")
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = -2
@@ -203,18 +185,8 @@ offset_bottom = 664.0
 mouse_filter = 2
 color = Color(0.0375521, 0.000970605, 0.114669, 1)
 
-[node name="Button" type="Button" parent="UI" node_paths=PackedStringArray("enemy")]
-layout_mode = 0
-offset_left = 259.0
-offset_top = 590.0
-offset_right = 462.0
-offset_bottom = 624.0
-toggle_mode = true
-text = "Toggle enemy movement"
-script = SubResource("GDScript_wc255")
-enemy = NodePath("../../Enemies/Enemy")
-
 [node name="CrackingProgress" type="BoxContainer" parent="UI"]
+visible = false
 layout_mode = 0
 offset_left = 23.0
 offset_top = 228.0
@@ -224,6 +196,7 @@ alignment = 2
 vertical = true
 
 [node name="ProgressBar" type="ColorRect" parent="UI/CrackingProgress"]
+visible = false
 custom_minimum_size = Vector2(20, 200)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -235,6 +208,113 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Cracking
 Progress"
+
+[node name="UIManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainUI" type="Panel" parent="UIManager"]
+offset_right = 1168.0
+offset_bottom = 662.0
+
+[node name="ScreenShader" type="ColorRect" parent="UIManager/MainUI"]
+z_index = 1
+material = SubResource("ShaderMaterial_klq6b")
+layout_mode = 0
+offset_top = -7.0
+offset_right = 1170.0
+offset_bottom = 657.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("7_8c41q")
+metadata/_edit_lock_ = true
+
+[node name="Bg" type="Sprite2D" parent="UIManager/MainUI"]
+position = Vector2(577, 324)
+scale = Vector2(0.596296, 0.596296)
+texture = ExtResource("13_gunhw")
+
+[node name="Task" type="Sprite2D" parent="UIManager/MainUI"]
+position = Vector2(204, 71)
+scale = Vector2(0.693182, 0.693182)
+texture = ExtResource("16_gunhw")
+
+[node name="Message" type="Sprite2D" parent="UIManager/MainUI"]
+position = Vector2(579.067, 562.375)
+scale = Vector2(0.625458, 0.625458)
+texture = ExtResource("5_82cfe")
+
+[node name="SilencingStatus" type="Label" parent="UIManager/MainUI"]
+layout_mode = 0
+offset_left = 289.0
+offset_top = 99.0
+offset_right = 333.0
+offset_bottom = 122.0
+text = "Radio"
+script = ExtResource("6_2r41h")
+
+[node name="Button" type="Button" parent="UIManager/MainUI" node_paths=PackedStringArray("enemy")]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 463.0
+offset_right = 401.0
+offset_bottom = 497.0
+toggle_mode = true
+text = "Toggle enemy movement"
+script = SubResource("GDScript_wc255")
+enemy = NodePath("../../../Enemies/Enemy")
+
+[node name="Alarm" type="Control" parent="UIManager/MainUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Alarm" type="Sprite2D" parent="UIManager/MainUI/Alarm"]
+position = Vector2(43.75, 304.522)
+scale = Vector2(0.68125, 0.68125)
+texture = ExtResource("18_5k0ak")
+
+[node name="ProgressBar" type="ProgressBar" parent="UIManager/MainUI/Alarm"]
+offset_left = 30.0
+offset_top = 409.0
+offset_right = 261.0
+offset_bottom = 436.0
+rotation = -1.5708
+scale = Vector2(1, 0.6)
+show_percentage = false
+script = ExtResource("15_pqd0y")
+
+[node name="Menu" type="Button" parent="UIManager/MainUI"]
+offset_left = 1077.0
+offset_top = 7.0
+offset_right = 1172.0
+offset_bottom = 102.0
+scale = Vector2(0.7, 0.7)
+icon = ExtResource("14_arp2o")
+
+[node name="SlienceButton" type="TextureButton" parent="UIManager/MainUI"]
+offset_left = 437.0
+offset_top = 527.0
+offset_right = 926.0
+offset_bottom = 668.0
+scale = Vector2(0.65, 0.65)
+texture_normal = ExtResource("14_h6wmr")
+texture_pressed = ExtResource("20_pqd0y")
+script = ExtResource("5_ppgk2")
+
+[node name="MenuUI" type="Panel" parent="UIManager"]
+visible = false
+z_index = 5
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
+position = Vector2(576.444, 324.5)
+scale = Vector2(0.600926, 0.600926)
+texture = ExtResource("20_wu01b")
 
 [node name="SignalCenter" type="Node" parent="."]
 script = ExtResource("10_olg7q")
