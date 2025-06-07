@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=36 format=3 uid="uid://be7pdrgon05ag"]
 
+[ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
@@ -8,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://c2m582akgaqnj" path="res://scenes/spy.tscn" id="4_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://dfhlvsplcrxpl" path="res://assets/UI/message.png" id="5_82cfe"]
 [ext_resource type="PackedScene" uid="uid://dfnlf4pn18sra" path="res://scenes/tower.tscn" id="5_fpun6"]
-[ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
 [ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
 [ext_resource type="Script" uid="uid://jrl5o01jmtg4" path="res://scripts/states/tower/towers_manager.gd" id="5_wc255"]
 [ext_resource type="Script" uid="uid://d50rn0i2pbyf" path="res://scripts/UI/silencing_status.gd" id="6_2r41h"]
@@ -16,15 +16,20 @@
 [ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
 [ext_resource type="Script" uid="uid://dra471kd2p8ed" path="res://scripts/game_objects/connection/connections.gd" id="7_8iemx"]
 [ext_resource type="Script" uid="uid://c5qevbk61on6t" path="res://scripts/signal_center.gd" id="10_olg7q"]
+[ext_resource type="Texture2D" uid="uid://187ywroas0kg" path="res://assets/cluepanel.png" id="12_xy2fk"]
 [ext_resource type="Script" uid="uid://dvp6r3p5l8ng2" path="res://scripts/managers/map_sections_manager.gd" id="13_64w2a"]
+[ext_resource type="Script" uid="uid://wl3800ehysoy" path="res://scripts/UI/ShowClue.gd" id="13_cmcjb"]
 [ext_resource type="Texture2D" uid="uid://cmqmey3mhmlkl" path="res://assets/UI/BG.png" id="13_gunhw"]
+[ext_resource type="Texture2D" uid="uid://cqth0gtgvv42v" path="res://assets/Polygon 6.png" id="14_556r4"]
 [ext_resource type="Texture2D" uid="uid://c5d2iwuki6o5a" path="res://assets/UI/menus.png" id="14_arp2o"]
 [ext_resource type="Texture2D" uid="uid://k1ob1p1s6rro" path="res://assets/UI/spaceoff.png" id="14_h6wmr"]
 [ext_resource type="Script" uid="uid://pwfb1ehlqocw" path="res://scripts/UI/cracking_progress.gd" id="15_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d0ypekyv5bge0" path="res://assets/UI/task.png" id="16_gunhw"]
+[ext_resource type="Texture2D" uid="uid://css0xpjjag7io" path="res://assets/back.png" id="17_kih21"]
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d03fr5hsx0kmx" path="res://assets/UI/MenusBG.png" id="20_wu01b"]
+[ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
 shader = ExtResource("6_b121j")
@@ -56,7 +61,7 @@ func _on_toggled(toggled_on: bool) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mx8sn"]
-radius = 11.9
+radius = 12.2978
 
 [node name="Node2D" type="Node2D"]
 
@@ -65,12 +70,12 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_7agi7")
 
 [node name="MainUI" type="Panel" parent="UIManager"]
 layout_mode = 0
 offset_right = 1168.0
 offset_bottom = 662.0
-mouse_filter = 2
 
 [node name="ScreenShader" type="ColorRect" parent="UIManager/MainUI"]
 z_index = 1
@@ -130,17 +135,6 @@ position = Vector2(43.75, 304.522)
 scale = Vector2(0.68125, 0.68125)
 texture = ExtResource("18_5k0ak")
 
-[node name="ProgressBar" type="ProgressBar" parent="UIManager/MainUI/Alarm"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 409.0
-offset_right = 261.0
-offset_bottom = 436.0
-rotation = -1.5708
-scale = Vector2(1, 0.6)
-show_percentage = false
-script = ExtResource("15_pqd0y")
-
 [node name="Menu" type="Button" parent="UIManager/MainUI"]
 layout_mode = 0
 offset_left = 1077.0
@@ -148,6 +142,7 @@ offset_top = 7.0
 offset_right = 1172.0
 offset_bottom = 102.0
 scale = Vector2(0.7, 0.7)
+focus_mode = 0
 icon = ExtResource("14_arp2o")
 
 [node name="SlienceButton" type="TextureButton" parent="UIManager/MainUI"]
@@ -161,17 +156,62 @@ texture_normal = ExtResource("14_h6wmr")
 texture_pressed = ExtResource("20_pqd0y")
 script = ExtResource("5_ppgk2")
 
-[node name="MenuUI" type="Panel" parent="UIManager"]
-z_index = 5
-layout_mode = 0
+[node name="clue" type="Control" parent="UIManager/MainUI"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
+[node name="Cluepanel" type="Sprite2D" parent="UIManager/MainUI/clue" node_paths=PackedStringArray("signal_center")]
+position = Vector2(961, 590.5)
+scale = Vector2(0.564103, 0.746154)
+texture = ExtResource("12_xy2fk")
+script = ExtResource("13_cmcjb")
+signal_center = NodePath("../../../../SignalCenter")
+
+[node name="ClueInfoLabel" type="RichTextLabel" parent="UIManager/MainUI/clue/Cluepanel"]
+offset_left = -273.0
+offset_top = -57.0
+offset_right = 268.0
+offset_bottom = 49.0
+
+[node name="LeftButton" type="Button" parent="UIManager/MainUI/clue/Cluepanel"]
+offset_left = -342.136
+offset_top = -24.7938
+offset_right = -299.136
+offset_bottom = 23.2062
+focus_mode = 0
+icon = ExtResource("14_556r4")
+
+[node name="RightButton" type="Button" parent="UIManager/MainUI/clue/Cluepanel"]
+offset_left = 340.363
+offset_top = 22.1134
+offset_right = 383.363
+offset_bottom = 70.1134
+rotation = -3.14077
+focus_mode = 0
+icon = ExtResource("14_556r4")
+
+[node name="MenuUI" type="Panel" parent="UIManager"]
 visible = false
+z_index = 5
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 27.0
+
+[node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
 position = Vector2(576.444, 324.5)
 scale = Vector2(0.600926, 0.600926)
 texture = ExtResource("20_wu01b")
+
+[node name="Back" type="Button" parent="UIManager/MenuUI"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -7.0
+offset_right = 347.0
+offset_bottom = 172.0
+scale = Vector2(0.65, 0.65)
+focus_mode = 0
+icon = ExtResource("17_kih21")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -179,6 +219,7 @@ anchors_preset = 0
 offset_top = -7.0
 offset_bottom = 16.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
 z_index = -2
@@ -265,6 +306,7 @@ code_name = "银月"
 
 [node name="Spy4" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
 position = Vector2(106, 387)
+rotation = 0.00805875
 scale = Vector2(1, 1)
 code_name = "晨曦"
 
@@ -295,6 +337,7 @@ scale = Vector2(1, 1)
 [node name="Enemy" type="RigidBody2D" parent="Enemies" groups=["Enemies"]]
 z_index = 3
 position = Vector2(149, 42)
+scale = Vector2(1.8, 1.8)
 gravity_scale = 0.0
 script = ExtResource("3_mx8sn")
 metadata/_edit_group_ = true
@@ -302,16 +345,27 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy"]
 shape = SubResource("CircleShape2D_mx8sn")
 
+[node name="ProgressBar" type="ProgressBar" parent="Enemies/Enemy"]
+offset_left = -12.7778
+offset_top = -19.4445
+offset_right = 13.2222
+offset_bottom = -10.4445
+rotation = 0.0010157
+scale = Vector2(1, 0.6)
+show_percentage = false
+script = ExtResource("15_pqd0y")
+
 [node name="Sprite2D" type="Sprite2D" parent="Enemies/Enemy"]
-position = Vector2(0, -2)
-scale = Vector2(0.15534, 0.15534)
-texture = ExtResource("5_klq6b")
+position = Vector2(5.72205e-06, -1.90735e-06)
+scale = Vector2(0.297456, 0.297456)
+texture = ExtResource("22_3ies3")
 
 [node name="Label" type="Label" parent="Enemies/Enemy"]
-offset_left = 12.0
-offset_top = -13.0
-offset_right = 115.0
-offset_bottom = 10.0
+offset_left = 15.0
+offset_top = -7.22222
+offset_right = 118.0
+offset_bottom = 15.7778
+scale = Vector2(0.66, 0.66)
 text = "Alert Value: 0"
 
 [node name="Connections" type="Node" parent="."]
