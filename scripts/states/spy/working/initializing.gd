@@ -38,3 +38,4 @@ func _on_timer_timeout() -> void:
 
 func exit():
 	state_machine.has_initialized = true
+	spy.node_status["is_employed"] = true

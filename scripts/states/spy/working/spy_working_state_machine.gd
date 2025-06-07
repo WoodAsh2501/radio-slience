@@ -48,5 +48,5 @@ func node_switch_to_last_stable_state(data: Dictionary = {}):
 
 func _on_signal_center_enemy_patrol_captured(spy, _enemy):
 	if spy == spy_instance:
-		print("Spy Captured State Machine: Spy Captured by Enemy")
+		# print("Spy Captured State Machine: Spy Captured by Enemy")
 		node_switch_to("Captured")

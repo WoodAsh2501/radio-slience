@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=22 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
+[ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
-[ext_resource type="Script" uid="uid://b0bil7teu65n0" path="res://scripts/managers/spys_manager.gd" id="3_t1rx8"]
+[ext_resource type="Script" uid="uid://b0bil7teu65n0" path="res://scripts/managers/spy_manager.gd" id="3_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://c2m582akgaqnj" path="res://scenes/spy.tscn" id="4_t1rx8"]
 [ext_resource type="PackedScene" uid="uid://dfnlf4pn18sra" path="res://scenes/tower.tscn" id="5_fpun6"]
 [ext_resource type="Texture2D" uid="uid://r7rid48txdqk" path="res://assets/Enemy.svg" id="5_klq6b"]
@@ -31,6 +32,23 @@ func _physics_process(_delta: float) -> void:
 	enemy.speed = 50 if button_pressed else 0
 "
 
+[sub_resource type="GDScript" id="GDScript_arp2o"]
+script/source = "extends Button
+
+@export var clue_manager: Node
+
+func _on_pressed() -> void:
+	clue_manager.generate_random_clue()
+"
+
+[sub_resource type="GDScript" id="GDScript_ux5qa"]
+script/source = "extends Button
+
+@export var spy_manager: Node
+func _on_toggled(toggled_on: bool) -> void:
+	spy_manager.dev_show_all_spys = toggled_on
+"
+
 [node name="Node2D" type="Node2D"]
 
 [node name="SignalManager" type="Node" parent="."]
@@ -40,92 +58,46 @@ script = ExtResource("1_klq6b")
 script = ExtResource("2_8iemx")
 master_spy = NodePath("../Spys/Spy1")
 
+[node name="ClueManager" type="Node" parent="."]
+script = ExtResource("3_arp2o")
+
 [node name="Spys" type="Node" parent="." groups=["LockedSpys"]]
 script = ExtResource("3_t1rx8")
 
 [node name="Spy1" parent="Spys" groups=["MasterSpys", "VisibleSpys"] instance=ExtResource("4_t1rx8")]
 position = Vector2(98, 86)
 scale = Vector2(1, 1)
+code_name = "蓝翼"
 
 [node name="Spy2" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
 position = Vector2(250, 143)
 scale = Vector2(1, 1)
+code_name = "小晨"
 
 [node name="Spy3" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
 position = Vector2(98, 240)
 scale = Vector2(1, 1)
+code_name = "银月"
 
 [node name="Spy4" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(39, 405)
+position = Vector2(106, 387)
 scale = Vector2(1, 1)
+code_name = "晨曦"
 
 [node name="Spy5" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(205, 384)
+position = Vector2(208, 309)
 scale = Vector2(1, 1)
+code_name = "Starry"
 
 [node name="Spy6" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(357, 293)
+position = Vector2(362, 279)
 scale = Vector2(1, 1)
+code_name = "ivy"
 
 [node name="Spy7" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
 position = Vector2(400, 48)
 scale = Vector2(1, 1)
-
-[node name="Spy8" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(548, 156)
-scale = Vector2(1, 1)
-
-[node name="Spy9" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(503, 398)
-scale = Vector2(1, 1)
-
-[node name="Spy10" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(306, 538)
-scale = Vector2(1, 1)
-
-[node name="Spy11" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(145, 626)
-scale = Vector2(1, 1)
-
-[node name="Spy12" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(568, 562)
-scale = Vector2(1, 1)
-
-[node name="Spy13" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(686, 382)
-scale = Vector2(1, 1)
-
-[node name="Spy14" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(713, 79)
-scale = Vector2(1, 1)
-
-[node name="Spy15" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(870, 171)
-scale = Vector2(1, 1)
-
-[node name="Spy16" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(734, 224)
-scale = Vector2(1, 1)
-
-[node name="Spy17" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(867, 429)
-scale = Vector2(1, 1)
-
-[node name="Spy18" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(868, 603)
-scale = Vector2(1, 1)
-
-[node name="Spy19" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(1053, 450)
-scale = Vector2(1, 1)
-
-[node name="Spy20" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(1094, 272)
-scale = Vector2(1, 1)
-
-[node name="Spy21" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(1129, 86)
-scale = Vector2(1, 1)
+code_name = "夜苍"
 
 [node name="Towers" type="Node" parent="."]
 script = ExtResource("5_wc255")
@@ -236,6 +208,27 @@ size_flags_horizontal = 4
 text = "Cracking
 Progress"
 
+[node name="DiscoverClueButton" type="Button" parent="UI" node_paths=PackedStringArray("clue_manager")]
+layout_mode = 0
+offset_left = 666.0
+offset_top = 541.0
+offset_right = 779.0
+offset_bottom = 572.0
+text = "Discover Clue"
+script = SubResource("GDScript_arp2o")
+clue_manager = NodePath("../../ClueManager")
+
+[node name="ToggleNodesVisibilityButton" type="Button" parent="UI" node_paths=PackedStringArray("spy_manager")]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 536.0
+offset_right = 640.0
+offset_bottom = 567.0
+toggle_mode = true
+text = "Toggle Visibility"
+script = SubResource("GDScript_ux5qa")
+spy_manager = NodePath("../../Spys")
+
 [node name="SignalCenter" type="Node" parent="."]
 script = ExtResource("10_olg7q")
 
@@ -254,6 +247,9 @@ position = Vector2(0, -6)
 polygon = PackedVector2Array(134, -42, -78, -25, -55, 213, -47, 500, -31, 698, 1209, 701, 1219, 415, 1195, -18, 467, -25)
 
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
+[connection signal="employ_new_spy" from="Spys" to="SignalCenter" method="_on_spy_manager_employed"]
+[connection signal="pressed" from="UI/DiscoverClueButton" to="UI/DiscoverClueButton" method="_on_pressed"]
+[connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
 [connection signal="enemy_patrol_captured" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_enemy_patrol_captured"]

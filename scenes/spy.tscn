@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c2m582akgaqnj"]
+[gd_scene load_steps=25 format=3 uid="uid://c2m582akgaqnj"]
 
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy/spy.gd" id="1_1tjyl"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy/spy_detect_range.gd" id="2_8u3ya"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://ccskig8x43o21" path="res://assets/警告.svg" id="16_1r427"]
 [ext_resource type="Script" uid="uid://ddwe402r0lp2o" path="res://scripts/states/spy/captured/locked.gd" id="16_acoot"]
 [ext_resource type="Script" uid="uid://bhdu8lydahodg" path="res://scripts/states/spy/working/captured.gd" id="17_acoot"]
+[ext_resource type="Script" uid="uid://crm12bdfl6i68" path="res://scripts/game_objects/spy/clue_button.gd" id="19_g3acc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
 radius = 200.0
@@ -34,7 +35,7 @@ radius = 16.0
 script/source = "extends Label
 
 func _ready() -> void:
-	text = $\"../\".name
+	text = $\"../\".code_name
 "
 
 [node name="Spy" type="Node2D" groups=["Spys"]]
@@ -42,6 +43,7 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1tjyl")
 
 [node name="SpyDetectRange" type="Area2D" parent="."]
+visible = false
 monitoring = false
 script = ExtResource("2_8u3ya")
 range_radius = 200.0
@@ -150,9 +152,18 @@ position = Vector2(18, 8)
 scale = Vector2(0.135, 0.135)
 texture = ExtResource("16_1r427")
 
+[node name="ClueButton" type="Button" parent="."]
+offset_left = 14.0
+offset_top = -46.0
+offset_right = 107.0
+offset_bottom = -15.0
+text = "发现新线索 "
+script = ExtResource("19_g3acc")
+
 [connection signal="area_entered" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_entered"]
 [connection signal="area_exited" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_exited"]
 [connection signal="body_entered" from="EnemyDetectRange" to="." method="_on_enemy_detect_range_body_entered"]
 [connection signal="body_exited" from="EnemyDetectRange" to="." method="_on_enemy_detect_range_body_exited"]
 [connection signal="mouse_entered" from="SpyNode" to="SpyNode" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="SpyNode" to="SpyNode" method="_on_mouse_exited"]
+[connection signal="pressed" from="ClueButton" to="." method="_on_clue_button_pressed"]

@@ -3,6 +3,8 @@ extends Node
 class LevelStore:
 	static var tower_count = 1
 
+class SpyInformationStore:
+	static var employed_spys_information: Array = []
 
 class PlayStore:
 	static var is_playing = false

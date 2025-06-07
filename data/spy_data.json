@@ -1,0 +1,114 @@
+[
+	{
+		"codeName": "Starry",
+		"data": {
+			"spyType": "normal",
+			"codeName": "Starry",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "插画师",
+				"birthday": "3月3日",
+				"hobbies": "插画、动漫",
+				"characteristics": "有一头蓝色的短发，眼睛大而明亮，常穿一件带有动漫图案的T恤，看起来充满创意与活力。",
+				"background": "星尘是游戏里的一名插画师，常在虚拟世界中为不同的玩家绘制插画。她的作品风格非常独特，富有情感色彩，深受粉丝喜爱。"
+			},
+			"clue": "一张画稿，背后发现一张小插画便签，背景是现实世界的一个破旧的农舍"
+		}
+	},
+	{
+		"codeName": "ivy",
+		"data": {
+			"spyType": "undercover",
+			"codeName": "ivy",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "私人侦探",
+				"birthday": "8月12日",
+				"hobbies": "解谜游戏，武器收集",
+				"characteristics": "左眼下有一颗深色的斑点，外表冷酷，眼神锐利。身着简洁的黑色风衣，总是而默不作声地穿梭于霓虹夜市的每一个角落。",
+				"background": "红狼总是独自一人，喜欢在虚拟世界的深夜探险，几乎地图上的每个位置都有他留下的身影。他总是喜欢观察，静静地坐在角落里，不发一语，却能洞察一切。"
+			},
+			"clue": "一页侦探调查任务记录中发现来自帝国系统内部的加密指令"
+		}
+	},
+	{
+		"codeName": "夜苍",
+		"data": {
+			"spyType": "undercover",
+			"codeName": "夜苍",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "虚拟物资交换商",
+				"birthday": "5月25日",
+				"hobbies": "地下交易、古董收藏",
+				"characteristics": "深蓝色眼睛，带着一种神秘的光芒，皮肤白皙，常常戴着一顶遮住部分面容的帽子，给人神秘且不易接近的印象。",
+				"background": "夜苍经营着一个虚拟商铺，专门为一些顶尖玩家提供交换服务。她似乎总能找到合适的渠道交换信息"
+			},
+			"clue": "在虚拟商店藏品中，发现了一枚嵌在木盒中的古老戒指。戒指的内侧刻有一个不明的符号，这个符号曾多次出现在帝国的内部分配文件中"
+		}
+	},
+	{
+		"codeName": "蓝翼",
+		"data": {
+			"spyType": "normal",
+			"codeName": "蓝翼",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "飞行员",
+				"birthday": "5月22日",
+				"hobbies": "飞行、天文观察",
+				"characteristics": "总是穿着飞行员的制服，身材高挑，长发随风飘扬。他的目光坚毅，总能在复杂的飞行中保持冷静",
+				"background": "蓝翼是虚拟世界中的飞行员，擅长操作各类飞行器。她喜欢在虚拟世界的天空中翱翔，每次飞行都带给她新的自由感"
+			},
+			"clue": "一本飞行日志里发现了一张破旧的照片，照片中蓝翼站在一架飞机旁，背景中的城市远处有一座熟悉的山脉"
+		}
+	},
+	{
+		"codeName": "小晨",
+		"data": {
+			"spyType": "normal",
+			"codeName": "小晨",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "咖啡师",
+				"birthday": "7月4日",
+				"hobbies": "烘焙、品酒",
+				"characteristics": "小晨总是带着温暖的微笑，清新的气质让人感到放松。她喜欢穿着简单的咖啡师制服，阳光洒在她身上时，她总是显得格外迷人",
+				"background": "小晨经营着一家温馨的咖啡馆L.T.cafe，虽然她看起来只是一个普通的咖啡师，但她的温柔和细心总能为来客提供一丝温暖。"
+			},
+			"clue": "在咖啡馆工作台抽屉里发现一张手绘的、歪歪扭扭的现实世界庭院草图"
+		}
+	},
+	{
+		"codeName": "银月",
+		"data": {
+			"spyType": "normal",
+			"codeName": "银月",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "夜市书店老板",
+				"birthday": "4月9日",
+				"hobbies": "阅读、手工艺",
+				"characteristics": "一头深棕色的卷发，穿着简洁的卡其色夹克，总是戴着一副高端的摄影眼镜，气质低调但不失魅力。",
+				"background": "银月经营着一家小型书店，店内的书籍大多是古籍和经典文学。他总是喜欢与顾客分享书中的故事"
+			},
+			"clue": "一本书的夹层里发现了一张未完成的书法作品，字迹间有些地方被不经意地涂抹过"
+		}
+	},
+	{
+		"codeName": "晨曦",
+		"data": {
+			"spyType": "normal",
+			"codeName": "晨曦",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "摄影师",
+				"birthday": "2月2日",
+				"hobbies": "旅行、野生动物摄影",
+				"characteristics": "晨曦脸上总是带着宁静的微笑，眼睛清澈而深邃，给人一种静谧的感觉。衣着简洁，常穿着一件藏青色的衬衫",
+				"background": "晨曦是一名虚拟职业摄影师，在不同的地图区域进行拍摄。他的作品以自然风光和野生动物为主，深受玩家喜爱"
+			},
+			"clue": "相机包，发现了一张破损的明信片，明信片背面写着“再也回不去了”几行字"
+		}
+	}
+]

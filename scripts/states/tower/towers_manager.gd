@@ -43,7 +43,7 @@ func _on_signal_center_connection_established(start_node: Variant, end_node: Var
 
 
 func employ_spy(tower):
-	print("Employing tower: ", tower.name)
+	# print("Employing tower: ", tower.name)
 	var working_state_machine = tower.get_node("WorkingStateMachine")
 	if working_state_machine.is_state("Unreachable"):
 		if working_state_machine.has_initialized:

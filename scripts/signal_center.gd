@@ -18,6 +18,7 @@ signal connection_established(start_node, end_node, value)
 # signal connection_lost(start_node, end_node)
 
 signal spy_manager_discovered(spy)
+signal spy_manager_employed(spy)
 signal spy_manager_lost(spy)
 # signal spy_manager_fired(spy)
 
@@ -88,10 +89,17 @@ func _on_spy_manager_discovered(source_spy, target_spy):
 	emit_signal("spy_manager_discovered", source_spy, target_spy)
 	# print("Spy Manager Discovered: ", source_spy, " Target: ", target_spy)
 
+
 # TODO: on spy lost
 func _on_spy_manager_lost(source_spy, target_spy):
 	# emit_signal("spy_manager_lost", source_spy, target_spy)
 	pass
+
+
+func _on_spy_manager_employed(spy) -> void:
+	emit_signal("spy_manager_employed", spy)
+	pass # Replace with function body.
+
 
 ## map section signals
 
@@ -104,3 +112,4 @@ func connect_map_section_signals():
 func on_map_sections_manager_map_section_unblocked(map_section):
 	# print("map unblocked")
 	emit_signal("map_section_unblocked", map_section)
+

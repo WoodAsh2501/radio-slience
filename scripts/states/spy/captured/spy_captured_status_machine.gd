@@ -14,7 +14,7 @@ func mark_as_not_captured():
 
 func _on_signal_center_enemy_patrol_detected(spy, _enemy):
 	if spy == spy_instance:
-		print("Spy Captured State Machine: Spy Detected by Enemy")
+		# print("Spy Captured State Machine: Spy Detected by Enemy")
 		switch_to("Locked")
 
 func _on_signal_center_enemy_patrol_captured(spy, _enemy):

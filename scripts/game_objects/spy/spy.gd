@@ -6,16 +6,18 @@ class_name SpyInstance
 
 @onready var working_state_machine = $WorkingStateMachine
 @onready var caputured_state_machine = $CapturedStateMachine
+@onready var clue_button = $ClueButton
+@export var code_name: String = "Spy"
 
 var connection_start_from: Node2D
-
 var connections: Dictionary
-
 var node_status = {
+	"is_employed": false,
 	"is_connecting": false,
 	"has_connection": false,
 	"in_section": null,
 	"reachable": false,
+	"is_investigated": false
 }
 
 signal building_connection_started
@@ -27,8 +29,10 @@ signal radio_range_enemy_exited
 signal connect_range_spy_entered
 signal connect_range_spy_exited
 
-func _init():
-	pass
+signal collect_clue
+
+func _ready() -> void:
+	clue_button.visible = false
 
 func _process(_delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -96,6 +100,16 @@ func _on_spy_detect_range_area_exited(_area: Area2D) -> void:
 	# 	connect_range_spy_exited.emit(self, parent_instance)
 	pass
 
+func discover_clue(spy_data):
+	clue_button.visible = true
+	clue_button.spy_data = spy_data
+	# print(clue_button.spy_data)
+
+func _on_clue_button_pressed() -> void:
+	clue_button.visible = false
+	print(clue_button.spy_data)
+	emit_signal("collect_clue", clue_button.spy_data["codeName"])
+	clue_button.spy_data = null
 
 class ConnectionUtils:
 	static func get_preview_line(current_connection):

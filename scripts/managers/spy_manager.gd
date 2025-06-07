@@ -3,6 +3,10 @@ extends Node
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 @onready var connection_manager = get_node("../ConnectionManager")
 
+signal employ_new_spy
+
+var dev_show_all_spys: bool = false
+
 func _ready() -> void:
 	for spy in spys:
 		var working_state_machine = spy.get_node("WorkingStateMachine")
@@ -11,6 +15,11 @@ func _ready() -> void:
 			working_state_machine.node_switch_to("Initializing")
 
 func _process(_delta: float) -> void:
+	for spy in spys:
+		if spy.node_status["is_employed"] or spy.is_in_group("VisibleSpys"):
+			continue
+
+		spy.visible = dev_show_all_spys
 	# for spy in spys:
 	# 	var state_machine = spy.get_node("StateMachine")
 	# 	if spy.is_in_group("VisibleSpys") and state_machine.is_state("Invisible"):
@@ -39,7 +48,8 @@ func _on_signal_center_connection_established(start_node: Variant, end_node: Var
 
 
 func employ_spy(spy):
-	print("Employing spy: ", spy.name)
+	# print("Employing spy: ", spy.name)
+	emit_signal("employ_new_spy", spy)
 	var working_state_machine = spy.get_node("WorkingStateMachine")
 	if working_state_machine.is_state("Unreachable"):
 		if working_state_machine.has_initialized:
@@ -47,3 +57,5 @@ func employ_spy(spy):
 
 		elif spy.connections:
 			working_state_machine.node_switch_to("Initializing")
+
+	spy.node_status["is_employed"] = true
