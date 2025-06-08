@@ -1,6 +1,8 @@
 extends Node2D
 class_name SpyInstance
 
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
 @onready var connection_lines = $ConnectionLines
 @onready var enemy_detect_range = $EnemyDetectRange
 
@@ -13,7 +15,6 @@ var spy_data: Dictionary = {}
 
 var is_undercover = false
 var is_inside_path_to_tower = false
-var expose_time = 1.0
 var since_last_expose = 0.0
 
 var is_discovered = false
@@ -50,7 +51,7 @@ func _process(_delta: float) -> void:
 	handle_mouse_interaction()
 	if is_undercover and is_inside_path_to_tower:
 		since_last_expose += get_process_delta_time()
-		if since_last_expose >= expose_time:
+		if since_last_expose >= game_attributes.undercover_expose_period:
 			expose()
 			since_last_expose = 0.0
 

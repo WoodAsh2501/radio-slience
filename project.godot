@@ -29,6 +29,7 @@ window/stretch/mode="canvas_items"
 Enemies=""
 Spys=""
 Towers=""
+GameAttributes=""
 
 [input]
 

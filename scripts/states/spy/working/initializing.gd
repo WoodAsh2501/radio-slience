@@ -3,6 +3,8 @@ extends State
 @onready var label = $"../../Label"
 @onready var spy = $"../../"
 
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
 var spy_state_status = {
 	"visible": true,
 	"scale": 1.0,
@@ -18,7 +20,6 @@ var timer
 func _init() -> void:
 	timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 0.1
 	timer.one_shot = true
 	timer.connect("timeout", _on_timer_timeout)
 
@@ -26,6 +27,7 @@ func enter(_data):
 	timer.start()
 
 func _process(_delta: float) -> void:
+	timer.wait_time = game_attributes.spy_init_time
 	if not timer or timer.is_stopped():
 		return
 	label.text = "Initializing" + str("%0.2f" % timer.time_left)

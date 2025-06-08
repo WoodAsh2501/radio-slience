@@ -1,4 +1,16 @@
 extends Node
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
+func _process(_delta: float) -> void:
+	PlayStore.max_action_point = game_attributes.action_point_max
+	PlayStore.action_point_resume_time = game_attributes.action_point_recovery_time
+
+	if PlayStore.action_point > PlayStore.max_action_point:
+		PlayStore.action_point = PlayStore.max_action_point
+
+func _ready() -> void:
+	PlayStore.max_action_point = game_attributes.action_point_max
+	PlayStore.init_action_point()
 
 class LevelStore:
 	static var tower_count = 1

@@ -4,12 +4,15 @@ signal spy_detected
 signal spy_captured
 signal alert_value_changed # 发送信号到警戒条
 
-@export var speed: float = 0.0
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 @onready var label = $Label
 @onready var alert_sound: AudioStreamPlayer
 
 @onready var target_position: Vector2 = choose_random_position()
+
+var speed: float
 
 var locked_spy_array: Array = []
 var target_spy: Node2D = null
@@ -27,7 +30,7 @@ func _ready() -> void:
 	alert_sound = AudioStreamPlayer.new()
 	add_child(alert_sound)
 	alert_sound.stream = load("res://UI音效/警戒值过高警报3.wav")
-	alert_sound.volume_db = -8.0  # 设置为原来的40%音量（约-8dB）
+	alert_sound.volume_db = -8.0 # 设置为原来的40%音量（约-8dB）
 
 func _process(_delta: float) -> void:
 	label.text = "Alert Value: " + str(alert_value)
@@ -62,30 +65,30 @@ func _physics_process(delta: float) -> void:
 	target_position = current_target_position
 
 	# for debug
-	# if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-	# 	target_position = get_global_mouse_position()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		target_position = get_global_mouse_position()
 
 	current_direction = (target_position - position).normalized()
 	move_and_collide(current_direction * speed * delta)
 
 	if is_spy_exposed():
 		if alert_value < 100:
-			update_alert_value(alert_value + 1)
+			update_alert_value(alert_value + game_attributes.enemy_caution_increasing_speed)
 	else:
 		if alert_value > 0:
-			update_alert_value(alert_value - 1)
+			update_alert_value(alert_value - game_attributes.enemy_caution_cooling_speed)
 
 func update_alert_value(new_value: int) -> void:
 	old_alert_value = alert_value
 	alert_value = new_value
 	emit_signal("alert_value_changed", old_alert_value, alert_value) # 发送信号到警戒条
 	on_alert_value_changed(old_alert_value, alert_value)
-	
+
 	# Handle alert sound
-	if alert_value > 80 and not is_playing_alert:
+	if alert_value > game_attributes.enemy_caution_sound_threshold and not is_playing_alert:
 		alert_sound.play()
 		is_playing_alert = true
-	elif alert_value <= 80 and is_playing_alert:
+	elif alert_value <= game_attributes.enemy_caution_sound_threshold and is_playing_alert:
 		alert_sound.stop()
 		is_playing_alert = false
 

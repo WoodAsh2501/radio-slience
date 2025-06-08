@@ -1,6 +1,8 @@
 extends Node2D
 class_name TowerInstance
 
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
 @onready var connection_lines = $ConnectionLines
 
 @onready var working_state_machine = $WorkingStateMachine
@@ -81,7 +83,7 @@ class ConnectionUtils:
 
 func update_cracking_progress():
 	if node_status.reachable and not GameStore.SilencingStore.is_silencing:
-		cracking_progress += 0.2
+		cracking_progress += game_attributes.tower_crack_increasing_speed
 	else:
 		# cracking_progress -= 0.3
 		pass

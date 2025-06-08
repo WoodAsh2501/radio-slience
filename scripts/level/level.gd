@@ -2,8 +2,6 @@ extends Node2D
 
 var since_last_action_point_resume = 0.0
 
-func _ready() -> void:
-	GameStore.PlayStore.init_action_point()
 
 func _process(_delta: float) -> void:
 	if since_last_action_point_resume < GameStore.PlayStore.action_point_resume_time:

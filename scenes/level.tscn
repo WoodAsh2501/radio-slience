@@ -1,8 +1,9 @@
-[gd_scene load_steps=64 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=65 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_v3why"]
+[ext_resource type="Script" uid="uid://dgp5bbor1q6md" path="res://scripts/game_attributes.gd" id="2_3fqns"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
@@ -36,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
 [ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://0i0hksorwmaa" path="res://assets/menuassets/backtogame.png" id="18_iafhg"]
-[ext_resource type="Script" path="res://scripts/UI/PopClue.gd" id="18_vmndo"]
+[ext_resource type="Script" uid="uid://ci46omcjpnv4o" path="res://scripts/UI/PopClue.gd" id="18_vmndo"]
 [ext_resource type="Texture2D" uid="uid://ddxw2tjp10oep" path="res://assets/UI/popcule.png" id="19_bo6tc"]
 [ext_resource type="Script" uid="uid://rtdjf6wox4p0" path="res://scripts/UI/backtogame_button.gd" id="19_c1pbi"]
 [ext_resource type="Script" uid="uid://b0xyorjtqg14j" path="res://scripts/UI/backtomain_button.gd" id="19_cr74b"]
@@ -51,7 +52,7 @@
 [ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
-[ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Script" uid="uid://dlj6k6w416v03" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://u1v6tnroi1vx" path="res://assets/newsphoto/Frame 1.png" id="34_30hdq"]
 [ext_resource type="Script" uid="uid://bopmhj2xq7omd" path="res://scripts/news_exit.gd" id="35_3fqns"]
 [ext_resource type="Texture2D" uid="uid://bwabhrl0ue0w4" path="res://assets/UI/ProBG.png" id="37_bhb1k"]
@@ -67,11 +68,11 @@ shader = ExtResource("6_b121j")
 
 [sub_resource type="GDScript" id="GDScript_wc255"]
 script/source = "extends Button
-
+@onready var game_attributes = get_tree().get_nodes_in_group(\"GameAttributes\")[0]
 @export var enemy: Node2D
 
 func _physics_process(_delta: float) -> void:
-	enemy.speed = 50 if button_pressed else 0
+	enemy.speed = game_attributes.enemy_move_speed if button_pressed else 0
 "
 
 [sub_resource type="GDScript" id="GDScript_arp2o"]
@@ -101,6 +102,21 @@ texture = ExtResource("26_gur6y")
 script = ExtResource("1_v3why")
 metadata/_edit_horizontal_guides_ = [280.0]
 metadata/_edit_vertical_guides_ = [592.0]
+
+[node name="GameAttributes" type="Node" parent="." groups=["GameAttributes"]]
+script = ExtResource("2_3fqns")
+spy_init_time = 1.0
+spy_detected_range = 138.7
+spy_discover_range = 230.725
+undercover_expose_period = 10.0
+undercover_exposable_distance = 4
+enemy_move_speed = 100.0
+enemy_caution_increasing_speed = 1.0
+enemy_caution_cooling_speed = 1.0
+enemy_caution_sound_threshold = 50.0
+action_point_max = 10
+action_point_recovery_time = 5.0
+tower_crack_increasing_speed = 10.0
 
 [node name="TopUI" type="CanvasLayer" parent="."]
 layer = 0

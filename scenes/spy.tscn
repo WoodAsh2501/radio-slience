@@ -58,7 +58,6 @@ visible = false
 input_pickable = false
 monitoring = false
 script = ExtResource("2_8u3ya")
-range_radius = 200.0
 
 [node name="RangeCollision" type="CollisionShape2D" parent="SpyDetectRange"]
 shape = SubResource("CircleShape2D_si84p")
@@ -68,7 +67,6 @@ visible = false
 input_pickable = false
 monitoring = false
 script = ExtResource("3_wstem")
-range_radius = 150.0
 
 [node name="RangeCollision" type="CollisionShape2D" parent="EnemyDetectRange"]
 shape = SubResource("CircleShape2D_q5y2r")

@@ -1,6 +1,8 @@
 extends Node
 class_name ConnectionManager
 
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
+
 @export var master_spy: SpyInstance
 @export var tower: TowerInstance
 @export var test_spy: SpyInstance
@@ -145,7 +147,7 @@ func get_shortest_paths_from_node(start_spy):
 func get_shortest_path_to_node(start_spy, end_spy):
 	return get_shortest_paths_from_node(start_spy)[end_spy]["paths"]
 
-func get_nodes_in_distance(source_spy, distance = 2):
+func get_nodes_in_distance(source_spy, distance = game_attributes.undercover_exposable_distance):
 	var all_nodes = nodes.duplicate()
 	var paths = get_shortest_paths_from_node(source_spy)
 	var nodes_in_distance = []
@@ -155,7 +157,7 @@ func get_nodes_in_distance(source_spy, distance = 2):
 
 	return nodes_in_distance
 
-func get_near_connections(source_spy, distance = 2):
+func get_near_connections(source_spy, distance = game_attributes.undercover_exposable_distance):
 	var all_nodes = nodes.duplicate()
 	var paths = get_shortest_paths_from_node(source_spy)
 	var near_connections = []

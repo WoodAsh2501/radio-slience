@@ -1,14 +1,14 @@
 extends Area2D
 
-@export var range_radius: float = 200.0
+@onready var game_attributes = get_tree().get_nodes_in_group("GameAttributes")[0]
 @onready var radio_range_collision: CircleShape2D = get_node("RangeCollision").shape
 
 func _process(_delta) -> void:
 	if radio_range_collision:
-		radio_range_collision.radius = range_radius
+		radio_range_collision.radius = game_attributes.spy_detected_range
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, range_radius, Color.CRIMSON, false)
-	draw_circle(Vector2.ZERO, range_radius, Color.from_rgba8(255, 0, 0, 10), true)
+	draw_circle(Vector2.ZERO, game_attributes.spy_detected_range, Color.CRIMSON, false)
+	draw_circle(Vector2.ZERO, game_attributes.spy_detected_range, Color.from_rgba8(255, 0, 0, 10), true)
 
