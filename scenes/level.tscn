@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=33 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
@@ -25,6 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d03fr5hsx0kmx" path="res://assets/UI/MenusBG.png" id="20_wu01b"]
+[ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
+[ext_resource type="Script" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
 shader = ExtResource("6_b121j")
@@ -164,8 +166,10 @@ script = ExtResource("5_ppgk2")
 [node name="MenuUI" type="Panel" parent="UIManager"]
 z_index = 5
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 258.0
+offset_top = 230.0
+offset_right = 298.0
+offset_bottom = 270.0
 
 [node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
 visible = false
@@ -333,6 +337,12 @@ metadata/_edit_lock_ = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MapSections/MapSetcion1"]
 position = Vector2(0, -6)
 polygon = PackedVector2Array(134, -42, -78, -25, -55, 213, -47, 500, -31, 698, 1209, 701, 1219, 415, 1195, -18, 467, -25)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_xy2fk")
+
+[node name="BackgroundMusic" type="Node" parent="."]
+script = ExtResource("27_xy2fk")
 
 [connection signal="pressed" from="UI/DiscoverClueButton" to="UI/DiscoverClueButton" method="_on_pressed"]
 [connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
