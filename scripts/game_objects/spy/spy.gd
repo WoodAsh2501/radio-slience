@@ -149,6 +149,12 @@ func _on_signal_center_exposing_succeeded(spy):
 		print("Spy exposed: ", code_name)
 		captured_state_machine.switch_to("Locked")
 
+func _on_signal_center_spy_manager_deleted(deleted_spy):
+	if deleted_spy == self:
+		print("Spy deleted: ", code_name)
+		working_state_machine.node_switch_to("Captured")
+
+
 class ConnectionUtils:
 	static func get_preview_line(current_connection):
 		var children = current_connection.get_children()

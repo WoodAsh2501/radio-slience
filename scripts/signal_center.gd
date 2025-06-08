@@ -6,6 +6,7 @@ extends Node
 # signal remove_enemy(enemy)
 
 signal click_spy(spy)
+signal click_empty
 
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
@@ -26,6 +27,9 @@ signal connection_unhighlighted(connection_line)
 signal spy_manager_discovered(spy)
 signal spy_manager_employed(spy)
 signal spy_manager_lost(spy)
+
+signal spy_manager_deleted(spy)
+
 # signal spy_manager_fired(spy)
 
 signal clue_discovered(spy_data)
@@ -46,7 +50,7 @@ func _ready() -> void:
 	connect_map_section_signals()
 	connect_enemy_patrol_signals(spys, enemies)
 	connect_connection_signals(connection_manager)
-	connect_spy_manager_signals(spys)
+	connect_spy_manager_signals(spys, connection_manager)
 	connect_clue_signals(clue_manager, spys)
 	connect_ui_signals(spys)
 	connect_exposing_signals(spys, enemies, connection_manager)
@@ -62,12 +66,18 @@ func connect_ui_signals(spys):
 	for spy in spys:
 		# var spy_node = spy.get_node("SpyNode")
 		var clicked_state = spy.get_node("WorkingStateMachine/Clicked")
+		var delete_button = spy.get_node("DeleteButton")
 		# connect_signal(spy_node, "click_spy", _on_spy_instance_clicked)
 		connect_signal(clicked_state, "click_spy", _on_spy_instance_clicked)
+		connect_signal(self, "click_spy", delete_button._on_signal_center_click_spy)
+		connect_signal(self, "click_empty", delete_button._on_signal_center_click_empty)
 
 func _on_spy_instance_clicked(spy):
 	# print("Spy clicked: ", spy)
 	emit_signal("click_spy", spy)
+
+func _on_global_click_detector_pressed() -> void:
+	emit_signal("click_empty")
 
 
 ## enemy patrol signals ##
@@ -99,6 +109,7 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 	# print("Enemy detected spy: ", signal_spy)
 func _on_enemy_instance_spy_captured(signal_enemy, signal_spy):
 	emit_signal("enemy_patrol_captured", signal_spy, signal_enemy)
+	emit_signal("spy_manager_deleted", signal_spy)
 	## TODO: 记得把连接信号移到spy lost那里
 	emit_signal("connection_changed")
 
@@ -124,15 +135,24 @@ func _on_connection_manager_new_connection_established(start_spy: Node, end_spy:
 
 func _on_connection_manager_connection_lost(start_spy: Node, end_spy: Node, value: Variant) -> void:
 	emit_signal("connection_lost", start_spy, end_spy, value)
-	emit_signal("spy_manager_lost", start_spy)
+	# emit_signal("spy_manager_lost", start_spy)
 	emit_signal("connection_changed")
 
 ## spy manager signals ##
 
-func connect_spy_manager_signals(spys):
+func connect_spy_manager_signals(spys, connection_manager):
 	for spy in spys:
 		connect_signal(spy, "connect_range_spy_entered", _on_spy_manager_discovered)
 		connect_signal(spy, "connect_range_spy_exited", _on_spy_manager_lost)
+
+		var delete_button = spy.get_node("DeleteButton")
+		connect_signal(delete_button, "delete_spy", _on_delete_button_delete_spy)
+
+		connect_signal(self, "spy_manager_deleted", connection_manager._on_signal_center_spy_manager_deleted)
+		connect_signal(self, "spy_manager_deleted", spy._on_signal_center_spy_manager_deleted)
+
+func _on_delete_button_delete_spy(spy):
+	emit_signal("spy_manager_deleted", spy)
 
 func _on_spy_manager_discovered(source_spy, target_spy):
 	emit_signal("spy_manager_discovered", source_spy, target_spy)

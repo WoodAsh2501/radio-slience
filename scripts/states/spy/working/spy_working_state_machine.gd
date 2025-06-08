@@ -34,7 +34,7 @@ func node_switch_to(state_name: String, data: Dictionary = {}):
 	spy_instance.visible = set_status(state_status, "visible")
 	spy_detect_range.monitoring = set_status(state_status, "detecting_spy")
 	enemy_detect_range.monitoring = set_status(state_status, "detecting_enemy")
-	
+
 	# 设置贴图
 	if sprite and state_status.has("texture"):
 		sprite.texture = state_status["texture"]
@@ -42,7 +42,7 @@ func node_switch_to(state_name: String, data: Dictionary = {}):
 func set_status(state_status, key):
 	if not state_status.has(key):
 		return null
-		
+
 	var value = state_status[key]
 	if not value in ["keep"]:
 		return value
