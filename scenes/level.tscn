@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=67 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bisa2g07srddb" path="res://assets/UI/nodeinfo.png" id="6_v3why"]
 [ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
 [ext_resource type="Script" uid="uid://dra471kd2p8ed" path="res://scripts/game_objects/connection/connections.gd" id="7_8iemx"]
+[ext_resource type="Texture2D" uid="uid://djsx1sa5s0x5v" path="res://assets/UI/aim.png" id="7_sc620"]
 [ext_resource type="Texture2D" uid="uid://dyrvbh3g6g4h" path="res://assets/UI/Close.png" id="8_2jdvr"]
 [ext_resource type="Texture2D" uid="uid://c81ya6xxjdinm" path="res://assets/UI/info.png" id="8_q4oe8"]
 [ext_resource type="Script" uid="uid://ddis057ribujv" path="res://scripts/UI/menu.gd" id="10_556r4"]
@@ -52,7 +53,7 @@
 [ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
-[ext_resource type="Script" uid="uid://dlj6k6w416v03" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://u1v6tnroi1vx" path="res://assets/newsphoto/Frame 1.png" id="34_30hdq"]
 [ext_resource type="Script" uid="uid://bopmhj2xq7omd" path="res://scripts/news_exit.gd" id="35_3fqns"]
 [ext_resource type="Texture2D" uid="uid://bwabhrl0ue0w4" path="res://assets/UI/ProBG.png" id="37_bhb1k"]
@@ -91,6 +92,9 @@ script/source = "extends Button
 func _on_toggled(toggled_on: bool) -> void:
 	spy_manager.dev_show_all_spys = toggled_on
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_sc620"]
+font_color = Color(0.964706, 0.67451, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mx8sn"]
 radius = 12.3
@@ -167,14 +171,32 @@ position = Vector2(204, 71)
 scale = Vector2(0.693182, 0.693182)
 texture = ExtResource("16_gunhw")
 
-[node name="nodeinfo" type="Control" parent="TopUI/UIManager/MainUI" node_paths=PackedStringArray("signal_center")]
+[node name="Aim" type="Sprite2D" parent="TopUI/UIManager/MainUI/Task"]
+position = Vector2(64.918, -46.1639)
+scale = Vector2(0.961749, 0.961749)
+texture = ExtResource("7_sc620")
+
+[node name="ProgressBar" type="ColorRect" parent="TopUI/UIManager/MainUI/Task"]
+custom_minimum_size = Vector2(20, 200)
+offset_left = 221.0
+offset_top = 29.0
+offset_right = 249.0
+offset_bottom = 489.0
+rotation = 1.5708
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(1, 1, 1, 0.188235)
+
+[node name="nodeinfo" type="Control" parent="TopUI/UIManager/MainUI" node_paths=PackedStringArray("signal_center", "connection_manager")]
 anchors_preset = 0
 offset_left = -4.0
 offset_top = 86.0
 offset_right = 36.0
 offset_bottom = 126.0
+mouse_filter = 2
 script = ExtResource("6_asl66")
 signal_center = NodePath("../../../../SignalCenter")
+connection_manager = NodePath("../../../../ConnectionManager")
 
 [node name="card" type="Sprite2D" parent="TopUI/UIManager/MainUI/nodeinfo"]
 position = Vector2(178, 574)
@@ -237,11 +259,11 @@ offset_bottom = 202.692
 
 [node name="close" type="Button" parent="TopUI/UIManager/MainUI/nodeinfo"]
 layout_mode = 0
-offset_left = 294.0
+offset_left = 302.305
 offset_top = 286.0
-offset_right = 374.0
-offset_bottom = 366.0
-scale = Vector2(0.51, 0.51)
+offset_right = 382.305
+offset_bottom = 374.37
+scale = Vector2(0.4, 0.4)
 icon = ExtResource("8_2jdvr")
 
 [node name="Message" type="Sprite2D" parent="TopUI/UIManager/MainUI"]
@@ -564,6 +586,7 @@ offset_top = 157.0
 offset_right = 115.0
 offset_bottom = 180.0
 text = "ActionPoints"
+label_settings = SubResource("LabelSettings_sc620")
 script = ExtResource("18_gur6y")
 
 [node name="SignalManager" type="Node" parent="."]

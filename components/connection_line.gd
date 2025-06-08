@@ -20,7 +20,7 @@ func _ready() -> void:
 		connection_sound.play()
 
 func highlight() -> void:
-	set_default_color(Color.from_rgba8(0, 255, 0, 255))
+	set_default_color(Color.from_rgba8(253, 42, 40, 255))
 
 func unhighlight() -> void:
-	set_default_color(Color.from_rgba8(255, 0, 0, 255))
+	set_default_color(Color.from_rgba8(170, 235, 245, 255))
