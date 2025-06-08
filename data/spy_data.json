@@ -110,5 +110,229 @@
 			},
 			"clue": "相机包，发现了一张破损的明信片，明信片背面写着“再也回不去了”几行字"
 		}
+	},
+		{
+		"codeName": "嗒啦啦",
+		"data": {
+			"isUndercover": true,
+			"codeName": "嗒啦啦",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "驻唱歌手",
+				"birthday": "11.10",
+				"hobbies": "唱歌，跳舞",
+				"characteristics": "\n嗒啦啦脸上有一颗五角星胎记。靠着可爱的外表和热情的性格可以和酒馆里的每一个来客拉进距离。",
+				"background": "\n作为拜伦酒馆的驻唱歌手，来酒馆的人都叫她“拜伦精灵”。但一旦提到她为什么只来酒吧唱歌不去探索世界别的地方，她总是含糊其辞。"
+			},
+			"clue": "一个脸上有五角星胎记的女子，被看见在巷子里与穿着帝国官方管理制服的人交流"
+		}
+	},
+	{
+		"codeName": "昔兰尼加",
+		"data": {
+			"isUndercover": true,
+			"codeName": "昔兰尼加",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "自由人",
+				"birthday": "12.17",
+				"hobbies": "喝酒",
+				"characteristics": "昔兰尼加进入游戏时选择的是蓝色皮肤，这和他的性格很像，像一座冰山一般",
+				"background": "昔兰尼加总是独来独往，经常来酒馆一个人喝闷酒，本来他这样的性格应该无人在意，偏偏扎眼的蓝色皮肤让他每次来酒馆都成为焦点。"
+			},
+			"clue": "在帝国管理人员档案隐约看见有一个蓝色皮肤的人员额外显眼。"
+		}
+	},
+	{
+		"codeName": "明德里",
+		"data": {
+			"isUndercover": true,
+			"codeName": "明德里",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "赛车手",
+				"birthday": "3.14",
+				"hobbies": "赛车",
+				"characteristics": "明德里游戏里有一张男偶像脸与反光的银色头发，游戏里赢得了很多粉丝",
+				"background": "明德里是赛车的万年老二，每次去比赛总说这次一定第一，但是第一一直在变，他的位置永远不变"
+			},
+			"clue": "在昨天的比赛前一个穿着赛车服的银色头发选手与一个黑衣神秘人有短暂接触"
+		}
+	},
+	{
+		"codeName": "阿兜",
+		"data": {
+			"isUndercover": false,
+			"codeName": "阿兜",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "装备零件店维修师",
+				"birthday": "8.69",
+				"hobbies": "捣鼓零件，喝酒",
+				"characteristics": "阿兜人如其名戴着兜帽，是一个典型的外冷内热的人。每天最喜欢的事就是从装备店下班后来酒馆喝酒。",
+				"background": "阿兜从小喜欢各种零件，奈何现实里受父母之命只能每天在单位打工。似乎他喜欢上了酒馆里的嗒啦啦。"
+			},
+			"clue": "在嗒啦啦的粉丝信里，有一封信里装着银色齿轮，信里说他很想念他的奶奶，她是家里唯一支持他梦想的人"
+		}
+	},
+	{
+		"codeName": "迹",
+		"data": {
+			"isUndercover": false,
+			"codeName": "迹",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "心理医生",
+				"birthday": "5.79",
+				"hobbies": "看游戏比赛，喝酒",
+				"characteristics": "迹是一个看起来很老实的人，但他举手投足间都是藏不住的滑头",
+				"background": "迹发现了在游戏里可以开心理咨询诊所的商机，每天来的客人也被他哄得非常开心"
+			},
+			"clue": "在酒馆旁的心理诊所关门后，时常听见里面传来数钱声，还伴随着嘴里念叨着“够多了，够多了，让我回去”"
+		}
+	},
+	{
+		"codeName": "塞娅",
+		"data": {
+			"isUndercover": false,
+			"codeName": "塞娅",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "景观设计师",
+				"birthday": "3.14",
+				"hobbies": "独自品酒，听雨声",
+				"characteristics": "塞娅气质沉静忧郁，在酒馆常坐窗边，望着窗外千篇一律的“完美”雨景出神。与哪些酒吧的嘈杂不同，她把品酒当成了艺术。",
+				"background": "塞娅设计着元宇宙里令人惊叹的虚拟花园和瀑布。被困后，创造“美”变成了机械重复，她无比怀念真实世界里不完美的、带着泥土气息的自然。酒馆是她唯一能感受到一丝“真实”嘈杂的地方。"
+			},
+			"clue": "在一个建筑设计稿夹层里藏着一张手绘的、歪歪扭扭的现实世界的庭院草图，上面有泪痕。"
+		}
+	},
+	{
+		"codeName": "崔尔特",
+		"data": {
+			"isUndercover": false,
+			"codeName": "崔尔特",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "装备回收员",
+				"birthday": "5.50",
+				"hobbies": "喝酒，发呆",
+				"characteristics": "日复一日的重复劳动让崔尔特感觉自己也成了被处理的冗余。酒馆的嘈杂是他对抗虚无感的微弱屏障。",
+				"background": "崔尔特进入游戏完全是一场意外，他对于这里没有任何喜欢和向往，下班-喝酒，日复一日。"
+			},
+			"clue": "崔尔特的邻居时常听见他半夜嚎啕大哭，对于这个可怜人大家都深表同情"
+		}
+	},
+	{
+		"codeName": "佩里徳",
+		"data": {
+			"isUndercover": false,
+			"codeName": "佩里徳",
+			"infomation": {
+				"gender": "女",
+				"virtualIdentity": "金融投机客",
+				"birthday": "8.16",
+				"hobbies": "研究经济，喝酒",
+				"characteristics": "穿着朴素。研究虚拟世界的经济是佩里徳的一大乐趣，喝酒嘛，用她的话说，叫做生命的本能。",
+				"background": "佩里徳据说早就在这个世界坐拥无尽财富，心情好还会包下酒馆全场消费。于是她成了酒馆唯一一个比“嗒啦啦”还受欢迎的人"
+			},
+			"clue": "在一个加密数据盘里发现了“系统货币漏洞研究报告”和“虚拟货币崩坏猜想”。看起来，似乎有人希望用另一种方式破坏这里。"
+		}
+	},
+	{
+		"codeName": "派利尔",
+		"data": {
+			"isUndercover": false,
+			"codeName": "派利尔",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "装备竞技场保安",
+				"birthday": "6.16",
+				"hobbies": "喝酒",
+				"characteristics": "派利尔身形挺拔，习惯性保持警惕，即便是在酒馆，也少有人能近他的身。",
+				"background": "派利尔维护着虚拟竞速场的秩序。看着这里的对抗和胜利，他经常止不住的哈哈大笑。"
+			},
+			"clue": "在竞技场的保安室里发现一枚现实世界的旧勋章（在虚拟世界只是粗糙的贴图模型），边缘已被摩挲得发亮。"
+		}
+	},
+	{
+		"codeName": "僧行",
+		"data": {
+			"isUndercover": false,
+			"codeName": "僧行",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "装备竞技选手",
+				"birthday": "6.59",
+				"hobbies": "装备竞技",
+				"characteristics": "僧行看起来是消瘦的，但在竞技场上，没人敢小看他。",
+				"background": "僧行的装备千奇百怪，竞技场上对手时常被他自己研究的玩意吓一跳，不过他的那些发明也不是总是有用就是了。"
+			},
+			"clue": "在帝国档案里，发现僧行被列为重点观察对象，似乎他有装备威胁到了这个世界的管理。"
+		}
+	},
+	{
+		"codeName": "未明",
+		"data": {
+			"isUndercover": false,
+			"codeName": "未明",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "《金井》刊物编辑",
+				"birthday": "9.19",
+				"hobbies": "抽烟，喝酒",
+				"characteristics": "未明的眼神锐利如刀，并且烟不离手。",
+				"background": "在虚拟世界当上新闻刊物大编辑似乎使得他洋洋得意，外人看来是心愿得到了实现。"
+			},
+			"clue": "发现了一份出版的地下小报《余烬》，有人希望用文字点燃被困者心中的微光，也焚烧虚假世界的表象。"
+		}
+	},
+	{
+		"codeName": "瓦尔德",
+		"data": {
+			"isUndercover": false,
+			"codeName": "瓦尔德",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "装备竞技陪练",
+				"birthday": "7.19",
+				"hobbies": "喝酒",
+				"characteristics": "瓦尔德看起来非常魁梧，有着高超的装备竞技技巧",
+				"background": "瓦尔德似乎在玩家无法登出后，就从竞技场退役了，转而当起了陪练，不过他从来不说其中缘由。"
+			},
+			"clue": "在一个捡到的怀表里，发现了瓦尔德与妻子的合照，现实里的他似乎并不高大。"
+		}
+	},
+	{
+		"codeName": "兰可",
+		"data": {
+			"isUndercover": false,
+			"codeName": "兰可",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "探险小队队员",
+				"birthday": "10.16",
+				"hobbies": "冒险",
+				"characteristics": "兰可是个可靠的伙伴，就是口无遮拦，是个直肠子",
+				"background": "兰可与拉伯克在这个世界自由“探险”，拜伦酒馆似乎成了他们的大本营。"
+			},
+			"clue": "黑夜里听见孩子的哭声，玩累了孩子也会想家。"
+		}
+	},
+	{
+		"codeName": "拉伯克",
+		"data": {
+			"isUndercover": false,
+			"codeName": "拉伯克",
+			"infomation": {
+				"gender": "男",
+				"virtualIdentity": "探险小队队长",
+				"birthday": "1.19",
+				"hobbies": "冒险",
+				"characteristics": "拉伯克像个孩子王，从他的行为举止就知道他年龄应该不大",
+				"background": "拉伯克与兰可在这个世界自由“探险”，拜伦酒馆似乎成了他们的大本营。"
+			},
+			"clue": "黑夜里听见孩子的哭声，玩累了孩子也会想家。"
+		}
 	}
 ]

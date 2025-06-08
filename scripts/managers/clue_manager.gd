@@ -9,7 +9,7 @@ var code_names: Array = []
 var code_name_dict: Dictionary = {}
 
 var timer: float = 0.0
-var interval: float = 5.0  # 5秒生成一次线索
+var interval: float = 8.0  # 5秒生成一次线索
 
 signal discover_clue
 
@@ -34,10 +34,11 @@ func _ready() -> void:
 	clue_sound.stream = load("res://UI音效/发现情报2.wav")
 
 func _process(delta: float) -> void:
-	timer += delta
-	if timer >= interval:
-		timer = 0.0
-		generate_random_clue()
+	if not GameStore.SilencingStore.is_silencing:
+		timer += delta
+		if timer >= interval:
+			timer = 0.0
+			generate_random_clue()
 	
 	# 更新倒计时显示
 	if time_label:

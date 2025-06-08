@@ -21,3 +21,4 @@ func _on_signal_center_click_empty():
 # 新增：处理按钮按下事件并发射信号
 func _on_delete_button_pressed():
 	emit_signal("delete_spy", spy_instance)
+	visible = false

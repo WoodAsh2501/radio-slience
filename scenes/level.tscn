@@ -36,7 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
 [ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://0i0hksorwmaa" path="res://assets/menuassets/backtogame.png" id="18_iafhg"]
-[ext_resource type="Script" path="res://scripts/UI/PopClue.gd" id="18_vmndo"]
+[ext_resource type="Script" uid="uid://ci46omcjpnv4o" path="res://scripts/UI/PopClue.gd" id="18_vmndo"]
 [ext_resource type="Texture2D" uid="uid://ddxw2tjp10oep" path="res://assets/UI/popcule.png" id="19_bo6tc"]
 [ext_resource type="Script" uid="uid://rtdjf6wox4p0" path="res://scripts/UI/backtogame_button.gd" id="19_c1pbi"]
 [ext_resource type="Script" uid="uid://b0xyorjtqg14j" path="res://scripts/UI/backtomain_button.gd" id="19_cr74b"]
@@ -71,7 +71,7 @@ script/source = "extends Button
 @export var enemy: Node2D
 
 func _physics_process(_delta: float) -> void:
-	enemy.speed = 50 if button_pressed else 0
+	enemy.speed = 0 if button_pressed else 50
 "
 
 [sub_resource type="GDScript" id="GDScript_arp2o"]
@@ -235,19 +235,19 @@ texture = ExtResource("5_82cfe")
 
 [node name="SilencingStatus" type="Label" parent="TopUI/UIManager/MainUI"]
 layout_mode = 0
-offset_left = 289.0
-offset_top = 99.0
-offset_right = 333.0
-offset_bottom = 122.0
+offset_left = 572.0
+offset_top = 485.0
+offset_right = 616.0
+offset_bottom = 508.0
 text = "Radio"
 script = ExtResource("6_2r41h")
 
 [node name="Button" type="Button" parent="TopUI/UIManager/MainUI" node_paths=PackedStringArray("enemy")]
 layout_mode = 0
-offset_left = 803.0
-offset_top = 458.0
-offset_right = 1006.0
-offset_bottom = 492.0
+offset_left = 928.0
+offset_top = 468.0
+offset_right = 1131.0
+offset_bottom = 502.0
 toggle_mode = true
 text = "Toggle enemy movement"
 script = SubResource("GDScript_wc255")
@@ -300,6 +300,7 @@ script = ExtResource("18_vmndo")
 signal_center = NodePath("../../../../../SignalCenter")
 
 [node name="PopClue" type="Sprite2D" parent="TopUI/UIManager/MainUI/clue/Pop"]
+visible = false
 position = Vector2(602, 268)
 scale = Vector2(0.565, 0.565)
 texture = ExtResource("19_bo6tc")
@@ -521,20 +522,20 @@ Progress"
 
 [node name="DiscoverClueButton" type="Button" parent="TopUI/UI" node_paths=PackedStringArray("clue_manager")]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 428.0
-offset_right = 1116.0
-offset_bottom = 459.0
+offset_left = 1018.0
+offset_top = 436.0
+offset_right = 1131.0
+offset_bottom = 467.0
 text = "Discover Clue"
 script = SubResource("GDScript_arp2o")
 clue_manager = NodePath("../../../ClueManager")
 
 [node name="ToggleNodesVisibilityButton" type="Button" parent="TopUI/UI" node_paths=PackedStringArray("spy_manager")]
 layout_mode = 0
-offset_left = 849.0
-offset_top = 423.0
-offset_right = 977.0
-offset_bottom = 454.0
+offset_left = 1005.0
+offset_top = 394.0
+offset_right = 1133.0
+offset_bottom = 425.0
 toggle_mode = true
 text = "Toggle Visibility"
 script = SubResource("GDScript_ux5qa")
@@ -581,42 +582,63 @@ metadata/_edit_lock_ = true
 script = ExtResource("3_t1rx8")
 
 [node name="Spy1" parent="Spys" groups=["MasterSpys", "VisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(98, 86)
+position = Vector2(249, 272)
 scale = Vector2(1, 1)
 code_name = "蓝翼"
 
 [node name="Spy2" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(250, 143)
+position = Vector2(401, 329)
 scale = Vector2(1, 1)
 code_name = "小晨"
 
 [node name="Spy3" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(98, 240)
+position = Vector2(249, 426)
 scale = Vector2(1, 1)
 code_name = "银月"
 
 [node name="Spy4" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(106, 387)
+position = Vector2(257, 573)
 rotation = 0.00805875
 scale = Vector2(1, 1)
 code_name = "晨曦"
 
 [node name="Spy5" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(234, 344)
+position = Vector2(385, 530)
 scale = Vector2(1, 1)
 code_name = "Starry"
 
 [node name="Spy6" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(368, 270)
+position = Vector2(519, 456)
 scale = Vector2(1, 1)
 code_name = "ivy"
 
 [node name="Spy7" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(400, 48)
+position = Vector2(551, 234)
 scale = Vector2(1, 1)
 code_name = "夜苍"
 
+[node name="Spy8" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(662, 340)
+scale = Vector2(1, 1)
+code_name = "阿兜"
+
+[node name="Spy9" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(666, 132)
+scale = Vector2(1, 1)
+code_name = "迹"
+
+[node name="Spy10" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(842, 244)
+scale = Vector2(1, 1)
+code_name = "塞娅"
+
+[node name="Spy11" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
+position = Vector2(927, 357)
+scale = Vector2(1, 1)
+code_name = "崔尔特"
+
 [node name="Towers" type="Node2D" parent="."]
+position = Vector2(550, -22)
 script = ExtResource("5_wc255")
 
 [node name="Tower" parent="Towers" groups=["InvisibleSpys"] instance=ExtResource("5_fpun6")]
@@ -654,10 +676,10 @@ scale = Vector2(0.465, 0.465)
 texture = ExtResource("22_3ies3")
 
 [node name="Label" type="Label" parent="Enemies/Enemy"]
-offset_left = 15.0
-offset_top = -7.22222
-offset_right = 118.0
-offset_bottom = 15.7778
+offset_left = -33.0
+offset_top = -37.0
+offset_right = 70.0
+offset_bottom = -14.0
 scale = Vector2(0.66, 0.66)
 text = "Alert Value: 0"
 metadata/_edit_use_anchors_ = true

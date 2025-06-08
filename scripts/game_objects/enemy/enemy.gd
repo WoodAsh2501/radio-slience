@@ -4,7 +4,7 @@ signal spy_detected
 signal spy_captured
 signal alert_value_changed # 发送信号到警戒条
 
-@export var speed: float = 0.0
+@export var speed: float = 50.0
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 @onready var label = $Label
 @onready var alert_sound: AudioStreamPlayer

@@ -33,12 +33,21 @@ func _ready():
 	# 连接newsExit按钮的点击信号
 	news_ui.get_node("newsExit").pressed.connect(_on_news_exit_pressed)
 
+func _process(_delta):
+	if GameStore.SilencingStore.is_silencing:
+		_timer.paused = true
+		_blink_timer.paused = true
+	else:
+		_timer.paused = false
+		_blink_timer.paused = false
+
 func _on_timer_timeout():
-	# 10秒后开始闪烁
-	visible = true
-	_is_blinking = true
-	_blink_count = 0
-	_blink_timer.start()
+	if not GameStore.SilencingStore.is_silencing:
+		# 10秒后开始闪烁
+		visible = true
+		_is_blinking = true
+		_blink_count = 0
+		_blink_timer.start()
 
 func _on_blink_timer_timeout():
 	# 切换按钮可见性实现闪烁效果
