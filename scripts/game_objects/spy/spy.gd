@@ -61,7 +61,7 @@ func handle_mouse_interaction():
 
 		if not node_status.is_connecting:
 			node_status.is_connecting = true
-			working_state_machine.node_switch_to("Connecting")
+			working_state_machine.node_switch_to("Clicked")
 			emit_signal("building_connection_started", self)
 			GameStore.ConnectingStore.is_connecting = true
 			# print("Building connection started between: ", self)

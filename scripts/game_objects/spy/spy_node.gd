@@ -3,10 +3,10 @@ extends Area2D
 @onready var working_state_machine = get_node('../WorkingStateMachine')
 
 
-var hover_period: float = 0.1
-var since_hover: float = 0.0
+# var hover_period: float = 0.1
+# var since_hover: float = 0.0
 
-signal click_spy
+# signal click_spy
 
 func _ready() -> void:
 	pass
@@ -30,11 +30,12 @@ func mouse_input(delta = 0):
 	if Input.is_action_just_released("MouseClick"):
 		if working_state_machine.last_stable_state_name == "Unreachable" or not GameStore.ConnectingStore.is_connecting:
 			return
-	since_hover += delta
-	if since_hover > hover_period:
-		emit_signal("click_spy", get_parent())
-		working_state_machine.node_switch_to("Hovering")
-		since_hover = 0.0
+	# since_hover += delta
+	# if since_hover > hover_period:
+	# 	emit_signal("click_spy", get_parent())
+	# if working_state_machine.is_state()
+	working_state_machine.node_switch_to("Hovering")
+	# 	since_hover = 0.0
 
 func _on_mouse_entered() -> void:
 	mouse_input()

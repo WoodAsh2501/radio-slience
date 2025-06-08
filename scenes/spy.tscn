@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c2m582akgaqnj"]
+[gd_scene load_steps=26 format=3 uid="uid://c2m582akgaqnj"]
 
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy/spy.gd" id="1_1tjyl"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy/spy_detect_range.gd" id="2_8u3ya"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bqi7isfswvk08" path="res://scripts/states/spy/working/unreachable.gd" id="10_8u3ya"]
 [ext_resource type="Script" uid="uid://cpw3u65ytdpjr" path="res://scripts/states/spy/working/hovering.gd" id="10_s68pl"]
 [ext_resource type="Script" uid="uid://co4ir6d1bak28" path="res://scripts/states/spy/working/connecting.gd" id="11_mex1u"]
+[ext_resource type="Script" uid="uid://cl4ol113ihghu" path="res://scripts/states/spy/clicked.gd" id="12_6jevy"]
 [ext_resource type="Script" uid="uid://ujukwuy8pi0o" path="res://scripts/states/spy/working/selected.gd" id="12_q2xvt"]
 [ext_resource type="Script" uid="uid://8fmtnr3nfgd4" path="res://scripts/states/spy/captured/spy_captured_status_machine.gd" id="14_60jih"]
 [ext_resource type="Script" uid="uid://dm3ekbr4ppoys" path="res://scripts/states/spy/captured/default.gd" id="15_qe8pa"]
@@ -103,6 +104,10 @@ script = ExtResource("10_8u3ya")
 
 [node name="Hovering" type="Node" parent="WorkingStateMachine"]
 script = ExtResource("10_s68pl")
+metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
+
+[node name="Clicked" type="Node" parent="WorkingStateMachine"]
+script = ExtResource("12_6jevy")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
 [node name="Connecting" type="Node" parent="WorkingStateMachine"]
