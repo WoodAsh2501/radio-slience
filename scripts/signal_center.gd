@@ -149,6 +149,7 @@ func connect_spy_manager_signals(spys, connection_manager):
 		connect_signal(delete_button, "delete_spy", _on_delete_button_delete_spy)
 
 		connect_signal(self, "spy_manager_deleted", connection_manager._on_signal_center_spy_manager_deleted)
+		connect_signal(self, "spy_manager_deleted", spy._on_signal_center_spy_manager_deleted)
 
 func _on_delete_button_delete_spy(spy):
 	emit_signal("spy_manager_deleted", spy)
