@@ -257,7 +257,7 @@ func emit_signal_and_clear_connecting_nodes() -> void:
 	# if connections.size() > 3:
 	# 	print_debug(get_shortest_paths_from_node(master_spy))
 
-func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> void:
+func _on_signal_center_spy_manager_deleted(spy: Variant) -> void:
 	spy.connections = {}
 	var all_connections = get_all_connections_from_spy(spy)
 	for connection_node_pair in all_connections:
@@ -281,6 +281,31 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 			and not other_node.working_state_machine.is_state("Captured")
 			):
 			other_node.working_state_machine.node_switch_to("Unreachable")
+
+# func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> void:
+	# spy.connections = {}
+	# var all_connections = get_all_connections_from_spy(spy)
+	# for connection_node_pair in all_connections:
+	# 	var target_spy = connection_node_pair.filter(
+	# 		func(node): return not node == spy
+	# 		)[0]
+	# 	var value = connections[connection_node_pair]
+	# 	emit_signal("connection_lost", spy, target_spy, value)
+
+	# remove_connection_from_spy(spy)
+	# for connection in connection_lines.get_children():
+	# 	if connection.nodes.has(spy):
+	# 		connection.queue_free()
+	# 		# connection_lines.remove_child(connection)
+	# 		# connection.free()
+	# update_reachable_status()
+	# for other_node in nodes:
+	# 	if (
+	# 		other_node.working_state_machine.has_initialized
+	# 		and not other_node.node_status["reachable"]
+	# 		and not other_node.working_state_machine.is_state("Captured")
+	# 		):
+	# 		other_node.working_state_machine.node_switch_to("Unreachable")
 
 	# pass # Replace with function body.
 
