@@ -1,8 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=41 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_gur6y"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
+[ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_v3why"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
@@ -28,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://d0ypekyv5bge0" path="res://assets/UI/task.png" id="16_gunhw"]
 [ext_resource type="Texture2D" uid="uid://css0xpjjag7io" path="res://assets/back.png" id="17_kih21"]
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
+[ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d03fr5hsx0kmx" path="res://assets/UI/MenusBG.png" id="20_wu01b"]
 [ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
@@ -72,7 +74,7 @@ func _on_toggled(toggled_on: bool) -> void:
 radius = 12.2978
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_gur6y")
+script = ExtResource("1_v3why")
 
 [node name="GlobalClickDetector" type="Button" parent="."]
 offset_left = -6.0
@@ -302,6 +304,15 @@ text = "Toggle Visibility"
 script = SubResource("GDScript_ux5qa")
 spy_manager = NodePath("../../Spys")
 
+[node name="ActionPoints" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 157.0
+offset_right = 115.0
+offset_bottom = 180.0
+text = "ActionPoints"
+script = ExtResource("18_gur6y")
+
 [node name="SignalManager" type="Node" parent="."]
 script = ExtResource("1_klq6b")
 
@@ -431,6 +442,7 @@ script = ExtResource("27_xy2fk")
 [connection signal="click_spy" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_spy"]
 [connection signal="clue_collected" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_collected"]
 [connection signal="clue_discovered" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_discovered"]
+[connection signal="connection_established" from="SignalCenter" to="UI/ActionPoints" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
 [connection signal="enemy_patrol_captured" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_enemy_patrol_captured"]

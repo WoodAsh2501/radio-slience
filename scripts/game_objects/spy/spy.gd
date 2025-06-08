@@ -58,6 +58,8 @@ func handle_mouse_interaction():
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if not working_state_machine.get_state_name() in ["Hovering", "Connecting"]:
 			return
+		if GameStore.PlayStore.action_point <= 0:
+			return
 
 		if not node_status.is_connecting:
 			node_status.is_connecting = true
