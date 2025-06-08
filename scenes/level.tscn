@@ -1,8 +1,6 @@
-[gd_scene load_steps=44 format=3 uid="uid://be7pdrgon05ag"]
-[gd_scene load_steps=44 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=57 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
-[ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_gur6y"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_v3why"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
@@ -15,7 +13,7 @@
 [ext_resource type="Script" uid="uid://c7xmacdte82rl" path="res://scripts/UI/silencing_button.gd" id="5_ppgk2"]
 [ext_resource type="Script" uid="uid://jrl5o01jmtg4" path="res://scripts/states/tower/towers_manager.gd" id="5_wc255"]
 [ext_resource type="Script" uid="uid://d50rn0i2pbyf" path="res://scripts/UI/silencing_status.gd" id="6_2r41h"]
-[ext_resource type="Script" uid="uid://u57mlsgr38tq" path="res://scripts/UI/NodeInfo.gd" id="6_asl66"]
+[ext_resource type="Script" path="res://scripts/UI/NodeInfo.gd" id="6_asl66"]
 [ext_resource type="Shader" uid="uid://7j6neciv67pd" path="res://shaders/level.gdshader" id="6_b121j"]
 [ext_resource type="Texture2D" uid="uid://bisa2g07srddb" path="res://assets/UI/nodeinfo.png" id="6_v3why"]
 [ext_resource type="Script" uid="uid://cepc5qn2lga6m" path="res://scripts/UI/screen_shader.gd" id="7_8c41q"]
@@ -36,22 +34,21 @@
 [ext_resource type="Script" uid="uid://pwfb1ehlqocw" path="res://scripts/UI/cracking_progress.gd" id="15_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d0ypekyv5bge0" path="res://assets/UI/task.png" id="16_gunhw"]
 [ext_resource type="Texture2D" uid="uid://d0hef78bqpdin" path="res://assets/menuassets/noselsct.png" id="17_0fmhk"]
-[ext_resource type="Texture2D" uid="uid://css0xpjjag7io" path="res://assets/back.png" id="17_kih21"]
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
+[ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://0i0hksorwmaa" path="res://assets/menuassets/backtogame.png" id="18_iafhg"]
 [ext_resource type="Script" uid="uid://rtdjf6wox4p0" path="res://scripts/UI/backtogame_button.gd" id="19_c1pbi"]
 [ext_resource type="Script" uid="uid://b0xyorjtqg14j" path="res://scripts/UI/backtomain_button.gd" id="19_cr74b"]
-[ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://dewl1ih02qere" path="res://assets/menuassets/backtomenu.png" id="20_uhfbm"]
+[ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
 [ext_resource type="Texture2D" uid="uid://bamwkrk2gvemf" path="res://assets/menuassets/add.png" id="22_ok3ci"]
 [ext_resource type="Script" uid="uid://pr6vyayswgnl" path="res://scripts/UI/add_button.gd" id="23_hv3ux"]
 [ext_resource type="Texture2D" uid="uid://deb8vsk388pra" path="res://assets/menuassets/sub.png" id="24_j4eoh"]
 [ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
-[ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
-[ext_resource type="Script" uid="uid://dlj6k6w416v03" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 
 [sub_resource type="GDScript" id="GDScript_2e2fo"]
 script/source = "extends Button
@@ -94,9 +91,9 @@ radius = 12.3
 texture = ExtResource("26_gur6y")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_v3why")
 metadata/_edit_horizontal_guides_ = [280.0]
 metadata/_edit_vertical_guides_ = [592.0]
-script = ExtResource("1_v3why")
 
 [node name="GlobalClickDetector" type="Button" parent="."]
 offset_left = -6.0
@@ -319,13 +316,12 @@ focus_mode = 0
 icon = ExtResource("14_556r4")
 
 [node name="MenuUI" type="Panel" parent="UIManager"]
-visible = false
 z_index = 5
 layout_mode = 0
-offset_left = 3.0
-offset_top = -4.0
-offset_right = 43.0
-offset_bottom = 36.0
+offset_left = 248.0
+offset_top = 216.0
+offset_right = 288.0
+offset_bottom = 256.0
 
 [node name="PanelContainer" type="PanelContainer" parent="UIManager/MenuUI"]
 layout_mode = 0
