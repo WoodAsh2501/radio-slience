@@ -1,10 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://be7pdrgon05ag"]
-[gd_scene load_steps=44 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
-[ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_gur6y"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
-[ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_v3why"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
 [ext_resource type="Script" uid="uid://1b2iai6d8hyx" path="res://scripts/game_objects/enemy/enemy.gd" id="3_mx8sn"]
@@ -22,7 +19,6 @@
 [ext_resource type="Script" uid="uid://dra471kd2p8ed" path="res://scripts/game_objects/connection/connections.gd" id="7_8iemx"]
 [ext_resource type="Texture2D" uid="uid://dyrvbh3g6g4h" path="res://assets/UI/Close.png" id="8_2jdvr"]
 [ext_resource type="Texture2D" uid="uid://c81ya6xxjdinm" path="res://assets/UI/info.png" id="8_q4oe8"]
-[ext_resource type="Script" uid="uid://ddis057ribujv" path="res://scripts/UI/menu.gd" id="10_556r4"]
 [ext_resource type="Script" uid="uid://c5qevbk61on6t" path="res://scripts/signal_center.gd" id="10_olg7q"]
 [ext_resource type="Texture2D" uid="uid://187ywroas0kg" path="res://assets/cluepanel.png" id="12_xy2fk"]
 [ext_resource type="Script" uid="uid://dvp6r3p5l8ng2" path="res://scripts/managers/map_sections_manager.gd" id="13_64w2a"]
@@ -30,33 +26,17 @@
 [ext_resource type="Texture2D" uid="uid://cmqmey3mhmlkl" path="res://assets/UI/BG.png" id="13_gunhw"]
 [ext_resource type="Texture2D" uid="uid://cqth0gtgvv42v" path="res://assets/Polygon 6.png" id="14_556r4"]
 [ext_resource type="Texture2D" uid="uid://c5d2iwuki6o5a" path="res://assets/UI/menus.png" id="14_arp2o"]
-[ext_resource type="Texture2D" uid="uid://7lnr3jy1ho2a" path="res://assets/menuassets/菜单栏.png" id="14_c1pbi"]
 [ext_resource type="Texture2D" uid="uid://k1ob1p1s6rro" path="res://assets/UI/spaceoff.png" id="14_h6wmr"]
-[ext_resource type="Texture2D" uid="uid://bu7bvm0cjefry" path="res://assets/menuassets/audio1.png" id="15_535f6"]
 [ext_resource type="Script" uid="uid://pwfb1ehlqocw" path="res://scripts/UI/cracking_progress.gd" id="15_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://d0ypekyv5bge0" path="res://assets/UI/task.png" id="16_gunhw"]
-[ext_resource type="Texture2D" uid="uid://d0hef78bqpdin" path="res://assets/menuassets/noselsct.png" id="17_0fmhk"]
 [ext_resource type="Texture2D" uid="uid://css0xpjjag7io" path="res://assets/back.png" id="17_kih21"]
 [ext_resource type="Texture2D" uid="uid://c5g2vom87wl2u" path="res://assets/UI/Alarm.png" id="18_5k0ak"]
-[ext_resource type="Texture2D" uid="uid://0i0hksorwmaa" path="res://assets/menuassets/backtogame.png" id="18_iafhg"]
-[ext_resource type="Script" uid="uid://rtdjf6wox4p0" path="res://scripts/UI/backtogame_button.gd" id="19_c1pbi"]
-[ext_resource type="Script" uid="uid://b0xyorjtqg14j" path="res://scripts/UI/backtomain_button.gd" id="19_cr74b"]
-[ext_resource type="Script" uid="uid://02gwgw64tgot" path="res://scripts/UI/action_points.gd" id="18_gur6y"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
-[ext_resource type="Texture2D" uid="uid://dewl1ih02qere" path="res://assets/menuassets/backtomenu.png" id="20_uhfbm"]
-[ext_resource type="Texture2D" uid="uid://bamwkrk2gvemf" path="res://assets/menuassets/add.png" id="22_ok3ci"]
-[ext_resource type="Script" uid="uid://pr6vyayswgnl" path="res://scripts/UI/add_button.gd" id="23_hv3ux"]
-[ext_resource type="Texture2D" uid="uid://deb8vsk388pra" path="res://assets/menuassets/sub.png" id="24_j4eoh"]
-[ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
+[ext_resource type="Texture2D" uid="uid://d03fr5hsx0kmx" path="res://assets/UI/MenusBG.png" id="20_wu01b"]
 [ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
-[ext_resource type="Script" uid="uid://dlj6k6w416v03" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
-
-[sub_resource type="GDScript" id="GDScript_2e2fo"]
-script/source = "extends Button
-
-"
+[ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
 shader = ExtResource("6_b121j")
@@ -94,20 +74,6 @@ radius = 12.3
 texture = ExtResource("26_gur6y")
 
 [node name="Node2D" type="Node2D"]
-metadata/_edit_horizontal_guides_ = [280.0]
-metadata/_edit_vertical_guides_ = [592.0]
-script = ExtResource("1_v3why")
-
-[node name="GlobalClickDetector" type="Button" parent="."]
-offset_left = -6.0
-offset_top = -10.0
-offset_right = 1184.0
-offset_bottom = 667.0
-mouse_filter = 1
-shortcut_feedback = false
-shortcut_in_tooltip = false
-flat = true
-script = SubResource("GDScript_2e2fo")
 
 [node name="UIManager" type="Control" parent="."]
 layout_mode = 3
@@ -166,11 +132,11 @@ scale = Vector2(0.65, 0.65)
 texture = ExtResource("8_q4oe8")
 
 [node name="codename" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
-offset_left = 3.0769
-offset_top = -132.308
-offset_right = 103.077
-offset_bottom = -108.823
-scale = Vector2(2.2, 2.2)
+offset_left = -35.3846
+offset_top = -143.077
+offset_right = 64.6154
+offset_bottom = -119.592
+scale = Vector2(2.615, 2.615)
 text = "Name
 "
 horizontal_alignment = 2
@@ -204,9 +170,9 @@ scale = Vector2(1.1, 1.1)
 
 [node name="characteristics" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
 offset_left = -7.69234
-offset_top = -46.1539
+offset_top = -56.9231
 offset_right = 242.308
-offset_bottom = 53.8461
+offset_bottom = 43.0769
 
 [node name="background" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
 offset_left = -220.0
@@ -239,10 +205,10 @@ script = ExtResource("6_2r41h")
 
 [node name="Button" type="Button" parent="UIManager/MainUI" node_paths=PackedStringArray("enemy")]
 layout_mode = 0
-offset_left = 803.0
-offset_top = 458.0
-offset_right = 1006.0
-offset_bottom = 492.0
+offset_left = 198.0
+offset_top = 463.0
+offset_right = 401.0
+offset_bottom = 497.0
 toggle_mode = true
 text = "Toggle enemy movement"
 script = SubResource("GDScript_wc255")
@@ -269,7 +235,6 @@ offset_bottom = 102.0
 scale = Vector2(0.7, 0.7)
 focus_mode = 0
 icon = ExtResource("14_arp2o")
-script = ExtResource("10_556r4")
 
 [node name="SlienceButton" type="TextureButton" parent="UIManager/MainUI"]
 layout_mode = 0
@@ -300,6 +265,7 @@ offset_top = -35.7569
 offset_right = 87.0663
 offset_bottom = 19.2431
 scale = Vector2(1.42, 1.42)
+text = "aa"
 
 [node name="LeftButton" type="Button" parent="UIManager/MainUI/clue/Cluepanel"]
 offset_left = -296.53
@@ -327,87 +293,20 @@ offset_top = -4.0
 offset_right = 43.0
 offset_bottom = 36.0
 
-[node name="PanelContainer" type="PanelContainer" parent="UIManager/MenuUI"]
+[node name="MenusBg" type="Sprite2D" parent="UIManager/MenuUI"]
+position = Vector2(576.444, 324.5)
+scale = Vector2(0.600926, 0.600926)
+texture = ExtResource("20_wu01b")
+
+[node name="Back" type="Button" parent="UIManager/MenuUI"]
 layout_mode = 0
-offset_left = -256.0
-offset_top = -230.0
-offset_right = 916.0
-offset_bottom = 442.0
-
-[node name="菜单栏" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(587.5, 339)
-scale = Vector2(0.613021, 0.616667)
-texture = ExtResource("14_c1pbi")
-
-[node name="Audio1" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(398, 279)
-scale = Vector2(0.638462, 0.638462)
-texture = ExtResource("15_535f6")
-
-[node name="Selected" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(627, 280)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_0fmhk")
-
-[node name="Selected2" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(666, 280)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_0fmhk")
-
-[node name="Selected3" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(706, 280)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_0fmhk")
-
-[node name="Selected4" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(746, 280)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_0fmhk")
-
-[node name="Selected5" type="Sprite2D" parent="UIManager/MenuUI/PanelContainer"]
-position = Vector2(786, 280)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_0fmhk")
-
-[node name="backtogameButton" type="Button" parent="UIManager/MenuUI"]
-layout_mode = 0
-offset_left = -257.0
-offset_top = -230.0
-offset_right = 89.0
-offset_bottom = -51.0
-scale = Vector2(0.5, 0.5)
-icon = ExtResource("18_iafhg")
-script = ExtResource("19_c1pbi")
-
-[node name="backtomainButton" type="Button" parent="UIManager/MenuUI"]
-layout_mode = 0
-offset_left = 248.0
-offset_top = 169.0
-offset_right = 589.0
-offset_bottom = 293.0
-scale = Vector2(0.5, 0.5)
-icon = ExtResource("20_uhfbm")
-script = ExtResource("19_cr74b")
-
-[node name="addButton" type="Button" parent="UIManager/MenuUI"]
-layout_mode = 0
-offset_left = 321.0
-offset_top = 34.0
-offset_right = 382.0
-offset_bottom = 100.0
-scale = Vector2(0.5, 0.5)
-icon = ExtResource("22_ok3ci")
-script = ExtResource("23_hv3ux")
-
-[node name="subButton" type="Button" parent="UIManager/MenuUI"]
-layout_mode = 0
-offset_left = 556.0
-offset_top = 33.0
-offset_right = 617.0
-offset_bottom = 99.0
-scale = Vector2(0.5, 0.5)
-icon = ExtResource("24_j4eoh")
-script = ExtResource("25_bhb1k")
+offset_left = 1.0
+offset_top = -7.0
+offset_right = 347.0
+offset_bottom = 172.0
+scale = Vector2(0.65, 0.65)
+focus_mode = 0
+icon = ExtResource("17_kih21")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -472,15 +371,6 @@ text = "Toggle Visibility"
 script = SubResource("GDScript_ux5qa")
 spy_manager = NodePath("../../Spys")
 
-[node name="ActionPoints" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 157.0
-offset_right = 115.0
-offset_bottom = 180.0
-text = "ActionPoints"
-script = ExtResource("18_gur6y")
-
 [node name="SignalManager" type="Node" parent="."]
 script = ExtResource("1_klq6b")
 
@@ -492,13 +382,6 @@ test_spy = NodePath("../Spys/Spy5")
 
 [node name="ClueManager" type="Node" parent="."]
 script = ExtResource("3_arp2o")
-
-[node name="time" type="RichTextLabel" parent="ClueManager"]
-offset_left = 551.0
-offset_top = 8.0
-offset_right = 591.0
-offset_bottom = 48.0
-text = "aa"
 
 [node name="Spys" type="Node" parent="." groups=["LockedSpys"]]
 script = ExtResource("3_t1rx8")
@@ -525,7 +408,7 @@ scale = Vector2(1, 1)
 code_name = "晨曦"
 
 [node name="Spy5" parent="Spys" groups=["InvisibleSpys"] instance=ExtResource("4_t1rx8")]
-position = Vector2(234, 344)
+position = Vector2(208, 309)
 scale = Vector2(1, 1)
 code_name = "Starry"
 
@@ -611,16 +494,13 @@ stream = ExtResource("26_xy2fk")
 [node name="BackgroundMusic" type="Node" parent="."]
 script = ExtResource("27_xy2fk")
 
-[connection signal="pressed" from="GlobalClickDetector" to="SignalCenter" method="_on_global_click_detector_pressed"]
 [connection signal="pressed" from="UI/DiscoverClueButton" to="UI/DiscoverClueButton" method="_on_pressed"]
 [connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
 [connection signal="employ_new_spy" from="Spys" to="SignalCenter" method="_on_spy_manager_employed"]
-[connection signal="click_empty" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_empty"]
 [connection signal="click_spy" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_spy"]
 [connection signal="clue_collected" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_collected"]
 [connection signal="clue_discovered" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_discovered"]
-[connection signal="connection_established" from="SignalCenter" to="UI/ActionPoints" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Spys" method="_on_signal_center_connection_established"]
 [connection signal="connection_established" from="SignalCenter" to="Connections" method="_on_signal_center_connection_established"]
 [connection signal="enemy_patrol_captured" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_enemy_patrol_captured"]
