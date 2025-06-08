@@ -2,6 +2,7 @@ extends Node
 
 @onready var spy_data_file = FileAccess.open("res://data/spy_data.json", FileAccess.READ)
 @onready var spys = get_tree().get_nodes_in_group("Spys")
+@onready var clue_sound: AudioStreamPlayer
 
 var code_names: Array = []
 var code_name_dict: Dictionary = {}
@@ -22,6 +23,11 @@ func _ready() -> void:
 
 				if spy_data["data"]["isUndercover"]:
 					spy.is_undercover = true
+	
+	# Setup clue discovery sound
+	clue_sound = AudioStreamPlayer.new()
+	add_child(clue_sound)
+	clue_sound.stream = load("res://UI音效/发现情报2.wav")
 
 func get_all_spys_data(select_all = true, select_discovered = false, select_collected = false):
 	var all_data = []
@@ -46,6 +52,7 @@ func generate_random_clue():
 		return
 	spys[randi() % spys.size()].discover_clue(new_discovered_spy_data)
 	emit_signal("discover_clue", new_discovered_spy_data)
+	clue_sound.play()  # Play the sound when a new clue is discovered
 
 func select_random_spy_data(target_spy_data: Array) -> Dictionary:
 	if target_spy_data.size() == 0:
