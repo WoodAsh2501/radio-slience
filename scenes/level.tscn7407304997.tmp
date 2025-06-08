@@ -132,11 +132,11 @@ scale = Vector2(0.65, 0.65)
 texture = ExtResource("8_q4oe8")
 
 [node name="codename" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
-offset_left = 3.0769
-offset_top = -132.308
-offset_right = 103.077
-offset_bottom = -108.823
-scale = Vector2(2.2, 2.2)
+offset_left = -35.3846
+offset_top = -143.077
+offset_right = 64.6154
+offset_bottom = -119.592
+scale = Vector2(2.615, 2.615)
 text = "Name
 "
 horizontal_alignment = 2
@@ -170,9 +170,9 @@ scale = Vector2(1.1, 1.1)
 
 [node name="characteristics" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
 offset_left = -7.69234
-offset_top = -46.1539
+offset_top = -56.9231
 offset_right = 242.308
-offset_bottom = 53.8461
+offset_bottom = 43.0769
 
 [node name="background" type="RichTextLabel" parent="UIManager/MainUI/nodeinfo/info"]
 offset_left = -220.0
@@ -205,10 +205,10 @@ script = ExtResource("6_2r41h")
 
 [node name="Button" type="Button" parent="UIManager/MainUI" node_paths=PackedStringArray("enemy")]
 layout_mode = 0
-offset_left = 803.0
-offset_top = 458.0
-offset_right = 1006.0
-offset_bottom = 492.0
+offset_left = 198.0
+offset_top = 463.0
+offset_right = 401.0
+offset_bottom = 497.0
 toggle_mode = true
 text = "Toggle enemy movement"
 script = SubResource("GDScript_wc255")
@@ -265,6 +265,7 @@ offset_top = -35.7569
 offset_right = 87.0663
 offset_bottom = 19.2431
 scale = Vector2(1.42, 1.42)
+text = "aa"
 
 [node name="LeftButton" type="Button" parent="UIManager/MainUI/clue/Cluepanel"]
 offset_left = -296.53
@@ -381,13 +382,6 @@ test_spy = NodePath("../Spys/Spy5")
 
 [node name="ClueManager" type="Node" parent="."]
 script = ExtResource("3_arp2o")
-
-[node name="time" type="RichTextLabel" parent="ClueManager"]
-offset_left = 551.0
-offset_top = 8.0
-offset_right = 591.0
-offset_bottom = 48.0
-text = "aa"
 
 [node name="Spys" type="Node" parent="." groups=["LockedSpys"]]
 script = ExtResource("3_t1rx8")
