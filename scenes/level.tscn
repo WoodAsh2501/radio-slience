@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=58 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
@@ -49,6 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
 [ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Script" uid="uid://bh15wtl3d0ueo" path="res://scripts/camera_2d.gd" id="50_bhb1k"]
 
 [sub_resource type="GDScript" id="GDScript_2e2fo"]
 script/source = "extends Button
@@ -617,7 +618,10 @@ stream = ExtResource("26_xy2fk")
 script = ExtResource("27_xy2fk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(580, 326)
+position = Vector2(581, 327)
+position_smoothing_enabled = true
+position_smoothing_speed = 15.0
+script = ExtResource("50_bhb1k")
 
 [connection signal="pressed" from="TopUI/GlobalClickDetector" to="SignalCenter" method="_on_global_click_detector_pressed"]
 [connection signal="pressed" from="TopUI/UI/DiscoverClueButton" to="TopUI/UI/DiscoverClueButton" method="_on_pressed"]
