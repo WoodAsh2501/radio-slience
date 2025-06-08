@@ -10,6 +10,7 @@ var spy_state_status = {
 	"pickable": false,
 	"detecting_spy": false,
 	"detecting_enemy": false,
+	"texture": preload("res://assets/UI/unreach.png")
 }
 
 var timer
@@ -30,10 +31,6 @@ func _process(_delta: float) -> void:
 	label.text = "Initializing" + str("%0.2f" % timer.time_left)
 
 func _on_timer_timeout() -> void:
-	# if spy.is_in_group("MasterSpys"):
-		# state_machine.node_switch_to("Idle")
-		# return
-	# state_machine.node_switch_to("Unreachable")
 	state_machine.node_switch_to("Idle")
 
 func exit():

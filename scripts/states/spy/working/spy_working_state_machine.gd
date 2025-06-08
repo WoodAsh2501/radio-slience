@@ -6,7 +6,7 @@ extends StateMachine
 @onready var label = $"../Label"
 @onready var spy_detect_range = $"../SpyDetectRange"
 @onready var enemy_detect_range = $"../EnemyDetectRange"
-
+@onready var sprite = $"../SpyNode/Sprite"
 
 var last_stable_state_name: String
 var has_initialized: bool = false
@@ -25,6 +25,7 @@ func node_switch_to(state_name: String, data: Dictionary = {}):
 		"pickable": true,
 		"detecting_spy": true,
 		"detecting_enemy": true,
+		"texture": preload("res://assets/UI/unreach.png")
 	})
 
 	spy_node.scale = set_status(state_status, "scale") * Vector2(1, 1)
@@ -33,14 +34,23 @@ func node_switch_to(state_name: String, data: Dictionary = {}):
 	spy_instance.visible = set_status(state_status, "visible")
 	spy_detect_range.monitoring = set_status(state_status, "detecting_spy")
 	enemy_detect_range.monitoring = set_status(state_status, "detecting_enemy")
+	
+	# 设置贴图
+	if sprite and state_status.has("texture"):
+		sprite.texture = state_status["texture"]
 
 func set_status(state_status, key):
+	if not state_status.has(key):
+		return null
+		
 	var value = state_status[key]
 	if not value in ["keep"]:
 		return value
 
 	var last_stable_state = get_state_by_name(last_stable_state_name)
-	return last_stable_state.spy_state_status[key]
+	if last_stable_state and "spy_state_status" in last_stable_state and last_stable_state.spy_state_status.has(key):
+		return last_stable_state.spy_state_status[key]
+	return null
 
 func node_switch_to_last_stable_state(data: Dictionary = {}):
 	# print(last_stable_state_name)
