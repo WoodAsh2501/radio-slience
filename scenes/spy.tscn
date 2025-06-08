@@ -45,6 +45,14 @@ func _ready() -> void:
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1tjyl")
 
+[node name="UselessButton" type="TextureButton" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 1
+script = ExtResource("22_mex1u")
+
 [node name="SpyDetectRange" type="Area2D" parent="."]
 visible = false
 input_pickable = false
@@ -177,13 +185,6 @@ offset_right = -12.0
 offset_bottom = -17.0
 text = "开除"
 script = ExtResource("21_s68pl")
-
-[node name="UselessButton" type="TextureButton" parent="."]
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-script = ExtResource("22_mex1u")
 
 [connection signal="area_entered" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_entered"]
 [connection signal="area_exited" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_exited"]
