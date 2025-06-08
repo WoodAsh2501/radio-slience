@@ -105,15 +105,16 @@ metadata/_edit_vertical_guides_ = [592.0]
 
 [node name="GameAttributes" type="Node" parent="." groups=["GameAttributes"]]
 script = ExtResource("2_3fqns")
-spy_init_time = 1.0
+spy_init_time = 3.0
 spy_detected_range = 138.7
 spy_discover_range = 230.725
 undercover_expose_period = 10.0
 undercover_exposable_distance = 4
-enemy_move_speed = 100.0
+enemy_move_speed = 50.0
 enemy_caution_increasing_speed = 1.0
 enemy_caution_cooling_speed = 1.0
 enemy_caution_sound_threshold = 50.0
+action_point_max = 5
 action_point_recovery_time = 5.0
 tower_crack_increasing_speed = 10.0
 
@@ -337,8 +338,8 @@ scale = Vector2(3.195, 3.195)
 text = "aa"
 
 [node name="Cluepanel" type="Sprite2D" parent="TopUI/UIManager/MainUI/clue" node_paths=PackedStringArray("signal_center")]
-position = Vector2(955, 584)
-scale = Vector2(0.634, 0.839)
+position = Vector2(944, 583)
+scale = Vector2(0.665, 0.665)
 texture = ExtResource("12_xy2fk")
 script = ExtResource("13_cmcjb")
 signal_center = NodePath("../../../../../SignalCenter")
@@ -351,18 +352,18 @@ offset_bottom = 19.2431
 scale = Vector2(1.42, 1.42)
 
 [node name="LeftButton" type="Button" parent="TopUI/UIManager/MainUI/clue/Cluepanel"]
-offset_left = -296.53
-offset_top = -25.0298
-offset_right = -253.53
-offset_bottom = 22.9702
+offset_left = -284.211
+offset_top = -21.0526
+offset_right = -241.211
+offset_bottom = 26.9474
 focus_mode = 0
 icon = ExtResource("14_556r4")
 
 [node name="RightButton" type="Button" parent="TopUI/UIManager/MainUI/clue/Cluepanel"]
-offset_left = 287.066
-offset_top = 19.0702
-offset_right = 330.066
-offset_bottom = 67.0702
+offset_left = 282.707
+offset_top = 27.0676
+offset_right = 325.707
+offset_bottom = 75.0676
 rotation = -3.14077
 focus_mode = 0
 icon = ExtResource("14_556r4")
