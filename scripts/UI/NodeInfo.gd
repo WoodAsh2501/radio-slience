@@ -12,6 +12,7 @@ var current_spy = null
 func _ready():
 	if signal_center:
 		signal_center.connect("click_spy", self._on_spy_clicked)
+		signal_center.connect("click_empty", self._on_click_empty)
 	else:
 		push_error("请在编辑器中设置 signal_center 节点引用！")
 	
@@ -109,3 +110,6 @@ func clear_info_text():
 			characteristics_label.text = ""
 		if background_label:
 			background_label.text = ""
+
+func _on_click_empty():
+	_on_close_pressed()
