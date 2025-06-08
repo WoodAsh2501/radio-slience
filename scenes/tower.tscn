@@ -79,6 +79,7 @@ script = ExtResource("13_di6vr")
 metadata/_custom_type_script = "uid://bbbg3utfvsq6h"
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -62.0
 offset_top = 16.0
 offset_right = 42.0
