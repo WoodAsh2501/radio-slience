@@ -19,6 +19,13 @@ class PlayStore:
 	static func resume():
 		is_playing = true
 
+	static var action_point_resume_time = 5.0
+	static var max_action_point = 3
+	static var action_point = 0
+
+	static func init_action_point():
+		action_point = max_action_point
+
 class SilencingStore:
 	static var is_silencing = false
 
