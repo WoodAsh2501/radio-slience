@@ -7,4 +7,5 @@ var spy_state_status = {
 	"pickable": true,
 	"detecting_spy": true,
 	"detecting_enemy": true,
+	"texture": preload("res://assets/UI/idle.png")
 }

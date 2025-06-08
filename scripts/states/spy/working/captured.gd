@@ -7,4 +7,5 @@ var spy_state_status = {
 	"pickable": false,
 	"detecting_spy": false,
 	"detecting_enemy": false,
+	"texture": preload("res://assets/UI/Capture.png")
 }
