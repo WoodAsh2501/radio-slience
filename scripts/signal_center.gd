@@ -60,11 +60,13 @@ func connect_signal(emitter, emitted_signal, callback_fn):
 
 func connect_ui_signals(spys):
 	for spy in spys:
-		var spy_node = spy.get_node("SpyNode")
-		connect_signal(spy_node, "click_spy", _on_spy_instance_clicked)
+		# var spy_node = spy.get_node("SpyNode")
+		var clicked_state = spy.get_node("WorkingStateMachine/Clicked")
+		# connect_signal(spy_node, "click_spy", _on_spy_instance_clicked)
+		connect_signal(clicked_state, "click_spy", _on_spy_instance_clicked)
 
 func _on_spy_instance_clicked(spy):
-	print("Spy clicked: ", spy)
+	# print("Spy clicked: ", spy)
 	emit_signal("click_spy", spy)
 
 

@@ -3,6 +3,7 @@ class_name State
 extends Node
 
 @onready var state_machine = get_parent()
+@onready var parent_node = get_parent().get_parent()
 
 func get_state_machine() -> StateMachine:
 	return state_machine
