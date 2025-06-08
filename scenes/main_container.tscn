@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cy2seclxqtbqk"]
+
+[ext_resource type="Texture2D" uid="uid://duso0lk2u33av" path="res://assets/UI/mainBG.png" id="1_atygf"]
+[ext_resource type="Texture2D" uid="uid://cy8d2ol0641qa" path="res://assets/UI/Frame 44.png" id="2_mgukb"]
+[ext_resource type="Texture2D" uid="uid://c61xmvkdwnjx4" path="res://assets/UI/Frame 45.png" id="3_5oqq1"]
+[ext_resource type="Script" uid="uid://b7xlx61lbl0vu" path="res://scenes/new_button.gd" id="3_mgukb"]
+[ext_resource type="Texture2D" uid="uid://vvf6p3iqsa0j" path="res://assets/UI/Frame 46.png" id="4_jor4d"]
+[ext_resource type="Texture2D" uid="uid://yvkpe418krjf" path="res://assets/UI/Frame 47.png" id="5_5olki"]
+[ext_resource type="Texture2D" uid="uid://bkv4j4l4x1gyw" path="res://assets/UI/Frame 48.png" id="6_r6svd"]
+
+[node name="MainContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_vertical_guides_ = [450.0, 719.0]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 1941.0
+offset_bottom = 1080.0
+
+[node name="MainBg" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(578, 324)
+scale = Vector2(0.6, 0.603704)
+texture = ExtResource("1_atygf")
+
+[node name="Frame44" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(588, 190)
+scale = Vector2(0.519737, 0.519737)
+texture = ExtResource("2_mgukb")
+
+[node name="Frame48" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(586.947, 539.5)
+scale = Vector2(0.539474, 0.539474)
+texture = ExtResource("6_r6svd")
+
+[node name="Frame46" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(586.947, 408.5)
+scale = Vector2(0.530303, 0.530303)
+texture = ExtResource("4_jor4d")
+
+[node name="Frame47" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(586.947, 478.5)
+scale = Vector2(0.53169, 0.53169)
+texture = ExtResource("5_5olki")
+
+[node name="Frame45" type="Sprite2D" parent="PanelContainer"]
+position = Vector2(585, 335)
+scale = Vector2(0.531746, 0.531746)
+texture = ExtResource("3_5oqq1")
+
+[node name="NewButton" type="Button" parent="."]
+layout_mode = 2
+offset_left = 449.0
+offset_top = 319.0
+offset_right = 719.0
+offset_bottom = 356.0
+script = ExtResource("3_mgukb")
