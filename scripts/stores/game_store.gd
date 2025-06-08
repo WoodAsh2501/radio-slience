@@ -32,3 +32,9 @@ class ConnectingStore:
 	static var is_connecting = false
 	static var start_node = null
 	static var end_node = null
+
+	static var tower_reachability = {}
+
+	static func initialize_tower_reachability(towers):
+		for tower in towers:
+			tower_reachability[tower] = false
