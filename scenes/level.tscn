@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=64 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
@@ -42,14 +42,18 @@
 [ext_resource type="Script" uid="uid://b0xyorjtqg14j" path="res://scripts/UI/backtomain_button.gd" id="19_cr74b"]
 [ext_resource type="Texture2D" uid="uid://c4x7fu2spoml2" path="res://assets/UI/spaceon.png" id="20_pqd0y"]
 [ext_resource type="Texture2D" uid="uid://dewl1ih02qere" path="res://assets/menuassets/backtomenu.png" id="20_uhfbm"]
+[ext_resource type="Texture2D" uid="uid://d4014f7w2u0e" path="res://assets/UI/news (1).png" id="21_7iqcu"]
 [ext_resource type="Texture2D" uid="uid://cagfsicx5pu6" path="res://assets/guard.png" id="22_3ies3"]
 [ext_resource type="Texture2D" uid="uid://bamwkrk2gvemf" path="res://assets/menuassets/add.png" id="22_ok3ci"]
+[ext_resource type="Script" uid="uid://di6ppa5xhwvlw" path="res://scripts/UI/news_button.gd" id="22_v4d4p"]
 [ext_resource type="Script" uid="uid://pr6vyayswgnl" path="res://scripts/UI/add_button.gd" id="23_hv3ux"]
 [ext_resource type="Texture2D" uid="uid://deb8vsk388pra" path="res://assets/menuassets/sub.png" id="24_j4eoh"]
 [ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
 [ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Texture2D" uid="uid://u1v6tnroi1vx" path="res://assets/newsphoto/Frame 1.png" id="34_30hdq"]
+[ext_resource type="Script" uid="uid://bopmhj2xq7omd" path="res://scripts/news_exit.gd" id="35_3fqns"]
 [ext_resource type="Texture2D" uid="uid://bwabhrl0ue0w4" path="res://assets/UI/ProBG.png" id="37_bhb1k"]
 [ext_resource type="Script" uid="uid://bh15wtl3d0ueo" path="res://scripts/camera_2d.gd" id="50_bhb1k"]
 
@@ -347,6 +351,17 @@ rotation = -3.14077
 focus_mode = 0
 icon = ExtResource("14_556r4")
 
+[node name="newsButton" type="Button" parent="TopUI/UIManager/MainUI"]
+visible = false
+layout_mode = 0
+offset_left = 1076.0
+offset_top = 243.0
+offset_right = 1173.0
+offset_bottom = 333.0
+scale = Vector2(0.65, 0.65)
+icon = ExtResource("21_7iqcu")
+script = ExtResource("22_v4d4p")
+
 [node name="MenuUI" type="Panel" parent="TopUI/UIManager"]
 visible = false
 z_index = 5
@@ -437,6 +452,29 @@ offset_bottom = 99.0
 scale = Vector2(0.5, 0.5)
 icon = ExtResource("24_j4eoh")
 script = ExtResource("25_bhb1k")
+
+[node name="NewsUI" type="Panel" parent="TopUI/UIManager"]
+visible = false
+layout_mode = 0
+offset_top = 2.0
+offset_right = 116.0
+offset_bottom = 68.0
+scale = Vector2(10, 10)
+
+[node name="Frame1" type="Sprite2D" parent="TopUI/UIManager/NewsUI"]
+position = Vector2(59.3, 27.8)
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("34_30hdq")
+
+[node name="newsExit" type="Button" parent="TopUI/UIManager/NewsUI"]
+layout_mode = 0
+offset_left = 81.1
+offset_top = 9.2
+offset_right = 161.1
+offset_bottom = 89.2
+scale = Vector2(0.05, 0.05)
+icon = ExtResource("8_2jdvr")
+script = ExtResource("35_3fqns")
 
 [node name="UI" type="Control" parent="TopUI"]
 layout_mode = 3
