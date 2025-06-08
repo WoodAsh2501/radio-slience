@@ -7,6 +7,7 @@ signal alert_value_changed # 发送信号到警戒条
 @export var speed: float = 0.0
 @onready var spys = get_tree().get_nodes_in_group("Spys")
 @onready var label = $Label
+@onready var alert_sound: AudioStreamPlayer
 
 @onready var target_position: Vector2 = choose_random_position()
 
@@ -19,6 +20,14 @@ var current_direction: Vector2 = Vector2.LEFT
 var detecting_spys: Array = []
 var old_alert_value: int = 0
 var alert_value: int = 0
+var is_playing_alert: bool = false
+
+func _ready() -> void:
+	# Setup alert sound
+	alert_sound = AudioStreamPlayer.new()
+	add_child(alert_sound)
+	alert_sound.stream = load("res://UI音效/警戒值过高警报3.wav")
+	alert_sound.volume_db = -8.0  # 设置为原来的40%音量（约-8dB）
 
 func _process(_delta: float) -> void:
 	label.text = "Alert Value: " + str(alert_value)
@@ -71,6 +80,14 @@ func update_alert_value(new_value: int) -> void:
 	alert_value = new_value
 	emit_signal("alert_value_changed", old_alert_value, alert_value) # 发送信号到警戒条
 	on_alert_value_changed(old_alert_value, alert_value)
+	
+	# Handle alert sound
+	if alert_value > 80 and not is_playing_alert:
+		alert_sound.play()
+		is_playing_alert = true
+	elif alert_value <= 80 and is_playing_alert:
+		alert_sound.stop()
+		is_playing_alert = false
 
 func lock_nearest_spy():
 	var nearest = get_nearest_spy()
