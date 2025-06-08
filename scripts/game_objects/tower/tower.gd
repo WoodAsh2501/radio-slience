@@ -80,9 +80,10 @@ class ConnectionUtils:
 			preview_line.queue_free()
 
 func update_cracking_progress():
-	if node_status.reachable:
-		cracking_progress += 1
+	if node_status.reachable and not GameStore.SilencingStore.is_silencing:
+		cracking_progress += 0.2
 	else:
-		cracking_progress -= 0.3
+		# cracking_progress -= 0.3
+		pass
 
 	cracking_progress = clamp(cracking_progress, 0, 100)

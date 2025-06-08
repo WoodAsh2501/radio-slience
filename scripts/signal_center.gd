@@ -17,8 +17,8 @@ signal enemy_patrol_captured(spy, enemy)
 # signal building_connection_abandoned(spy)
 
 signal connection_established(start_node, end_node, value)
-signal connection_changed(start_node, end_node, value)
-# signal connection_lost(start_node, end_node)
+signal connection_changed
+signal connection_lost(start_node, end_node)
 
 signal connection_highlighted(connection_line)
 signal connection_unhighlighted(connection_line)
@@ -98,7 +98,7 @@ func _on_enemy_instance_spy_detected(signal_enemy, signal_spy):
 func _on_enemy_instance_spy_captured(signal_enemy, signal_spy):
 	emit_signal("enemy_patrol_captured", signal_spy, signal_enemy)
 	## TODO: 记得把连接信号移到spy lost那里
-	# emit_signal("connection_changed", signal_spy, signal_enemy, "lost")
+	emit_signal("connection_changed")
 
 ## connection signals ##
 
@@ -118,11 +118,12 @@ func _on_connection_manager_connection_unhighlighted(connection_line: Node) -> v
 func _on_connection_manager_new_connection_established(start_spy: Node, end_spy: Node, value: Variant) -> void:
 	# print("New connection established between: ", start_spy, " and ", end_spy, " with value: ", value)
 	emit_signal("connection_established", start_spy, end_spy, value)
-	emit_signal("connection_changed", start_spy, end_spy, value)
+	emit_signal("connection_changed")
 
 func _on_connection_manager_connection_lost(start_spy: Node, end_spy: Node, value: Variant) -> void:
 	emit_signal("connection_lost", start_spy, end_spy, value)
 	emit_signal("spy_manager_lost", start_spy)
+	emit_signal("connection_changed")
 
 ## spy manager signals ##
 

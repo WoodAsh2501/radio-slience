@@ -18,9 +18,15 @@ signal connection_unhighlighted(connection_line)
 
 signal exposing_succeeded(target_spy)
 
+func get_towers():
+	return get_tree().get_nodes_in_group("Towers")
+
+func get_spys():
+	return get_tree().get_nodes_in_group("Spys")
+
 func update_nodes():
-	var towers = get_tree().get_nodes_in_group("Towers")
-	var spys = get_tree().get_nodes_in_group("Spys")
+	var towers = get_towers()
+	var spys = get_spys()
 	nodes = towers + spys
 
 func add_connection(start_spy, end_spy, value = 1):
@@ -218,6 +224,9 @@ func _ready() -> void:
 	update_nodes()
 	connect_connection_signals(nodes)
 
+	GameStore.ConnectingStore.initialize_tower_reachability(get_towers())
+
+
 var connecting_start_node: Node2D = null
 var connecting_end_node: Node2D = null
 
@@ -274,16 +283,18 @@ func _on_signal_center_enemy_patrol_captured(spy: Variant, _enemy: Variant) -> v
 
 	# pass # Replace with function body.
 
-func _on_signal_center_connection_changed(_start_spy: Node, _end_spy: Node, _value: Variant) -> void:
+func _on_signal_center_connection_changed() -> void:
 	for node in nodes:
+		update_reachable_status()
 		if node is TowerInstance:
+			GameStore.ConnectingStore.tower_reachability[node] = is_connect_to_node(master_spy, node)
 			continue
+
 		node.is_inside_path_to_tower = is_inside_path_to_tower(node)
 
 func _on_signal_center_click_spy(spy: Variant) -> void:
 	unhighlight_all_connections()
 	highlight_near_connections(spy)
-
 
 func _on_signal_center_exposing_started(spy: Variant) -> void:
 	var near_nodes = get_nodes_in_distance(spy, 2).filter(func(node):

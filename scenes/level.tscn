@@ -189,17 +189,15 @@ mouse_filter = 2
 color = Color(0.0375521, 0.000970605, 0.114669, 1)
 
 [node name="CrackingProgress" type="BoxContainer" parent="UI"]
-visible = false
 layout_mode = 0
-offset_left = 23.0
-offset_top = 228.0
-offset_right = 114.0
-offset_bottom = 481.0
+offset_left = 1073.0
+offset_top = 150.0
+offset_right = 1164.0
+offset_bottom = 403.0
 alignment = 2
 vertical = true
 
 [node name="ProgressBar" type="ColorRect" parent="UI/CrackingProgress"]
-visible = false
 custom_minimum_size = Vector2(20, 200)
 layout_mode = 2
 size_flags_horizontal = 4
