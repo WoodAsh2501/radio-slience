@@ -235,7 +235,8 @@ func _on_spy_node_building_connection_ended(end_node) -> void:
 	connecting_end_node = end_node
 	if (connecting_start_node == connecting_end_node
 	or has_connection(connecting_start_node, connecting_end_node)
-	or not connecting_start_node):
+	or not connecting_start_node
+	or (not connecting_start_node.node_status.is_employed and not connecting_end_node.node_status.is_employed)):
 		return
 
 	add_connection(connecting_start_node, connecting_end_node)
