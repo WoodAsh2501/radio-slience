@@ -20,8 +20,8 @@
 [ext_resource type="Script" uid="uid://ddwe402r0lp2o" path="res://scripts/states/spy/captured/locked.gd" id="16_acoot"]
 [ext_resource type="Script" uid="uid://bhdu8lydahodg" path="res://scripts/states/spy/working/captured.gd" id="17_acoot"]
 [ext_resource type="Script" uid="uid://crm12bdfl6i68" path="res://scripts/game_objects/spy/clue_button.gd" id="19_g3acc"]
-[ext_resource type="Script" uid="uid://ccik0o84nabr" path="res://scripts/game_objects/spy/delete_button.gd" id="21_s68pl"]
-[ext_resource type="Script" uid="uid://bhww36vj3n863" path="res://scripts/game_objects/spy/useless_button.gd" id="22_mex1u"]
+[ext_resource type="Script" path="res://scripts/game_objects/spy/delete_button.gd" id="21_s68pl"]
+[ext_resource type="Script" path="res://scripts/game_objects/spy/useless_button.gd" id="22_mex1u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
 radius = 200.0

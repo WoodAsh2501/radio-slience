@@ -1,6 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=40 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
+[ext_resource type="Script" uid="uid://wu6hyfstl871" path="res://scripts/level/level.gd" id="1_gur6y"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
 [ext_resource type="Script" uid="uid://4fu48mmmjkib" path="res://scripts/managers/connection_manager.gd" id="2_8iemx"]
 [ext_resource type="Script" uid="uid://drl7rxsnirrwa" path="res://scripts/managers/clue_manager.gd" id="3_arp2o"]
@@ -71,6 +72,7 @@ func _on_toggled(toggled_on: bool) -> void:
 radius = 12.2978
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_gur6y")
 
 [node name="GlobalClickDetector" type="Button" parent="."]
 offset_left = -6.0
@@ -425,6 +427,7 @@ script = ExtResource("27_xy2fk")
 [connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]
 [connection signal="employ_new_spy" from="Spys" to="SignalCenter" method="_on_spy_manager_employed"]
+[connection signal="click_empty" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_empty"]
 [connection signal="click_spy" from="SignalCenter" to="ConnectionManager" method="_on_signal_center_click_spy"]
 [connection signal="clue_collected" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_collected"]
 [connection signal="clue_discovered" from="SignalCenter" to="ClueManager" method="_on_signal_center_clue_discovered"]

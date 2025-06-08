@@ -6,7 +6,7 @@ extends Node
 # signal remove_enemy(enemy)
 
 signal click_spy(spy)
-signal click_empty
+signal click_empty()
 
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
@@ -18,7 +18,7 @@ signal enemy_patrol_captured(spy, enemy)
 # signal building_connection_abandoned(spy)
 
 signal connection_established(start_node, end_node, value)
-signal connection_changed
+signal connection_changed()
 signal connection_lost(start_node, end_node)
 
 signal connection_highlighted(connection_line)

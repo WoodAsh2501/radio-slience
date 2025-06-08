@@ -322,6 +322,9 @@ func _on_signal_center_click_spy(spy: Variant) -> void:
 	unhighlight_all_connections()
 	highlight_near_connections(spy)
 
+func _on_signal_center_click_empty():
+	unhighlight_all_connections()
+
 func _on_signal_center_exposing_started(spy: Variant) -> void:
 	var near_nodes = get_nodes_in_distance(spy, 2).filter(func(node):
 		if node is TowerInstance:
