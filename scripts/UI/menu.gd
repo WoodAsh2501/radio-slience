@@ -1,7 +1,7 @@
 extends Button
 
-@onready var menu_ui = get_node("/root/Node2D/UIManager/MenuUI")
-@onready var main_ui = get_node("/root/Node2D/UIManager")
+@onready var menu_ui = get_node("/root/Node2D/TopUI/UIManager/MenuUI")
+@onready var main_ui = get_node("/root/Node2D/TopUI/UIManager")
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)

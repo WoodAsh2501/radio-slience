@@ -1,11 +1,11 @@
 extends Button
 
 @onready var selected_sprites = [
-	get_node("/root/Node2D/UIManager/MenuUI/PanelContainer/Selected"),
-	get_node("/root/Node2D/UIManager/MenuUI/PanelContainer/Selected2"),
-	get_node("/root/Node2D/UIManager/MenuUI/PanelContainer/Selected3"),
-	get_node("/root/Node2D/UIManager/MenuUI/PanelContainer/Selected4"),
-	get_node("/root/Node2D/UIManager/MenuUI/PanelContainer/Selected5")
+	get_node("/root/Node2D/TopUI/UIManager/MenuUI/PanelContainer/Selected"),
+	get_node("/root/Node2D/TopUI/UIManager/MenuUI/PanelContainer/Selected2"),
+	get_node("/root/Node2D/TopUI/UIManager/MenuUI/PanelContainer/Selected3"),
+	get_node("/root/Node2D/TopUI/UIManager/MenuUI/PanelContainer/Selected4"),
+	get_node("/root/Node2D/TopUI/UIManager/MenuUI/PanelContainer/Selected5")
 ]
 
 @onready var selected_texture = preload("res://assets/menuassets/selected.png")

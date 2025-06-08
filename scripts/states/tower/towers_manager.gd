@@ -3,7 +3,7 @@ extends Node
 @onready var towers = get_tree().get_nodes_in_group("Towers")
 @onready var connection_manager = get_node("../ConnectionManager")
 
-@onready var cracking_progress_bar = $"../UI/CrackingProgress/ProgressBar"
+@onready var cracking_progress_bar = $"../TopUI/UI/CrackingProgress/ProgressBar"
 var total_cracking_progress_ratio: float = 0
 
 func _ready() -> void:
