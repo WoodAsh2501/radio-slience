@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=39 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
@@ -33,6 +33,11 @@
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
 [ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 
+[sub_resource type="GDScript" id="GDScript_2e2fo"]
+script/source = "extends Button
+
+"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_klq6b"]
 shader = ExtResource("6_b121j")
 
@@ -66,6 +71,16 @@ func _on_toggled(toggled_on: bool) -> void:
 radius = 12.2978
 
 [node name="Node2D" type="Node2D"]
+
+[node name="GlobalClickDetector" type="Button" parent="."]
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 1184.0
+offset_bottom = 667.0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+flat = true
+script = SubResource("GDScript_2e2fo")
 
 [node name="UIManager" type="Control" parent="."]
 layout_mode = 3
@@ -404,6 +419,7 @@ stream = ExtResource("26_xy2fk")
 [node name="BackgroundMusic" type="Node" parent="."]
 script = ExtResource("27_xy2fk")
 
+[connection signal="pressed" from="GlobalClickDetector" to="SignalCenter" method="_on_global_click_detector_pressed"]
 [connection signal="pressed" from="UI/DiscoverClueButton" to="UI/DiscoverClueButton" method="_on_pressed"]
 [connection signal="toggled" from="UI/ToggleNodesVisibilityButton" to="UI/ToggleNodesVisibilityButton" method="_on_toggled"]
 [connection signal="new_connection_established" from="ConnectionManager" to="SignalCenter" method="_on_connection_manager_new_connection_established"]

@@ -6,6 +6,7 @@ extends Node
 # signal remove_enemy(enemy)
 
 signal click_spy(spy)
+signal click_empty
 
 signal enemy_patrol_entered(spy, enemy)
 signal enemy_patrol_exited(spy, enemy)
@@ -62,12 +63,18 @@ func connect_ui_signals(spys):
 	for spy in spys:
 		# var spy_node = spy.get_node("SpyNode")
 		var clicked_state = spy.get_node("WorkingStateMachine/Clicked")
+		var delete_button = spy.get_node("DeleteButton")
 		# connect_signal(spy_node, "click_spy", _on_spy_instance_clicked)
 		connect_signal(clicked_state, "click_spy", _on_spy_instance_clicked)
+		connect_signal(self, "click_spy", delete_button._on_signal_center_click_spy)
+		connect_signal(self, "click_empty", delete_button._on_signal_center_click_empty)
 
 func _on_spy_instance_clicked(spy):
 	# print("Spy clicked: ", spy)
 	emit_signal("click_spy", spy)
+
+func _on_global_click_detector_pressed() -> void:
+	emit_signal("click_empty")
 
 
 ## enemy patrol signals ##
