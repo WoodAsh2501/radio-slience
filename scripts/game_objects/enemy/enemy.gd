@@ -40,19 +40,18 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	label.text = "Alert Value: " + str(alert_value)
-	
-	# 处理消失逻辑
+
 	disappear_timer += get_process_delta_time()
-	
+
 	if not is_disappeared and disappear_timer >= DISAPPEAR_INTERVAL:
 		is_disappeared = true
 		disappear_timer = 0.0
 		visible = false
 		# 在消失时清除所有锁定
-		locked_spy_array.clear()
+		# locked_spy_array.clear()
 		target_spy = null
 		target_position = choose_random_position()
-	
+
 	elif is_disappeared and disappear_timer >= DISAPPEAR_DURATION:
 		is_disappeared = false
 		disappear_timer = 0.0
@@ -61,7 +60,7 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if is_disappeared:
 		return
-		
+
 	var current_target_position = target_position
 
 	if locked_spy_array.size() > 0:
@@ -94,7 +93,9 @@ func _physics_process(delta: float) -> void:
 		target_position = get_global_mouse_position()
 
 	current_direction = (target_position - position).normalized()
-	move_and_collide(current_direction * speed * delta)
+
+	if not is_disappeared:
+		move_and_collide(current_direction * speed * delta)
 
 	if is_spy_exposed():
 		if alert_value < 100:

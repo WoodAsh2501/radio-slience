@@ -53,7 +53,7 @@
 [ext_resource type="Script" uid="uid://nat8n5dviky7" path="res://scripts/UI/sub_button.gd" id="25_bhb1k"]
 [ext_resource type="Texture2D" uid="uid://c5eo0bumwe8e0" path="res://assets/UI/progress.png" id="26_gur6y"]
 [ext_resource type="AudioStream" uid="uid://b5yqu4yoff8y" path="res://UI音效/连线2.wav" id="26_xy2fk"]
-[ext_resource type="Script" uid="uid://d0ewn3e5sab5a" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
+[ext_resource type="Script" uid="uid://dlj6k6w416v03" path="res://scripts/managers/background_music.gd" id="27_xy2fk"]
 [ext_resource type="Texture2D" uid="uid://u1v6tnroi1vx" path="res://assets/newsphoto/Frame 1.png" id="34_30hdq"]
 [ext_resource type="Script" uid="uid://bopmhj2xq7omd" path="res://scripts/news_exit.gd" id="35_3fqns"]
 [ext_resource type="Texture2D" uid="uid://bwabhrl0ue0w4" path="res://assets/UI/ProBG.png" id="37_bhb1k"]
