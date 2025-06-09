@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c2m582akgaqnj"]
+[gd_scene load_steps=30 format=3 uid="uid://c2m582akgaqnj"]
 
 [ext_resource type="Script" uid="uid://cvprpona30qpr" path="res://scripts/game_objects/spy/spy.gd" id="1_1tjyl"]
 [ext_resource type="Script" uid="uid://chiqsd1j21eag" path="res://scripts/game_objects/spy/spy_detect_range.gd" id="2_8u3ya"]
@@ -20,8 +20,10 @@
 [ext_resource type="Script" uid="uid://ddwe402r0lp2o" path="res://scripts/states/spy/captured/locked.gd" id="16_acoot"]
 [ext_resource type="Script" uid="uid://bhdu8lydahodg" path="res://scripts/states/spy/working/captured.gd" id="17_acoot"]
 [ext_resource type="Script" uid="uid://crm12bdfl6i68" path="res://scripts/game_objects/spy/clue_button.gd" id="19_g3acc"]
+[ext_resource type="Texture2D" uid="uid://ckfxh5p0rt8xy" path="res://assets/UI/clue.png" id="21_hrl7g"]
 [ext_resource type="Script" uid="uid://ccik0o84nabr" path="res://scripts/game_objects/spy/delete_button.gd" id="21_s68pl"]
 [ext_resource type="Script" uid="uid://bhww36vj3n863" path="res://scripts/game_objects/spy/useless_button.gd" id="22_mex1u"]
+[ext_resource type="Texture2D" uid="uid://cjiqvxwrasfpr" path="res://assets/UI/delete.png" id="23_32hac"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_si84p"]
 radius = 200.0
@@ -170,19 +172,21 @@ scale = Vector2(0.135, 0.135)
 texture = ExtResource("16_1r427")
 
 [node name="ClueButton" type="Button" parent="."]
-offset_left = 14.0
-offset_top = -48.0
-offset_right = 107.0
-offset_bottom = -17.0
-text = "发现新线索 "
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 240.0
+offset_bottom = 35.0
+scale = Vector2(0.37, 0.37)
+icon = ExtResource("21_hrl7g")
 script = ExtResource("19_g3acc")
 
 [node name="DeleteButton" type="Button" parent="."]
-offset_left = -52.0
-offset_top = -48.0
-offset_right = -12.0
-offset_bottom = -17.0
-text = "开除"
+offset_left = -54.0
+offset_top = -50.0
+offset_right = 68.0
+offset_bottom = 35.0
+scale = Vector2(0.365, 0.365)
+icon = ExtResource("23_32hac")
 script = ExtResource("21_s68pl")
 
 [connection signal="area_entered" from="SpyDetectRange" to="." method="_on_spy_detect_range_area_entered"]

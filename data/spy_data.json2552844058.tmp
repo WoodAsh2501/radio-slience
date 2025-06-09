@@ -111,8 +111,7 @@
 			"clue": "相机包，发现了一张破损的明信片，明信片背面写着“再也回不去了”几行字"
 		}
 	},
- {
-		"codeName": "嗒啦啦",
+	 "codeName": "嗒啦啦",
 		"data": {
 			"isUndercover": true,
 			"codeName": "嗒啦啦",

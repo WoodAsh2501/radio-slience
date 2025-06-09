@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://be7pdrgon05ag"]
+[gd_scene load_steps=67 format=3 uid="uid://be7pdrgon05ag"]
 
 [ext_resource type="Script" uid="uid://6pvu7pfrexe7" path="res://scripts/UI/ActivateMenu.gd" id="1_7agi7"]
 [ext_resource type="Script" uid="uid://cwv1wwe0n52t" path="res://scripts/signal_manager.gd" id="1_klq6b"]
@@ -57,7 +57,6 @@
 [ext_resource type="Texture2D" uid="uid://u1v6tnroi1vx" path="res://assets/newsphoto/Frame 1.png" id="34_30hdq"]
 [ext_resource type="Script" uid="uid://bopmhj2xq7omd" path="res://scripts/news_exit.gd" id="35_3fqns"]
 [ext_resource type="Texture2D" uid="uid://bwabhrl0ue0w4" path="res://assets/UI/ProBG.png" id="37_bhb1k"]
-[ext_resource type="Texture2D" uid="uid://c5sbvgxwgm4wj" path="res://assets/UI/end.png" id="40_421lv"]
 [ext_resource type="Script" uid="uid://bh15wtl3d0ueo" path="res://scripts/camera_2d.gd" id="50_bhb1k"]
 
 [sub_resource type="GDScript" id="GDScript_2e2fo"]
@@ -113,13 +112,13 @@ script = ExtResource("2_3fqns")
 spy_init_time = 0.01
 spy_detected_range = 138.7
 spy_discover_range = 230.725
-undercover_expose_period = 5.0
+undercover_expose_period = 10.0
 enemy_move_speed = 100.0
 enemy_caution_increasing_speed = 1.0
 enemy_caution_cooling_speed = 1.0
 enemy_caution_sound_threshold = 50.0
 action_point_recovery_time = 5.0
-tower_crack_increasing_speed = 0.04
+tower_crack_increasing_speed = 0.07
 
 [node name="TopUI" type="CanvasLayer" parent="."]
 layer = 0
@@ -514,18 +513,6 @@ scale = Vector2(0.05, 0.05)
 icon = ExtResource("8_2jdvr")
 script = ExtResource("35_3fqns")
 
-[node name="end" type="Control" parent="TopUI/UIManager"]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="End" type="Sprite2D" parent="TopUI/UIManager/end"]
-z_index = 5
-position = Vector2(583, 327)
-scale = Vector2(0.615, 0.615)
-texture = ExtResource("40_421lv")
-
 [node name="UI" type="Control" parent="TopUI"]
 layout_mode = 3
 anchors_preset = 0
@@ -697,10 +684,9 @@ position = Vector2(535, 370)
 scale = Vector2(1, 1)
 code_name = "派利尔"
 
-[node name="Towers" type="Node2D" parent="." node_paths=PackedStringArray("end_panel")]
+[node name="Towers" type="Node2D" parent="."]
 position = Vector2(550, -22)
 script = ExtResource("5_wc255")
-end_panel = NodePath("../TopUI/UIManager/end")
 
 [node name="Tower" parent="Towers" groups=["InvisibleSpys"] instance=ExtResource("5_fpun6")]
 position = Vector2(422, 182)
