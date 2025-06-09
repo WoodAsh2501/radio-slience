@@ -82,13 +82,16 @@ func _on_close_pressed():
 			close_button.visible = false
 		if info:
 			info.visible = false
-		# 清除当前spy引用
-		current_spy = null
 		# 清空info中的文字
 		clear_info_text()
 		# 取消所有连接的高亮
 		if connection_manager:
 			connection_manager.unhighlight_all_connections()
+		# 隐藏当前间谍节点的删除按钮
+		if current_spy and current_spy.has_node("DeleteButton"):
+			current_spy.get_node("DeleteButton").visible = false
+		# 清除当前spy引用
+		current_spy = null
 
 func clear_info_text():
 	if info:

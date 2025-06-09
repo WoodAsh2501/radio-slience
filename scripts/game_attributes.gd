@@ -20,5 +20,3 @@ extends Node
 @export var clue_refresh_period: float
 
 @export var tower_crack_increasing_speed: float = 0.1
-
-

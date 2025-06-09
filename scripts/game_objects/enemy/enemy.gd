@@ -12,7 +12,7 @@ signal alert_value_changed # 发送信号到警戒条
 
 @onready var target_position: Vector2 = choose_random_position()
 
-var speed: float
+var speed: float = 50.0
 
 var locked_spy_array: Array = []
 var target_spy: Node2D = null
@@ -25,6 +25,12 @@ var old_alert_value: int = 0
 var alert_value: int = 0
 var is_playing_alert: bool = false
 
+# 消失相关的变量
+var disappear_timer: float = 0.0
+var is_disappeared: bool = false
+const DISAPPEAR_INTERVAL: float = 10.0  # 每10秒
+const DISAPPEAR_DURATION: float = 10.0   # 消失5秒
+
 func _ready() -> void:
 	# Setup alert sound
 	alert_sound = AudioStreamPlayer.new()
@@ -34,9 +40,28 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	label.text = "Alert Value: " + str(alert_value)
-	# on_alert_value_changed(old_alert_value, alert_value)
+	
+	# 处理消失逻辑
+	disappear_timer += get_process_delta_time()
+	
+	if not is_disappeared and disappear_timer >= DISAPPEAR_INTERVAL:
+		is_disappeared = true
+		disappear_timer = 0.0
+		visible = false
+		# 在消失时清除所有锁定
+		locked_spy_array.clear()
+		target_spy = null
+		target_position = choose_random_position()
+	
+	elif is_disappeared and disappear_timer >= DISAPPEAR_DURATION:
+		is_disappeared = false
+		disappear_timer = 0.0
+		visible = true
 
 func _physics_process(delta: float) -> void:
+	if is_disappeared:
+		return
+		
 	var current_target_position = target_position
 
 	if locked_spy_array.size() > 0:

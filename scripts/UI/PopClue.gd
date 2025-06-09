@@ -6,6 +6,9 @@ extends Node
 @export var signal_center: Node
 
 func _ready():
+	# 设置节点在游戏暂停时仍能处理输入
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	if signal_center:
 		signal_center.connect("clue_collected", self._on_clue_collected)
 	else:
@@ -20,6 +23,9 @@ func _ready():
 		close_button.connect("pressed", self._on_close_pressed)
 
 func _on_clue_collected(spy_data):
+	# 暂停游戏
+	get_tree().paused = true
+	
 	var clue_text = ""
 	if spy_data.has("data") and spy_data["data"].has("clue"):
 		clue_text = spy_data["data"]["clue"]
@@ -35,6 +41,9 @@ func _on_clue_collected(spy_data):
 		pop_clue.visible = true
 
 func _on_close_pressed():
+	# 恢复游戏
+	get_tree().paused = false
+	
 	if pop_clue:
 		pop_clue.visible = false
 	if clue_info_label:
